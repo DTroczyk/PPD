@@ -1,3 +1,5 @@
+<p align="center"><img src="https://cdn.discordapp.com/attachments/762989288627109928/764068212295729152/2Q.png"/></p>
+
 # Aplikacja PPD - Pigeon Parcel Delivery
 
 ## Specyfikacja wymagań:

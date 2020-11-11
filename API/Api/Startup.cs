@@ -25,7 +25,7 @@ namespace Api
 
             Configuration = builder.Build();
 
-            _connectionString = Configuration["ConnectionStrings:MsHome"];
+            _connectionString = Configuration["ConnectionStrings:MsSqlHome"];
 
             Configuration = configuration;
         }
@@ -41,6 +41,12 @@ namespace Api
             {
                 options.UseSqlServer(_connectionString); // SQL SERVER
             });
+
+            var cs = new ConnectionStringDto() { ConnectionString = _connectionString };
+            services.AddSingleton(cs);
+
+            services.AddScoped<DbContext, ApplicationDbContext>();
+            services.AddScoped<DbContextOptions<ApplicationDbContext>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,10 +10,10 @@ namespace Api.BLL.Entities
         public string PigeonLogin { get; set; }
         public string ParcelId { get; set; }
 
-        //[ForeignKey("ParcelId")]
+        [ForeignKey("ParcelId")]
         public Parcel Parcel { get; set; }
 
-        //[ForeignKey("PigeonLogin")]
+        [ForeignKey("PigeonLogin")]
         public Pigeon Pigeon { get; set; }
     }
 }

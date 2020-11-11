@@ -10,10 +10,10 @@ namespace Api.BLL.Entities
         public int WarehouseId { get; set; }
         public string ParcelId { get; set; }
 
-        //[ForeignKey("WarehouseId")]
+        [ForeignKey("WarehouseId")]
         public Warehouse Warehouse { get; set; }
 
-        //[ForeignKey("ParcelId")]
+        [ForeignKey("ParcelId")]
         public Parcel Parcel { get; set; }
     }
 }

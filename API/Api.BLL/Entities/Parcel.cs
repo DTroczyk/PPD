@@ -17,18 +17,24 @@ namespace Api.BLL.Entities
         public string PigeonId { get; set; }
         public Pigeon Pigeon { get; set; }
 
+        [ForeignKey("ParcelType")]
+        public string ParcelTypeId { get; set; }
+        public ParcelType ParcelType { get; set; }
+
+
         public string SenderName { get; set; }
-        [ForeignKey("SenderAddress")]
-        public int SenderAddressId { get; set; }
-        public Address SenderAddress { get; set; }
+        public string SenderCity { get; set; }
+        public string SenderStreet { get; set; }
+        public string SenderPostalCode { get; set; }
+        public string SenderNumber { get; set; }
         public string SenderEmail { get; set; }
         public string SenderPhoneNumber { get; set; }
 
         public string ReceiverName { get; set; }
-
-        [ForeignKey("ReceiverAddress")]
-        public int ReceiverAddressId { get; set; }
-        public Address ReceiverAddress { get; set; }
+        public string ReceiverCity { get; set; }
+        public string ReceiverStreet { get; set; }
+        public string ReceiverPostalCode { get; set; }
+        public string ReceiverNumber { get; set; }
         public string ReceiverEmail { get; set; }
         public string ReceiverPhoneNumber { get; set; }
     }

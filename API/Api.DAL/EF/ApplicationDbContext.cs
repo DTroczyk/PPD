@@ -38,28 +38,9 @@ namespace Api.DAL.EF
                 .WithMany(b => b.Parcels)
                 .HasForeignKey(pp => pp.ParcelId);
 
-            //builder.Entity<WarehouseParcel>()
-            //    .HasOne(wp => wp.Warehouse)
-            //    .WithMany(p => p.Histories)
-            //    .HasForeignKey(wp => new { wp.WarehouseId, wp.ParcelId });
-            //.HasPrincipalKey(x => new { x.Id, x.Histories });
+            builder.Entity<WarehouseParcel>()
+                .HasKey(wp => new { wp.ParcelId, wp.WarehouseId });
 
-            //builder.Entity<WarehouseParcel>()
-            //.HasKey(wp => new { wp.ParcelId, wp.WarehouseId });
-            //builder.Entity<WarehouseParcel>()
-            //    .HasOne(wp => wp.Warehouse)
-            //    .WithMany(b => b.Histories)
-            //    .HasForeignKey(wp => wp.ParcelId);
-            //builder.Entity<WarehouseParcel>()
-            //    .HasOne(wp => wp.Parcel)
-            //    .WithMany(c => c.Warehouses)
-            //    .HasForeignKey(wp => wp.WarehouseId);
-
-
-            //builder.Entity<User>()
-            //    .HasMany(o => o.Orders)
-            //    .WithOne(u => u.Client)
-            //    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

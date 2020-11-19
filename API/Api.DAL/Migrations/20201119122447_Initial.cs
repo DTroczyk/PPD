@@ -2,7 +2,7 @@
 
 namespace Api.DAL.Migrations
 {
-    public partial class RemoveAddressId : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,23 +38,6 @@ namespace Api.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Login = table.Column<string>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Role = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Login);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Warehouses",
                 columns: table => new
                 {
@@ -69,6 +52,29 @@ namespace Api.DAL.Migrations
                         name: "FK_Warehouses_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Login = table.Column<string>(nullable: false),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Role = table.Column<int>(nullable: false),
+                    WarehouseId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Login);
+                    table.ForeignKey(
+                        name: "FK_Users_Warehouses_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -172,6 +178,11 @@ namespace Api.DAL.Migrations
                 column: "PigeonId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_WarehouseId",
+                table: "Users",
+                column: "WarehouseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WarehouseParcels_WarehouseId",
                 table: "WarehouseParcels",
                 column: "WarehouseId");
@@ -194,13 +205,13 @@ namespace Api.DAL.Migrations
                 name: "Parcels");
 
             migrationBuilder.DropTable(
-                name: "Warehouses");
-
-            migrationBuilder.DropTable(
                 name: "ParcelTypes");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Warehouses");
 
             migrationBuilder.DropTable(
                 name: "Addresses");

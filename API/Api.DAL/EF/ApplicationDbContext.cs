@@ -8,6 +8,8 @@ namespace Api.DAL.EF
         private readonly ConnectionStringDto _connectionString;
 
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Stork> Storks { get; set; }
+        public virtual DbSet<Pigeon> Pigeons { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Parcel> Parcels { get; set; }
         public virtual DbSet<ParcelType> ParcelTypes { get; set; }

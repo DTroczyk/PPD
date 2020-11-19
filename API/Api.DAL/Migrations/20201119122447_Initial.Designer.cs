@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201111171737_RemoveAddressId")]
-    partial class RemoveAddressId
+    [Migration("20201119122447_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,18 @@ namespace Api.DAL.Migrations
                     b.HasDiscriminator().HasValue("Pigeon");
                 });
 
+            modelBuilder.Entity("Api.BLL.Entities.Stork", b =>
+                {
+                    b.HasBaseType("Api.BLL.Entities.User");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.HasDiscriminator().HasValue("Stork");
+                });
+
             modelBuilder.Entity("Api.BLL.Entities.Parcel", b =>
                 {
                     b.HasOne("Api.BLL.Entities.ParcelType", "ParcelType")
@@ -259,6 +271,15 @@ namespace Api.DAL.Migrations
 
                     b.HasOne("Api.BLL.Entities.Warehouse", "Warehouse")
                         .WithMany("Histories")
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Api.BLL.Entities.Stork", b =>
+                {
+                    b.HasOne("Api.BLL.Entities.Warehouse", "Warehouse")
+                        .WithMany()
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

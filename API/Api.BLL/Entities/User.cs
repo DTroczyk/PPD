@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Api.BLL.Entities
 {
-    public class User
+    public abstract class User
     {
         [Key]
         public string Login { get; set; }

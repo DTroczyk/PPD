@@ -34,11 +34,15 @@ namespace Api.DAL.EF
             base.OnModelCreating(builder);
 
             builder.Entity<PigeonParcel>()
-                .HasKey(pp => new { pp.ParcelId, pp.PigeonLogin });
+                .HasKey(pp => new { pp.PigeonLogin, pp.ParcelId });
             builder.Entity<PigeonParcel>()
                 .HasOne(pp => pp.Pigeon)
                 .WithMany(b => b.Parcels)
                 .HasForeignKey(pp => pp.ParcelId);
+            builder.Entity<Pigeon>()
+                .HasMany(p => p.Parcels)
+                .WithOne(pp => pp.Pigeon)
+                .HasForeignKey(p => p.PigeonLogin);
 
             builder.Entity<WarehouseParcel>()
                 .HasKey(wp => new { wp.ParcelId, wp.WarehouseId });

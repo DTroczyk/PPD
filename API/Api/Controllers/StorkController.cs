@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Api.BLL.Entities;
 using Api.DAL.EF;
 using Api.Services.Interfaces;
+using Api.ViewModels.DTOs;
 
 namespace Api.Controllers
 {
@@ -22,105 +23,33 @@ namespace Api.Controllers
             _storkService = storkService;
         }
 
-        // GET: Stork
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels()
+        // GET: Stork/1 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels(int id)
         {
-            var parcels = await _storkService.GetParcels(1);
+            var parcels = await _storkService.GetParcels(id);
+
+            if (parcels == null)
+            {
+                return NotFound();
+            }
+
             return Ok(parcels);
         }
 
-        //// GET: api/Stork/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Parcel>> GetParcel(string id)
-        //{
-        //    var parcel = await _context.Parcels.FindAsync(id);
+        // PUT: Stork/SetPigeon
+        [HttpPut]
+        [Route("SetPigeon")]
+        public async Task<ActionResult<Parcel>> GetParcel(SetPigeonDto setPigeon)
+        {
+            var parcel = await _storkService.SetPigeon(setPigeon.ParcelId, setPigeon.PigeonLogin);
 
-        //    if (parcel == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (parcel == null)
+            {
+                return NotFound();
+            }
 
-        //    return parcel;
-        //}
-
-        //// PUT: api/Stork/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutParcel(string id, Parcel parcel)
-        //{
-        //    if (id != parcel.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(parcel).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ParcelExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/Stork
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Parcel>> PostParcel(Parcel parcel)
-        //{
-        //    _context.Parcels.Add(parcel);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (ParcelExists(parcel.Id))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetParcel", new { id = parcel.Id }, parcel);
-        //}
-
-        //// DELETE: api/Stork/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Parcel>> DeleteParcel(string id)
-        //{
-        //    var parcel = await _context.Parcels.FindAsync(id);
-        //    if (parcel == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Parcels.Remove(parcel);
-        //    await _context.SaveChangesAsync();
-
-        //    return parcel;
-        //}
-
-        //private bool ParcelExists(string id)
-        //{
-        //    return _context.Parcels.Any(e => e.Id == id);
-        //}
+            return Ok(parcel);
+        }
     }
 }

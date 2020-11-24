@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.DAL.EF;
+using Api.Services.Interfaces;
+using Api.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,6 +49,8 @@ namespace Api
 
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<DbContextOptions<ApplicationDbContext>>();
+
+            services.AddScoped<IStorkService, StorkService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

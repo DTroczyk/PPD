@@ -83,6 +83,7 @@ namespace Api
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IStorkService, StorkService>();
             services.AddScoped<IPigeonService, PigeonService>();
+            services.AddScoped<IClientService, ClientService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

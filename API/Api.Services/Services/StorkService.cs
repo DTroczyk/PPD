@@ -20,11 +20,11 @@ namespace Api.Services.Services
         {
             var entities = await _dbContext.Parcels
                 .Include(p => p.Warehouses)
-                    .ThenInclude(wp => wp.Warehouse)
-                .Where(p => p.Warehouses.Last().WarehouseId == warehouseId)
                 .ToListAsync();
 
-            return entities;
+            var parcels = entities.Where(p => p.Warehouses.Last().WarehouseId == warehouseId);
+
+            return parcels;
         }
 
         public async Task<Parcel> SetPigeon(string parcelId, string pigeonLogin)

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Api.DAL.Migrations
 {
@@ -62,10 +63,12 @@ namespace Api.DAL.Migrations
                 {
                     Login = table.Column<string>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
+                    PasswordSalt = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
                     WarehouseId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -84,23 +87,25 @@ namespace Api.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    IsDelivered = table.Column<bool>(nullable: false),
-                    PigeonId = table.Column<string>(nullable: true),
-                    ParcelTypeId = table.Column<string>(nullable: true),
-                    SenderName = table.Column<string>(nullable: true),
-                    SenderCity = table.Column<string>(nullable: true),
-                    SenderStreet = table.Column<string>(nullable: true),
-                    SenderPostalCode = table.Column<string>(nullable: true),
-                    SenderNumber = table.Column<string>(nullable: true),
-                    SenderEmail = table.Column<string>(nullable: true),
-                    SenderPhoneNumber = table.Column<string>(nullable: true),
-                    ReceiverName = table.Column<string>(nullable: true),
-                    ReceiverCity = table.Column<string>(nullable: true),
-                    ReceiverStreet = table.Column<string>(nullable: true),
-                    ReceiverPostalCode = table.Column<string>(nullable: true),
-                    ReceiverNumber = table.Column<string>(nullable: true),
-                    ReceiverEmail = table.Column<string>(nullable: true),
-                    ReceiverPhoneNumber = table.Column<string>(nullable: true)
+                    ParcelStatus = table.Column<int>(nullable: false),
+                    PigeonId = table.Column<string>(nullable: false),
+                    ParcelTypeId = table.Column<string>(nullable: false),
+                    SendDate = table.Column<DateTime>(nullable: false),
+                    ReceivedDate = table.Column<DateTime>(nullable: true),
+                    SenderName = table.Column<string>(nullable: false),
+                    SenderCity = table.Column<string>(nullable: false),
+                    SenderStreet = table.Column<string>(nullable: false),
+                    SenderPostalCode = table.Column<string>(nullable: false),
+                    SenderHouseNumber = table.Column<string>(nullable: false),
+                    SenderEmail = table.Column<string>(nullable: false),
+                    SenderPhoneNumber = table.Column<string>(nullable: false),
+                    ReceiverName = table.Column<string>(nullable: false),
+                    ReceiverCity = table.Column<string>(nullable: false),
+                    ReceiverStreet = table.Column<string>(nullable: false),
+                    ReceiverPostalCode = table.Column<string>(nullable: false),
+                    ReceiverHouseNumber = table.Column<string>(nullable: false),
+                    ReceiverEmail = table.Column<string>(nullable: false),
+                    ReceiverPhoneNumber = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,13 +115,13 @@ namespace Api.DAL.Migrations
                         column: x => x.ParcelTypeId,
                         principalTable: "ParcelTypes",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Parcels_Users_PigeonId",
                         column: x => x.PigeonId,
                         principalTable: "Users",
                         principalColumn: "Login",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,7 +133,7 @@ namespace Api.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PigeonParcels", x => new { x.ParcelId, x.PigeonLogin });
+                    table.PrimaryKey("PK_PigeonParcels", x => new { x.PigeonLogin, x.ParcelId });
                     table.ForeignKey(
                         name: "FK_PigeonParcels_Parcels_ParcelId",
                         column: x => x.ParcelId,
@@ -136,11 +141,10 @@ namespace Api.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PigeonParcels_Users_ParcelId",
-                        column: x => x.ParcelId,
+                        name: "FK_PigeonParcels_Users_PigeonLogin",
+                        column: x => x.PigeonLogin,
                         principalTable: "Users",
-                        principalColumn: "Login",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Login");
                 });
 
             migrationBuilder.CreateTable(
@@ -157,14 +161,12 @@ namespace Api.DAL.Migrations
                         name: "FK_WarehouseParcels_Parcels_ParcelId",
                         column: x => x.ParcelId,
                         principalTable: "Parcels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_WarehouseParcels_Warehouses_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -176,6 +178,11 @@ namespace Api.DAL.Migrations
                 name: "IX_Parcels_PigeonId",
                 table: "Parcels",
                 column: "PigeonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PigeonParcels_ParcelId",
+                table: "PigeonParcels",
+                column: "ParcelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_WarehouseId",

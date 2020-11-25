@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Api.BLL.Entities
 {
-    public class Pigeon : User
+    public class Pigeon : Worker
     {
         public IList<PigeonParcel> Parcels { get; set; }
     }

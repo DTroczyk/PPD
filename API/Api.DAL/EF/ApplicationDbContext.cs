@@ -38,14 +38,26 @@ namespace Api.DAL.EF
             builder.Entity<PigeonParcel>()
                 .HasOne(pp => pp.Pigeon)
                 .WithMany(b => b.Parcels)
-                .HasForeignKey(pp => pp.ParcelId);
+                .HasForeignKey(pp => pp.ParcelId)
+                    .OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Pigeon>()
                 .HasMany(p => p.Parcels)
                 .WithOne(pp => pp.Pigeon)
-                .HasForeignKey(p => p.PigeonLogin);
+                .HasForeignKey(p => p.PigeonLogin)
+                    .OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<WarehouseParcel>()
                 .HasKey(wp => new { wp.ParcelId, wp.WarehouseId });
+            builder.Entity<WarehouseParcel>()
+                .HasOne(wp => wp.Parcel)
+                .WithMany(p => p.Warehouses)
+                .HasForeignKey(wp => wp.ParcelId)
+                    .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<WarehouseParcel>()
+                .HasOne(wp => wp.Warehouse)
+                .WithMany(w => w.Histories)
+                .HasForeignKey(wp => wp.WarehouseId)
+                    .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

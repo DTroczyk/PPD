@@ -16,13 +16,13 @@ namespace Api.Services.Services
         {
         }
 
-        public async Task<Parcel> SetStatus(string parcelId, bool parcelStatus)
+        public async Task<Parcel> SetStatus(string parcelId, ParcelStatus parcelStatus)
         {
             var parcelEntity = await _dbContext.Parcels
                 .Where(p => p.Id == parcelId)
                 .FirstOrDefaultAsync();
 
-            parcelEntity.IsDelivered = parcelStatus;
+            parcelEntity.ParcelStatus = parcelStatus;
 
             _dbContext.Update(parcelEntity);
             await _dbContext.SaveChangesAsync();

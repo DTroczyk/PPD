@@ -31,7 +31,6 @@ namespace Api.Services.Services
         {
             var parcelEntity = await _dbContext.Parcels
                 .Include(p => p.Pigeon)
-                .Where(p => p.PigeonId == pigeonLogin)
                 .FirstOrDefaultAsync(p => p.Id == parcelId);
 
             parcelEntity.PigeonId = pigeonLogin;

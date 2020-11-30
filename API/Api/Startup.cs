@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Api.DAL.EF;
+using Api.Services;
 using Api.Services.Interfaces;
 using Api.Services.Models;
 using Api.Services.Services;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace Api
 {
@@ -75,6 +78,14 @@ namespace Api
                 };
             });
 
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             var cs = new ConnectionStringDto() { ConnectionString = _connectionString };
             services.AddSingleton(cs);
 
@@ -84,6 +95,7 @@ namespace Api
             services.AddScoped<IStorkService, StorkService>();
             services.AddScoped<IPigeonService, PigeonService>();
             services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IRegisterService, RegisterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -54,7 +54,7 @@ namespace Api.Services.Services
                     token = tokenHandler.WriteToken(jwtToken);
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 return token;
             }
@@ -71,9 +71,7 @@ namespace Api.Services.Services
             if (user == null)
                 throw new Exception("Login or password is incorrect.");
 
-            //if (!(BCrypt.Net.BCrypt.Verify(password, user.PasswordHash)))
-            //    throw new Exception("Login or password is incorrect.");
-            if (password != user.PasswordHash)
+            if (!(BCrypt.Net.BCrypt.Verify(password, user.PasswordHash) && user.Active))
                 throw new Exception("Login or password is incorrect.");
 
             return true;

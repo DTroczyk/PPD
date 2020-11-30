@@ -19,6 +19,7 @@ namespace Api.Controllers
         {
             _loginService = loginService;
         }
+
         public IActionResult Login([FromBody] LoginModel user)
         {
             try

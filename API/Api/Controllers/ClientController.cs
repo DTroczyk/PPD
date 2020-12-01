@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.BLL.Entities;
 using Api.Services.Interfaces;
+using Api.ViewModels.DTOs;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +15,18 @@ namespace Api.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IClientService _clientService;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IMapper mapper,IClientService clientService)
         {
+            _mapper = mapper;
             _clientService = clientService;
         }
 
         // GET: Client/1 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(uint id)
+        public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(long id)
         {
             var history = await _clientService.FollowParcel(id);
 
@@ -32,6 +36,21 @@ namespace Api.Controllers
             }
 
             return Ok(history);
+        }
+
+        [HttpPost]
+        public IActionResult SendParcel([FromBody]ParcelDto parcelDto)
+        {
+            try
+            {
+                var parcel = _mapper.Map<Parcel>(parcelDto);
+                _clientService.SendParcel(parcel);
+                return Ok();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
         }
     }
 }

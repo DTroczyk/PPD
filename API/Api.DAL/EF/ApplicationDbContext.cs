@@ -1,5 +1,7 @@
 ﻿using Api.BLL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace Api.DAL.EF
 {
@@ -33,6 +35,21 @@ namespace Api.DAL.EF
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //var converter = new ValueConverter<uint, long>(
+            //    v => v,
+            //    v => (uint)v,
+            //    new ConverterMappingHints(valueGeneratorFactory: (p, t) => new TemporaryIntValueGenerator()));
+
+            //builder.Entity<Parcel>()
+            //    .Property("Id")
+            //    .ValueGeneratedOnAdd()
+            //    .UseSqlServerIdentityColumn()
+            //    .HasConversion(converter);
+
+            builder.Entity<Parcel>()
+                .Property(p => p.Id)
+                .ValueGeneratedOnAdd();
 
             builder.Entity<PigeonParcel>()
                 .HasKey(pp => new { pp.PigeonLogin, pp.ParcelId });

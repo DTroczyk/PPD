@@ -5,7 +5,7 @@ namespace Api.BLL.Entities
     public class PigeonParcel
     {
         public string PigeonLogin { get; set; }
-        public uint ParcelId { get; set; }
+        public long ParcelId { get; set; }
 
         [ForeignKey("ParcelId")]
         public Parcel Parcel { get; set; }

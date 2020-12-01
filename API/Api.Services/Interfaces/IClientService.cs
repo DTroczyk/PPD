@@ -8,6 +8,7 @@ namespace Api.Services.Interfaces
 {
     public interface IClientService
     {
-        public Task<IEnumerable<Warehouse>> FollowParcel(uint parcelId); //sledzenie paczki
+        public Task<IEnumerable<Warehouse>> FollowParcel(long parcelId); //sledzenie paczki
+        public void SendParcel(Parcel parcel); //nadanie paczki
     }
 }

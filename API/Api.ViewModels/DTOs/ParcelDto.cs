@@ -1,28 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace Api.BLL.Entities
+namespace Api.ViewModels.DTOs
 {
-    public class Parcel
+    public class ParcelDto
     {
-        [Key]
-        public long Id { get; set; } // Barcode
-        public ParcelStatus ParcelStatus { get; set; }
-        public IList<WarehouseParcel> Warehouses { get; set; }
-
-        [ForeignKey("Pigeon")]
-        public string PigeonId { get; set; }
-        public Pigeon Pigeon { get; set; }
-
-        [ForeignKey("ParcelType")]
-        [Required]
         public string ParcelTypeId { get; set; }
-        public ParcelType ParcelType { get; set; }
-
-        public DateTime SendDate { get; set; }
-        public DateTime? ReceivedDate { get; set; }
 
         [Required]
         public string SenderName { get; set; }

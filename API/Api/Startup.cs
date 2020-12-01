@@ -96,6 +96,7 @@ namespace Api
             services.AddScoped<IPigeonService, PigeonService>();
             services.AddScoped<ISparrowService, SparrowService>();
             services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IParcelService, ParcelService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

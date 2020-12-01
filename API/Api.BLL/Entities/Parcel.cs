@@ -8,7 +8,7 @@ namespace Api.BLL.Entities
     public class Parcel
     {
         [Key]
-        public string Id { get; set; } // Barcode
+        public uint Id { get; set; } // Barcode
         public ParcelStatus ParcelStatus { get; set; }
         public IList<WarehouseParcel> Warehouses { get; set; }
 

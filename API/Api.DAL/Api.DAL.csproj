@@ -5,13 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20201130172950_SparrowEntityAdded.cs" />
-    <Compile Remove="Migrations\20201130172950_SparrowEntityAdded.Designer.cs" />
-    <Compile Remove="Migrations\20201130173113_SparrowEntityAdded.cs" />
-    <Compile Remove="Migrations\20201130173113_SparrowEntityAdded.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="EF\" />
   </ItemGroup>
 

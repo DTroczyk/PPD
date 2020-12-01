@@ -16,7 +16,7 @@ namespace Api.Services.Services
         {
         }
 
-        public async Task<Parcel> SetStatus(string parcelId, ParcelStatus parcelStatus)
+        public async Task<Parcel> SetStatus(uint parcelId, ParcelStatus parcelStatus)
         {
             var parcelEntity = await _dbContext.Parcels
                 .Where(p => p.Id == parcelId)

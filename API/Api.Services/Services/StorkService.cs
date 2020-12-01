@@ -27,7 +27,7 @@ namespace Api.Services.Services
             return parcels;
         }
 
-        public async Task<Parcel> SetPigeon(string parcelId, string pigeonLogin)
+        public async Task<Parcel> SetPigeon(uint parcelId, string pigeonLogin)
         {
             var parcelEntity = await _dbContext.Parcels
                 .Include(p => p.Pigeon)

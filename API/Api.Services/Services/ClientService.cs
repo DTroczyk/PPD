@@ -16,7 +16,7 @@ namespace Api.Services.Services
         {
         }
 
-        public async Task<IEnumerable<Warehouse>> FollowParcel(string parcelId)
+        public async Task<IEnumerable<Warehouse>> FollowParcel(uint parcelId)
         {
             var warehousesEntity = await _dbContext.WarehouseParcels
                 .Where(p => p.ParcelId == parcelId)

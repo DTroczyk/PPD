@@ -22,10 +22,9 @@ namespace Api.Controllers
 
         // GET: Client/1 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(long id)
+        public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(uint id)
         {
-            var parcelId = id.ToString();
-            var history = await _clientService.FollowParcel(parcelId);
+            var history = await _clientService.FollowParcel(id);
 
             if (history.Count() == 0)
             {

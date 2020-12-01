@@ -7,6 +7,6 @@ namespace Api.ViewModels.DTOs
     public class SetPigeonDto
     {
         public string PigeonLogin { get; set; }
-        public string ParcelId { get; set; }
+        public uint ParcelId { get; set; }
     }
 }

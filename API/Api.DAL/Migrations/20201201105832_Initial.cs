@@ -63,11 +63,11 @@ namespace Api.DAL.Migrations
                 {
                     Login = table.Column<string>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
-                    PasswordSalt = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Role = table.Column<int>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     WarehouseId = table.Column<int>(nullable: true)
                 },
@@ -86,9 +86,9 @@ namespace Api.DAL.Migrations
                 name: "Parcels",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<long>(nullable: false),
                     ParcelStatus = table.Column<int>(nullable: false),
-                    PigeonId = table.Column<string>(nullable: false),
+                    PigeonId = table.Column<string>(nullable: true),
                     ParcelTypeId = table.Column<string>(nullable: false),
                     SendDate = table.Column<DateTime>(nullable: false),
                     ReceivedDate = table.Column<DateTime>(nullable: true),
@@ -121,7 +121,7 @@ namespace Api.DAL.Migrations
                         column: x => x.PigeonId,
                         principalTable: "Users",
                         principalColumn: "Login",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -129,7 +129,7 @@ namespace Api.DAL.Migrations
                 columns: table => new
                 {
                     PigeonLogin = table.Column<string>(nullable: false),
-                    ParcelId = table.Column<string>(nullable: false)
+                    ParcelId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -152,7 +152,7 @@ namespace Api.DAL.Migrations
                 columns: table => new
                 {
                     WarehouseId = table.Column<int>(nullable: false),
-                    ParcelId = table.Column<string>(nullable: false)
+                    ParcelId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {

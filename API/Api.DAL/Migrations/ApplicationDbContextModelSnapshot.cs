@@ -51,8 +51,9 @@ namespace Api.DAL.Migrations
 
             modelBuilder.Entity("Api.BLL.Entities.Parcel", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
 
                     b.Property<int>("ParcelStatus")
                         .HasColumnType("int");
@@ -156,8 +157,8 @@ namespace Api.DAL.Migrations
                     b.Property<string>("PigeonLogin")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ParcelId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ParcelId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("PigeonLogin", "ParcelId");
 
@@ -219,8 +220,8 @@ namespace Api.DAL.Migrations
 
             modelBuilder.Entity("Api.BLL.Entities.WarehouseParcel", b =>
                 {
-                    b.Property<string>("ParcelId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<long>("ParcelId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("WarehouseId")
                         .HasColumnType("int");
@@ -242,6 +243,13 @@ namespace Api.DAL.Migrations
                     b.HasIndex("WarehouseId");
 
                     b.HasDiscriminator().HasValue("Pigeon");
+                });
+
+            modelBuilder.Entity("Api.BLL.Entities.Sparrow", b =>
+                {
+                    b.HasBaseType("Api.BLL.Entities.User");
+
+                    b.HasDiscriminator().HasValue("Sparrow");
                 });
 
             modelBuilder.Entity("Api.BLL.Entities.Stork", b =>

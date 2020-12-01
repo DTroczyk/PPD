@@ -29,37 +29,38 @@ SELECT * FROM Warehouses;
 
 -- User - Stork
 
-INSERT INTO Users VALUES ('bocian01','haslo','asdasdasdasd','jan.kowalski@ppd.pl','Jan','Kowalski',2,'Stork',1);
-INSERT INTO Users VALUES ('bocian02','haslo','asdasdasdasd','jerzy.wroblewski@ppd.pl','Jerzy','Wroblewski',2,'Stork',2);
-INSERT INTO Users VALUES ('bocian03','haslo','asdasdasdasd','piotr.szymanski@ppd.pl','Piotr','Szymanski',2,'Stork',3);
+INSERT INTO Users VALUES ('bocian01','haslo','jan.kowalski@ppd.pl','Jan','Kowalski', 2, 1, 'Stork', 1);
+INSERT INTO Users VALUES ('bocian02','haslo','jerzy.wroblewski@ppd.pl','Jerzy','Wroblewski', 2, 1,'Stork',2);
+INSERT INTO Users VALUES ('bocian03','haslo','piotr.szymanski@ppd.pl','Piotr','Szymanski', 2, 1,'Stork',3);
 
 -- User - Pigeon
 
-INSERT INTO Users VALUES ('golab01','haslo','asdasdasdasd','tomasz.kucharski@ppd.pl','Tomasz','Kucharski',3,'Pigeon', 1);
-INSERT INTO Users VALUES ('golab02','haslo','asdasdasdasd','joanna.wozniak@ppd.pl','Joanna','Wozniak',3,'Pigeon', 2);
-INSERT INTO Users VALUES ('golab03','haslo','asdasdasdasd','marta.sobczak@ppd.pl','Marta','Sobczak',3,'Pigeon', 3);
+INSERT INTO Users VALUES ('golab01','haslo','tomasz.kucharski@ppd.pl','Tomasz','Kucharski',3, 1,'Pigeon', 1);
+INSERT INTO Users VALUES ('golab02','haslo','joanna.wozniak@ppd.pl','Joanna','Wozniak',3, 1, 'Pigeon', 2);
+INSERT INTO Users VALUES ('golab03','haslo','marta.sobczak@ppd.pl','Marta','Sobczak',3, 1, 'Pigeon', 3);
 
 SELECT * FROM Users;
 
 -- Parcel
 
-INSERT INTO Parcels VALUES ('1524000000000',0,'golab02','S',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Joe Doe','Przemyœl','Polna','37-700','22','joedoe@gmial.com','745164258');
-INSERT INTO Parcels VALUES ('1524000000001',1,null,'M',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Jane Doe','Przemyœl','Polna','37-700','22','janedoe@gmial.com','745164255');
+INSERT INTO Parcels VALUES (0,'golab02','S',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Joe Doe','Przemyœl','Polna','37-700','22','joedoe@gmial.com','745164258');
+INSERT INTO Parcels VALUES (1,null,'M',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Jane Doe','Przemyœl','Polna','37-700','22','janedoe@gmial.com','745164255');
 
 SELECT * FROM Parcels;
 
 -- PigeonParcels
 
-INSERT INTO PigeonParcels VALUES ('golab02','1524000000000');
-INSERT INTO PigeonParcels VALUES ('golab02','1524000000001');
-INSERT INTO PigeonParcels VALUES ('golab03','1524000000001');
+INSERT INTO PigeonParcels VALUES ('golab02',1500000000);
+INSERT INTO PigeonParcels VALUES ('golab02',1500000001);
+INSERT INTO PigeonParcels VALUES ('golab03',1500000001);
 
 SELECT * FROM PigeonParcels
 
 -- WarhouseParcels
 
-INSERT INTO WarehouseParcels VALUES (1,'1524000000000');
-INSERT INTO WarehouseParcels VALUES (1,'1524000000001');
-INSERT INTO WarehouseParcels VALUES (3,'1524000000001');
+INSERT INTO WarehouseParcels VALUES (1,1500000000);
+INSERT INTO WarehouseParcels VALUES (1,1500000001);
+INSERT INTO WarehouseParcels VALUES (3,1500000001);
 
 SELECT * FROM WarehouseParcels
+

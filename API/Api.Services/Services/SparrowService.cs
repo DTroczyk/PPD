@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Api.Services.Services
 {
-    public class ClientService : BaseService, IClientService
+    public class SparrowService : BaseService, ISparrowService
     {
-        public ClientService(ApplicationDbContext dbContext) : base(dbContext)
+        public SparrowService(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
 
@@ -35,6 +35,8 @@ namespace Api.Services.Services
 
         public void SendParcel(Parcel parcel)
         {
+            // Można przypisać paczkę do odpowiedniego Clienta
+
             Regex regexPostalCode = new Regex(@"^([0-9]{2})(-[0-9]{3})?$");
             Regex regexEmail = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Regex regexPhone = new Regex(@"^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)");
@@ -62,12 +64,12 @@ namespace Api.Services.Services
             
             Match match2 = regexEmail.Match(parcel.SenderEmail);
             if (!match2.Success)
-                throw new Exception("SenderEmail is required");
+                throw new Exception("SenderEmail is incorrect");
 
             
             Match match3 = regexPhone.Match(parcel.SenderPhoneNumber);
             if (!match3.Success)
-                throw new Exception("SenderPhoneNumber is required");
+                throw new Exception("SenderPhoneNumber is incorrect");
 
             //receiver
             if (string.IsNullOrWhiteSpace(parcel.ReceiverName))
@@ -88,11 +90,11 @@ namespace Api.Services.Services
 
             Match match5 = regexEmail.Match(parcel.ReceiverEmail);
             if (!match5.Success)
-                throw new Exception("ReceiverEmail is required");
+                throw new Exception("ReceiverEmail is incorrect");
 
             Match match6 = regexPhone.Match(parcel.ReceiverPhoneNumber);
             if (!match6.Success)
-                throw new Exception("ReceiverPhoneNumber is required");
+                throw new Exception("ReceiverPhoneNumber is incorrect");
 
             _dbContext.Parcels.Add(parcel);
             _dbContext.SaveChanges();

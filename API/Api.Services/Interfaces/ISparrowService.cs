@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Api.Services.Interfaces
 {
-    public interface IClientService
+    public interface ISparrowService
     {
         public Task<IEnumerable<Warehouse>> FollowParcel(long parcelId); //sledzenie paczki
         public void SendParcel(Parcel parcel); //nadanie paczki

@@ -13,12 +13,12 @@ namespace Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class ClientController : ControllerBase
+    public class SparrowController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IClientService _clientService;
+        private readonly ISparrowService _clientService;
 
-        public ClientController(IMapper mapper,IClientService clientService)
+        public SparrowController(IMapper mapper,ISparrowService clientService)
         {
             _mapper = mapper;
             _clientService = clientService;

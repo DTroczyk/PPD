@@ -94,7 +94,7 @@ namespace Api
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IStorkService, StorkService>();
             services.AddScoped<IPigeonService, PigeonService>();
-            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ISparrowService, SparrowService>();
             services.AddScoped<IRegisterService, RegisterService>();
         }
 

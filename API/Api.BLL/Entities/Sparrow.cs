@@ -6,5 +6,6 @@ namespace Api.BLL.Entities
 {
     public class Sparrow : User
     {
+        //Dodac liste paczek
     }
 }

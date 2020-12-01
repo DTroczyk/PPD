@@ -24,6 +24,9 @@ namespace Api.BLL.Entities
         public DateTime SendDate { get; set; }
         public DateTime? ReceivedDate { get; set; }
 
+        [ForeignKey("Sender")]
+        public string SenderLogin { get; set; }
+        public Sparrow Sender { get; set; }
         [Required]
         public string SenderName { get; set; }
         [Required]

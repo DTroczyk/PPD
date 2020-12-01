@@ -20,7 +20,7 @@ namespace Api.Controllers
             _loginService = loginService;
         }
 
-        public IActionResult Login([FromBody] LoginModel user)
+        public IActionResult Login([FromBody] LoginDto user)
         {
             try
             {

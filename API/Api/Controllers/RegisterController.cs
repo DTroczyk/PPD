@@ -26,7 +26,7 @@ namespace Api.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register([FromBody] UserRegistrationModel userModel)
+        public IActionResult Register([FromBody] UserRegistrationDto userModel)
         {
             try
             {

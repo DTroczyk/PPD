@@ -6,6 +6,6 @@ namespace Api.BLL.Entities
 {
     public class Sparrow : User
     {
-        //Dodac liste paczek
+        public IEnumerable<Parcel> Parcels { get; set; }
     }
 }

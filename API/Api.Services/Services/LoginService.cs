@@ -22,7 +22,7 @@ namespace Api.Services.Services
             _tokenManagement = tokenManagement.Value;
         }
 
-        public string IsAuthenticated(LoginModel request)
+        public string IsAuthenticated(LoginDto request)
         {
             var token = string.Empty;
             try

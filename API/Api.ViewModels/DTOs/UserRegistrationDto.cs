@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Api.ViewModels.VMs
 {
-    public class UserRegistrationModel
+    public class UserRegistrationDto
     {
         public string Login { get; set; }
         public string FirstName { get; set; }

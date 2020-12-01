@@ -2,7 +2,7 @@
 
 namespace Api.ViewModels.VMs
 {
-    public class LoginModel
+    public class LoginDto
     {
         [Required]
         public string Login { get; set; }

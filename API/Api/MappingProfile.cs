@@ -12,7 +12,7 @@ namespace Api.Services
     {
         public MappingProfile()
         {
-            CreateMap<UserRegistrationModel, Sparrow>()
+            CreateMap<UserRegistrationDto, Sparrow>()
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => src.Password));
             CreateMap<ParcelDto, Parcel>();
         }

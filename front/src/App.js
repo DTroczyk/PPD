@@ -4,6 +4,7 @@ import Header from './app/components/Header/Header'
 import Footer from './app/components/Footer/Footer'
 import Home from './app/components/Home/Home'
 import Send from './app/components/Send/Send'
+import Login from './app/components/Login/Login'
 import {
   BrowserRouter as Router,
   Switch,
@@ -34,9 +35,9 @@ function App() {
         {/* <Route exact path="/contact">
           <Contact />
         </Route> */}
-        {/* <Route exact path="/login">
-          <Login />
-        </Route> */}
+        <Route exact path="/login">
+          <Login/>
+        </Route>
         {/* <Route exact path="/register">
           <Register />
         </Route> */}

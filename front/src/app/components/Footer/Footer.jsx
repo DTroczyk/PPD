@@ -3,7 +3,7 @@ import "./Footer.css"
 
 function Footer() {
     return (
-        <footer>
+        <footer id="footer">
             PPD ©2020
         </footer>
     )

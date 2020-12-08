@@ -4,8 +4,8 @@ import { Link } from "react-router-dom"
 
 function Header() {
     return (
-        <header>
-            <image alt="not found"/>
+        <header id="header">
+            {/* <image alt="not found"/> */}
             <ul>
                 <li><Link to="/send">Wysyłam</Link></li>
                 <li><Link to="/forbuisness">Oferta dla firm</Link></li>

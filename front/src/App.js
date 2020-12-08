@@ -21,6 +21,7 @@ function App() {
     <Router>
       <Header/>
       <Baner/>
+      <div class="wrapper">
         <Switch>
           <Route exact path="/">
             <Home />
@@ -48,7 +49,7 @@ function App() {
           </Route> */}
           <Route render={() => <Redirect to={"/"} />} />
         </Switch>
-      </div>
+        </div>
       <Footer/>
     </Router>
   );

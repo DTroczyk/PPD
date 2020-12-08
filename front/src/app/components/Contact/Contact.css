@@ -1,0 +1,25 @@
+.contact-container{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-list{
+    display: inline;
+}
+
+.contact-container span{
+    margin: 0.5%;
+    display: block;
+}
+
+.contact-container hr{
+    width: 70%;
+    margin-top: 10px;
+    display: block;
+}
+.contact-container table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+  }

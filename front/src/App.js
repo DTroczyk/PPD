@@ -7,6 +7,7 @@ import Send from './app/components/Send/Send'
 import Login from './app/components/Login/Login'
 import About from './app/components/About/About'
 import Contact from './app/components/Contact/Contact'
+import ForBusiness from './app/components/ForBusiness/ForBusiness'
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,9 +26,9 @@ function App() {
         <Route path="/send">
           <Send />
         </Route>
-        {/* <Route path="/forbusisness">
+        {<Route path="/forbusiness">
           <ForBusiness />
-        </Route> */}
+        </Route> }
         <Route path="/about">
           <About />
         </Route>

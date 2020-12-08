@@ -8,7 +8,7 @@ function Header() {
             {/* <image alt="not found"/> */}
             <ul>
                 <li><Link to="/send">Wysyłam</Link></li>
-                <li><Link to="/forbuisness">Oferta dla firm</Link></li>
+                <li><Link to="/forbusiness">Oferta dla firm</Link></li>
                 <li><Link to="/about">O PPD</Link></li>
                 <li><Link to="/prices">Cennik</Link></li>
                 <li><Link to="/contact">Kontakt</Link></li>

@@ -1,17 +1,26 @@
 #header{
   background-color: lightblue;
-  padding: 20px;
+  height: 60px;
   align-items: center;
 }
 
 ul {
   list-style: none;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin:0
 }
 
-li > a {
+ul li {
+  display: inline-block;
+  line-height: 60px;
+  padding-left: 3%;
+  padding-right: 3%;
+}
+ul li:hover{
+ background-color: #bee9f7;
+}
+li > a, li > a:link {
   text-decoration: none;
   color: black;
 }

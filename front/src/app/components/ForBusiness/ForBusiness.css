@@ -1,4 +1,4 @@
-div {
+#business div {
     margin: 40px;
 }
 
@@ -7,6 +7,6 @@ div {
     margin-top: 20px;
 }
 
-h1 {
+#business h1 {
     text-align: center;
 }

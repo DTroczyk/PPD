@@ -3,7 +3,7 @@ import "./ForBusiness.css"
 
 function ForBusiness() {
     return (
-        <div>
+        <div id="business">
             <h1>Dla firm</h1>
             <h2>Posiadamy zachęcające oferty dla firm.</h2>
 

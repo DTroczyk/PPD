@@ -5,8 +5,7 @@ class Send extends React.Component {
 
     render() { 
         return (
-            <div>
-
+            <div id="send" class="container">
                 <div class="row">
                     <div id="nadawca" class="col-md-6 " >
                         <h2 id="tytul">Dane nadawcy: </h2>
@@ -108,7 +107,7 @@ class Send extends React.Component {
                         </form>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block">Nadaj paczkę</button>
+                <button id="sendButton" type="button" class="btn btn-primary btn-lg btn-block">Nadaj paczkę</button>
             </div>
         );
     }

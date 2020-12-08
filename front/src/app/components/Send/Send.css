@@ -1,8 +1,12 @@
-.row{
-    margin: 0px;
+#send{
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
+    box-shadow:         3px 3px 5px 6px #ccc;
+    border-radius: 5px;
+    padding:20px;
 }
 
-h2{
+#tytul{
     text-align: center;
     color: black;
     padding-bottom: 30px;
@@ -12,6 +16,17 @@ h2{
     margin-top: 2px;
 }
 
+#sendButton{
+    margin-top:50px;
+}
+
+#nadawca{
+    margin-left:0
+}
+
+#odbiorca{
+    margin-right:0
+}
 
 /* #phoneInput{
     margin: 30px;
@@ -27,7 +42,7 @@ h2{
     min-height: 500px;
 } */
 
-button{
+/* button{
     margin-top: 150px;
     position:absolute;
-}
+} */

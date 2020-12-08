@@ -1,7 +1,8 @@
 #header {
-  background-color: lightblue;
+  background-color: #333;
   height: 60px;
   align-items: center;
+  color:white
 }
 
 .header-list {
@@ -14,14 +15,15 @@
 .header-list li {
   display: inline-block;
   line-height: 60px;
+  cursor: pointer;
 }
 .header-list li:hover {
-  background-color: #bee9f7;
+ background-color: #444;
+ color:white;
 }
-.header-list li > a,
-.header-list li > a:link {
+.header-list li > a,.header-list li > a:link,.header-list li>a:hover,.header-list li>a:active,.header-list li>a:focus {
   text-decoration: none;
-  color: black;
+  color: white;
   padding: 20px;
 }
 

@@ -8,6 +8,7 @@ import Login from './app/components/Login/Login'
 import About from './app/components/About/About'
 import Contact from './app/components/Contact/Contact'
 import ForBusiness from './app/components/ForBusiness/ForBusiness'
+import Baner from './app/components/Baner/Baner'
 import {
   BrowserRouter as Router,
   Switch,
@@ -19,34 +20,34 @@ function App() {
   return (
     <Router>
       <Header/>
-      <div class="wrapper">
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/send">
-          <Send />
-        </Route>
-        {<Route path="/forbusiness">
-          <ForBusiness />
-        </Route> }
-        <Route path="/about">
-          <About />
-        </Route>
-        {/* <Route path="/prices">
-          <Prices />
-        </Route> */}
-        <Route path="/contact">
-          <Contact />
-        </Route>
-        <Route path="/login">
-          <Login/>
-        </Route>
-        {/* <Route path="/register">
-          <Register />
-        </Route> */}
-        <Route render={() => <Redirect to={"/"} />} />
-      </Switch>
+      <Baner/>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/send">
+            <Send />
+          </Route>
+          {<Route path="/forbusiness">
+            <ForBusiness />
+          </Route> }
+          <Route path="/about">
+            <About />
+          </Route>
+          {/* <Route path="/prices">
+            <Prices />
+          </Route> */}
+          <Route path="/contact">
+            <Contact />
+          </Route>
+          <Route path="/login">
+            <Login/>
+          </Route>
+          {/* <Route path="/register">
+            <Register />
+          </Route> */}
+          <Route render={() => <Redirect to={"/"} />} />
+        </Switch>
       </div>
       <Footer/>
     </Router>

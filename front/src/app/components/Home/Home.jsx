@@ -5,9 +5,9 @@ class Home extends React.Component {
 
     render() { 
         return (
-            <>
+            <div id="home" class="container">
                 <div>Home</div>
-            </>
+            </div>
         )
     }
 }

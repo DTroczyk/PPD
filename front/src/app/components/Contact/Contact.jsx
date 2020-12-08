@@ -3,7 +3,7 @@ import "./Contact.css"
 
 function Contact() {
     return (
-        <div class="contact-container">
+        <div id="contact" class="container">
             <h1>Kontakt</h1>
             <span>
                 Firma <strong>PPD</strong> dba o dobry kontakt z klientami. W roku 2020 zdobyliśmy główną nagrodę w konkursie konsumenckim <i>Gold Client's Awards</i> w Bytomiu dla firmy przyjaznej klientowi. Jeśli masz jakieś pytania lub sugestie, chętnie na nie odpowiemy:

@@ -24,3 +24,25 @@
   color: black;
   padding: 20px;
 }
+
+@media only screen and (max-width: 800px) {
+  #header {
+    height: auto;
+  }
+  .header-list{
+    display: block;
+    width: 100%;
+    padding-inline-start: 0px;
+  }
+  .header-list li {
+    display: block;
+    padding: 0;
+  }
+  .header-list li > a,
+  .header-list li > a:link {
+    display: block;
+    padding: 0px;
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,33 @@
+.row{
+    margin: 0px;
+}
+
+h2{
+    text-align: center;
+    color: black;
+    padding-bottom: 30px;
+}
+
+#adres2Label{
+    margin-top: 2px;
+}
+
+
+/* #phoneInput{
+    margin: 30px;
+} */
+
+/* #nadawca{
+    background-color: rgb(173, 200, 230);
+    min-height: 500px;
+}
+
+#odbiorca{
+    background-color: rgb(173, 200, 230);
+    min-height: 500px;
+} */
+
+button{
+    margin-top: 150px;
+    position:absolute;
+}

@@ -1,20 +1,65 @@
-.contact-list{
-    display: inline;
+    background-image: url("https://images.pexels.com/photos/2041627/pexels-photo-2041627.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-size: cover;
 }
 
-#contact span{
-    margin: 0.5%;
+.contact-content{
+    padding-top: 30px;
+}
+.contact-list{
+    display: block;
+    font-size: 1.2em;
+.contact-list {
+    padding: 30px;
+}
+.contact-list:nth-of-type(2){
+    background-color: rgb(218, 216, 216);
+    padding: 30px;
+}
+.contact-container .info{
+    width: 50%;
+    background-color: rgb(41, 119, 145);
+    border-radius: 10px;
+    padding-right: 50px;
+    color: white;
+}
+
+.contact-container .info h1{
+    padding: 0;
+    margin: 0;
+}
+.contact-container .info span{
+    padding: 20px;
     display: block;
 }
+.contact-list li{
+    list-style-type: none;
+}
 
-#contact hr{
+.contact-list table{
+    font-size: 1.2em;
+}
     width: 70%;
     margin-top: 10px;
     display: block;
 }
 
-#contact table, th, td {
-    border: 1px solid black;
+    border: 1px solid white;
     border-collapse: collapse;
     padding: 10px;
+    background-color: rgba(255, 255, 255, 0.452);
+  }
+
+  @media only screen and (max-width: 900px) {
+    .contact-container .info{
+        width: 100%;
+    }
+    .contact-list {
+        padding-left: 10px;
+    }
+    .contact-container table, th, td {
+        padding: 2px;
+    }
+    .contact-content{
+        width: 98%;
+    }
   }

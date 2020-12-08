@@ -4,6 +4,9 @@ import Header from './app/components/Header/Header'
 import Footer from './app/components/Footer/Footer'
 import Home from './app/components/Home/Home'
 import Send from './app/components/Send/Send'
+import Login from './app/components/Login/Login'
+import About from './app/components/About/About'
+import Contact from './app/components/Contact/Contact'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,22 +25,22 @@ function App() {
         <Route path="/send">
           <Send />
         </Route>
-        {/* <Route path="/forbuisness">
-          <ForBuisness />
+        {/* <Route path="/forbusisness">
+          <ForBusiness />
         </Route> */}
-        {/* <Route exact path="/about">
+        <Route path="/about">
           <About />
-        </Route> */}
-        {/* <Route exact path="/prices">
+        </Route>
+        {/* <Route path="/prices">
           <Prices />
         </Route> */}
-        {/* <Route exact path="/contact">
+        <Route path="/contact">
           <Contact />
-        </Route> */}
-        {/* <Route exact path="/login">
-          <Login />
-        </Route> */}
-        {/* <Route exact path="/register">
+        </Route>
+        <Route path="/login">
+          <Login/>
+        </Route>
+        {/* <Route path="/register">
           <Register />
         </Route> */}
         <Route render={() => <Redirect to={"/"} />} />

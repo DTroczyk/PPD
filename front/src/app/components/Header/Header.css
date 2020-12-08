@@ -1,26 +1,26 @@
-#header{
+#header {
   background-color: lightblue;
   height: 60px;
   align-items: center;
 }
 
-ul {
+.header-list {
   list-style: none;
   display: flex;
   justify-content: center;
-  margin:0
+  margin: 0;
 }
 
-ul li {
+.header-list li {
   display: inline-block;
   line-height: 60px;
-  padding-left: 3%;
-  padding-right: 3%;
 }
-ul li:hover{
- background-color: #bee9f7;
+.header-list li:hover {
+  background-color: #bee9f7;
 }
-li > a, li > a:link {
+.header-list li > a,
+.header-list li > a:link {
   text-decoration: none;
   color: black;
+  padding: 20px;
 }

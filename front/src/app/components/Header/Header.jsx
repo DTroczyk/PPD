@@ -6,7 +6,7 @@ function Header() {
     return (
         <header id="header">
             {/* <image alt="not found"/> */}
-            <ul>
+            <ul className="header-list">
                 <li><Link to="/send">Wysyłam</Link></li>
                 <li><Link to="/forbusiness">Oferta dla firm</Link></li>
                 <li><Link to="/about">O PPD</Link></li>

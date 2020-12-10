@@ -36,13 +36,13 @@ function ForBusiness() {
                         <button id="offerButton" type="button" class="btn btn-primary btn-lg btn-block">Sprawdź</button>
                     </div>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div id="element" class="col-md-12">
-                        <h3>Potrzebujesz indywidualną ofertę abonamentu?</h3>
-                        <button id="offerEndButton" type="button" class="btn btn-primary btn-lg btn-block">Skontaktuj się z nami</button>
-                        <h3>Zachęcamy do współpracy.</h3>
-                    </div>
+            <div class="row">
+                <div id="element" class="col-md-12">
+                    <h3>Potrzebujesz indywidualną ofertę abonamentu?</h3>
+                    <button id="offerEndButton" type="button" class="btn btn-primary btn-lg btn-block">Skontaktuj się z nami</button>
+                    <h3>Zachęcamy do współpracy.</h3>
                 </div>
             </div>
         </div>

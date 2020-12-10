@@ -1,0 +1,55 @@
+#pigeon 
+{
+    padding: 40px;
+    font-weight: bold;
+}
+
+#column
+{
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 20px;
+    min-height: 550px;
+    background-color: #00BFFF;
+
+    display: flex;
+    flex-direction: column;
+
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+#listOfParcel > li
+{
+    padding: 2px;
+    list-style: none;
+}
+
+#pigeon h2
+{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#pigeon h3
+{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+#pigeon-row > div
+{
+    margin-bottom: 40px;
+}
+
+#stateButton
+{
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+.parcel-btn
+{
+    border-radius: 10px;
+}

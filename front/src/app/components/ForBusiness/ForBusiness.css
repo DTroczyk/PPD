@@ -1,12 +1,71 @@
-#business div {
-    margin: 40px;
+/* odstęp od banera */
+#business{
+    padding: 40px;
 }
 
-.paragraph{
-    margin-left: 30px;
-    margin-top: 20px;
+/* wyśrodkowanie kard w sm */
+#business div{
+    margin: auto;
 }
 
-#business h1 {
+/* paragrafy */
+#pgh{
+    font-size: 18px;
+    margin-top: 30px;
+    text-indent: 1.5em;
+}
+
+/* nagłówki kart */
+#business h2 {
     text-align: center;
+}
+
+/* pierwsza karta */
+#business-row > div:first-child > div
+{
+    background-color: #FF69B4;
+}
+
+/* odstęp między kartami w xs */
+#business-row > div
+{
+    margin-bottom: 40px;
+}
+
+#offer
+{
+    background-color: #00BFFF;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border-radius: 30px;
+    height: 500px;
+    max-width: 400px; 
+
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+#offerButton
+{
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+#offerEndButton
+{
+    width: 400px;
+    margin: auto;
+}
+
+#element
+{
+    padding: 20px;
+    text-align: center;
+}
+
+#element > h3, h2, h1
+{
+    padding-bottom: 20px;
 }

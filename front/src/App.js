@@ -10,6 +10,8 @@ import Contact from './app/components/Contact/Contact'
 import ForBusiness from './app/components/ForBusiness/ForBusiness'
 import Baner from './app/components/Baner/Baner'
 import Pigeon from './app/components/Pigeon/Pigeon'
+import Prices from './app/components/Prices/Prices'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -36,9 +38,9 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
-          {/* <Route path="/prices">
+          { <Route path="/prices">
             <Prices />
-          </Route> */}
+          </Route> }
           <Route path="/contact">
             <Contact />
           </Route>

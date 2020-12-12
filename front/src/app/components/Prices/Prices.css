@@ -1,0 +1,12 @@
+#prices{
+    padding: 40px;
+}
+
+#pricesTytul{
+    text-align: center;
+}
+
+.accordion button {
+    width: 100%;
+    display: block;
+}

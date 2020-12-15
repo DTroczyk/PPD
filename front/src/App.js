@@ -10,6 +10,7 @@ import Contact from './app/components/Contact/Contact'
 import ForBusiness from './app/components/ForBusiness/ForBusiness'
 import Baner from './app/components/Baner/Baner'
 import Pigeon from './app/components/Pigeon/Pigeon'
+import Stork from './app/components/Stork/Stork'
 import Prices from './app/components/Prices/Prices'
 
 import {
@@ -49,6 +50,9 @@ function App() {
           </Route>
           <Route path="/pigeon">
             <Pigeon/>
+          </Route>
+          <Route path="/stork">
+            <Stork/>
           </Route>
           {/* <Route path="/register">
             <Register />

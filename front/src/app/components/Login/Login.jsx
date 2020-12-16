@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Login.css"
 import services from '../../../services/httpClient'
-
+import { withRouter } from "react-router-dom";
 
 class Login extends React.Component {
     state = {
@@ -20,35 +20,52 @@ class Login extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
-        this.setState({ submitted: true });
-        const { login, password } = this.state;
+        e.preventDefault()
+        this.setState({ submitted: true })
+        const { login, password } = this.state
         if (login && password) {
-            services.CreateToken(login,password)
+        services.CreateToken(login,password)
+            .then((response) => {
+                if (response.data!=="") {
+                  localStorage.setItem('token', response.data)
+                  this.props.history.push("/");
+                }
+                else{
+                    this.setState({login: ""})
+                    this.setState({password: ""})
+                }
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         }
-        
     }
 
     render() {
         const { login, password, submitted } = this.state;
         return (
-            <div id="login" class="container">
+            <div id="login" className="container">
                 <div className="login-wrapper col-md-4">
                     <h2>Login</h2>
                     <hr/>
+                    {submitted && (!login || !password) &&
+                        <div className="help-block alert alert-danger">
+                            Podano nieprawidłowy login lub hasło.
+                        </div>
+                    }
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className={'form-group' + (submitted && !login ? ' has-error' : '')}>
                             <label htmlFor="login">Login</label>
                             <input type="text" className="form-control" name="login" value={login} onChange={this.handleChange} />
                             {submitted && !login &&
-                                <div className="help-block">Wprowadź login!</div>
+                                <div className="help-block alert alert-danger">Wprowadź login!</div>
                             }
                         </div>
                         <div className={'form-group ' + (submitted && !password ? ' has-error' : '')}>
                             <label htmlFor="password">Hasło</label>
                             <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
                             {submitted && !password &&
-                                <div className="help-block">Wprowadź hasło!</div>
+                                <div className="help-block alert alert-danger">Wprowadź hasło!</div>
                             }
                         </div>
                         <div className="form-group">
@@ -62,5 +79,4 @@ class Login extends React.Component {
         );
     }
 }
-
-export default Login
+export default withRouter(Login);

@@ -12,7 +12,8 @@ import Baner from './app/components/Baner/Baner'
 import Pigeon from './app/components/Pigeon/Pigeon'
 import Stork from './app/components/Stork/Stork'
 import Prices from './app/components/Prices/Prices'
-
+import Register from './app/components/Register/Register'
+import { useHistory } from "react-router-dom";
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +22,7 @@ import {
 } from "react-router-dom";
 
 function App() {
+  let history = useHistory();
   return (
     <Router>
       <Header/>
@@ -62,10 +64,10 @@ function App() {
             <Baner text="Akcje managera"/>
             <Stork/>
           </Route>
-          {/* <Route path="/register">
+          <Route path="/register">
             <Baner text="Zarejestruj się"/>
             <Register />
-          </Route> */}
+          </Route>
           <Route render={() => <Redirect to={"/"} />} />
         </Switch>
         </div>

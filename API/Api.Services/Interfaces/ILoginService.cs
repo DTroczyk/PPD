@@ -7,7 +7,7 @@ namespace Api.Services.Interfaces
 {
     public interface ILoginService
     {
-        string IsAuthenticated(LoginDto request);
+        string IsAuthenticated(string login, string password);
         bool IsValidUser(string userName, string password);
     }
 }

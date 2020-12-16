@@ -22,16 +22,16 @@ namespace Api.Services.Services
             _tokenManagement = tokenManagement.Value;
         }
 
-        public string IsAuthenticated(LoginDto request)
+        public string IsAuthenticated(string login, string password)
         {
             var token = string.Empty;
             try
             {
-                if (IsValidUser(request.Login, request.Password))
+                if (IsValidUser(login, password))
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.NameIdentifier, request.Login),
+                        new Claim(ClaimTypes.NameIdentifier, login),
                     };
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims, "jwt");

@@ -20,15 +20,15 @@ namespace Api.Controllers
             _loginService = loginService;
         }
 
-        public IActionResult Login([FromBody] LoginDto user)
+        public IActionResult Login(string login, string password)
         {
             try
             {
-                if (user == null)
+                if (login == null || password == null)
                 {
                     return BadRequest("Invalid credentials");
                 }
-                var token = _loginService.IsAuthenticated(user);
+                var token = _loginService.IsAuthenticated(login, password);
                 return Ok(token);
             }
             catch (Exception ex)

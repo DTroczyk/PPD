@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import "./Login.css"
+import services from '../../../services/httpClient'
+
 
 class Login extends React.Component {
     state = {
@@ -22,7 +24,7 @@ class Login extends React.Component {
         this.setState({ submitted: true });
         const { login, password } = this.state;
         if (login && password) {
-            console.log(`${login} ${password}`);
+            services.CreateToken(login,password)
         }
         
     }

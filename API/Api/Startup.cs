@@ -89,6 +89,14 @@ namespace Api
             var cs = new ConnectionStringDto() { ConnectionString = _connectionString };
             services.AddSingleton(cs);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            }));
+
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<DbContextOptions<ApplicationDbContext>>();
             services.AddScoped<ILoginService, LoginService>();
@@ -102,6 +110,8 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("MyPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

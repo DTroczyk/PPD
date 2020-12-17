@@ -3,12 +3,12 @@ import "./Contact.css"
 
 function Contact() {
     return (
-        <div class="contact-container container">
-            <div class="contact-content">
-                <div class="info">
+        <div className="contact-container container">
+            <div className="contact-content">
+                <div className="info">
                     <span><h1>✉️Kontakt</h1> Firma <strong>PPD</strong> dba o dobry kontakt z klientami. W roku 2020 zdobyliśmy główną nagrodę w konkursie konsumenckim <i>Gold Client's Awards</i> w Bytomiu dla firmy przyjaznej klientowi. Jeśli masz jakieś pytania lub sugestie, chętnie na nie odpowiemy!</span>
                 </div>
-                <ul class="contact-list">
+                <ul className="contact-list">
                     <table>
                         <tr>
                             <td>💼 Biuro obsługi klienta</td><td><strong>biuro@ppd.com</strong></td>
@@ -25,7 +25,7 @@ function Contact() {
                     </table>
                 </ul>
                 <br></br>
-                <ul class="contact-list">
+                <ul className="contact-list">
                     <li>Biuro obsługi klienta (BOK)</li>
                     <li>
                         <strong>📞 502 302 203</strong>

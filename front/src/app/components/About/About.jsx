@@ -3,7 +3,7 @@ import './About.css'
 
 function About() {
     return (
-        <div id="about" class="container">
+        <div id="about" className="container">
             <h1 className="about-h1">O PPD</h1>
             <p className="about-paragraph">
                 <strong>Pigeon Parcel Delivery</strong> to prężnie rozwijająca się firma kurierska, działająca na terenie województwa śląskiego. Dostarczamy paczki

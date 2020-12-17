@@ -3,7 +3,7 @@ import "./Baner.css"
 
 function Baner(params) {
     return (
-        <div id="baner" class="jumbotron">
+        <div id="baner" className="jumbotron">
             <h2>{params.text}</h2>
         </div>
     )

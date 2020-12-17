@@ -26,7 +26,7 @@ function App() {
   return (
     <Router>
       <Header/>
-      <div class="wrapper">
+      <div className="wrapper">
         <Switch>
           <Route exact path="/">
            <Baner text="Strona Główna"/>  

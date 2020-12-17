@@ -62,34 +62,34 @@ class Stork extends React.Component {
         const freeParcels = this.state.parcels.filter(o => o.pigeonId == null).map(o => <option>{o.id}</option>)
         const pigeons = this.state.pigeons.map(o => <option login={o.login}>{o.firstName} {o.lastName}</option>)
         return (
-        <div id="stork-container" class="container">
+        <div id="stork-container" className="container">
             <h1>Opcje Managera</h1>
             <hr></hr>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box">
+            <div className="row">
+                <div className="col-md-6">
+                    <div className="box">
                         <h3>Przydziel nowe paczki kurierowi</h3>
                         <hr></hr>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
-                            <select class="form-control" id="parcelSelect">
+                            <select className="form-control" id="parcelSelect">
                                 {freeParcels}
                             </select>
                             <label for="pigeonSelect">Wybierz kuriera:</label>
-                            <select class="form-control" id="pigeonSelect">
+                            <select className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
-                            <button type="submit" class="btn btn-primary mb-2">Przydziel</button>
+                            <button type="submit" className="btn btn-primary mb-2">Przydziel</button>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="box">
+                <div className="col-md-6">
+                    <div className="box">
                         <h3>Zmień przypisane paczki</h3>
                         <hr></hr>
-                        <div class="form-group">
+                        <div className="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
-                            <select class="form-control" id="parcelSelect" onChange={this.changeSelect}>
+                            <select className="form-control" id="parcelSelect" onChange={this.changeSelect}>
                                 {parcels}
                             </select>
                             <br></br>
@@ -97,10 +97,10 @@ class Stork extends React.Component {
                             <br></br>
                             <br></br>
                             <label for="pigeonSelect">Wybierz nowego kuriera:</label>
-                            <select class="form-control" id="pigeonSelect">
+                            <select className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
-                            <button type="submit" class="btn btn-primary mb-2">Zmień przydział</button>
+                            <button type="submit" className="btn btn-primary mb-2">Zmień przydział</button>
                         </div>
                     </div>
                 </div>

@@ -29,5 +29,13 @@ namespace Api.Services.Services
 
             return parcelEntity;
         }
+
+        public async Task<IEnumerable<Pigeon>> GetPigeons()
+        {
+            var pigeonsEntities = await _dbContext.Pigeons
+                .ToListAsync();
+
+            return pigeonsEntities;
+        }
     }
 }

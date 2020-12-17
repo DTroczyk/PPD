@@ -20,6 +20,7 @@ namespace Api.Services.Services
         {
             var entities = await _dbContext.Parcels
                 .Include(p => p.Warehouses)
+                .Include(p => p.Pigeon)
                 .ToListAsync();
 
             var parcels = entities.Where(p => p.ParcelStatus != ParcelStatus.Delivered);

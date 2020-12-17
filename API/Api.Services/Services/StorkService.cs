@@ -16,13 +16,13 @@ namespace Api.Services.Services
         {
         }
 
-        public async Task<IEnumerable<Parcel>> GetParcels(int warehouseId)
+        public async Task<IEnumerable<Parcel>> GetParcels()
         {
             var entities = await _dbContext.Parcels
                 .Include(p => p.Warehouses)
                 .ToListAsync();
 
-            var parcels = entities.Where(p => p.Warehouses.Last().WarehouseId == warehouseId);
+            var parcels = entities.Where(p => p.ParcelStatus != ParcelStatus.Delivered);
 
             return parcels;
         }

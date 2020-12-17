@@ -8,7 +8,7 @@ namespace Api.Services.Interfaces
 {
     public interface IStorkService
     {
-        public Task<IEnumerable<Parcel>> GetParcels(int warehouseId);
+        public Task<IEnumerable<Parcel>> GetParcels();
         public Task<Parcel> SetPigeon(long parcelId, string pigeonLogin);
     }
 }

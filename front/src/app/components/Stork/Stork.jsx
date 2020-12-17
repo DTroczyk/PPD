@@ -1,8 +1,35 @@
 import React from "react"
 import "./Stork.css"
+import services from '../../../services/httpClient'
 
-function Stork() {
-    return (
+
+
+class Stork extends React.Component {
+    state = {
+        isLoaded: false,
+        items: []
+    }
+
+    componentDidMount() {
+        services.GetParcels()
+            .then(response => {
+                this.setState({
+                    isLoaded: true,
+                    items: response.data
+                })
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error: "catch"
+                })
+            })
+    }
+
+    render() {
+        console.log(this.state.items)
+        const options = this.state.items.map(o => <option>Paczka nr {o.id}</option>)
+        return (
         <div id="stork-container" class="container">
             <h1>Opcje Managera</h1>
             <hr></hr>
@@ -14,11 +41,7 @@ function Stork() {
                         <div class="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
                             <select class="form-control" id="parcelSelect">
-                                <option>Paczka nr 00000</option>
-                                <option>Paczka nr 00001</option>
-                                <option>Paczka nr 00002</option>
-                                <option>Paczka nr 00003</option>
-                                <option>Paczka nr 00004</option>
+                                {options}
                             </select>
                             <label for="pigeonSelect">Wybierz kuriera:</label>
                             <select class="form-control" id="pigeonSelect">
@@ -37,11 +60,7 @@ function Stork() {
                         <div class="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
                             <select class="form-control" id="parcelSelect">
-                                <option>Paczka nr 00000</option>
-                                <option>Paczka nr 00001</option>
-                                <option>Paczka nr 00002</option>
-                                <option>Paczka nr 00003</option>
-                                <option>Paczka nr 00004</option>
+                                {options}
                             </select>
                             <label for="pigeonSelect">Wybierz nowego kuriera:</label>
                             <select class="form-control" id="pigeonSelect">
@@ -55,7 +74,7 @@ function Stork() {
                 </div>
             </div>
         </div>
-    )
+    )}
 }
 
 export default Stork

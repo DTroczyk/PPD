@@ -20,7 +20,8 @@ httpClient.interceptors.request.use(function (config) {
 })
 
 const services = {
-    CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`)
+    CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
+    GetParcels: () => httpClient.get(`/stork`)
 }
 
 export default services;

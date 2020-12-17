@@ -24,10 +24,10 @@ namespace Api.Controllers
         }
 
         // GET: Stork/1 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels(int id)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels()
         {
-            var parcels = await _storkService.GetParcels(id);
+            var parcels = await _storkService.GetParcels();
 
             if (parcels == null)
             {
@@ -40,7 +40,7 @@ namespace Api.Controllers
         // PUT: Stork/SetPigeon
         [HttpPut]
         [Route("SetPigeon")]
-        public async Task<ActionResult<Parcel>> GetParcel(SetPigeonDto setPigeon)
+        public async Task<ActionResult<Parcel>> SetPigeon(SetPigeonDto setPigeon)
         {
             var parcel = await _storkService.SetPigeon(setPigeon.ParcelId, setPigeon.PigeonLogin);
 

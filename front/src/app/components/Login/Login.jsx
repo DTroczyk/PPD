@@ -11,6 +11,11 @@ class Login extends React.Component {
         submitted: false
     };
 
+    componentDidMount() {
+        if(this.props.isLoggedIn)
+            this.props.history.push("/")
+    }
+
     handleChange = this.handleChange.bind(this);
     handleSubmit = this.handleSubmit.bind(this);
 

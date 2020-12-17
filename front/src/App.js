@@ -76,19 +76,19 @@ class App extends React.Component {
             </Route>
             <Route path="/login">
               <Baner text="Zaloguj się"/>
-              <Login checkLogin={this.loginHandler}/>
+              <Login checkLogin={this.loginHandler} isLoggedIn={this.state.isLoggedIn}/>
             </Route>
             <Route path="/pigeon">
               <Baner text="Akcje kuriera"/>
-              <Pigeon/>
+              <Pigeon role={this.getRole}/>
             </Route>
             <Route path="/stork">
               <Baner text="Akcje managera"/>
-              <Stork/>
+              <Stork role={this.getRole}/>
             </Route>
             <Route path="/register">
               <Baner text="Zarejestruj się"/>
-              <Register />
+              <Register isLoggedIn={this.state.isLoggedIn}/>
             </Route>
             <Route render={() => <Redirect to={"/"} />} />
           </Switch>

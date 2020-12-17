@@ -1,8 +1,7 @@
 import React from "react"
 import "./Stork.css"
 import services from '../../../services/httpClient'
-
-
+import { withRouter } from "react-router-dom";
 
 class Stork extends React.Component {
     state = {
@@ -13,7 +12,9 @@ class Stork extends React.Component {
     }
 
     componentDidMount() {
-        services.GetParcels()
+        if(this.props.role() === "Stork")
+        {
+            services.GetParcels()
             .then(response => {
                 this.setState({
                     isLoaded: true,
@@ -35,8 +36,6 @@ class Stork extends React.Component {
                     isLoaded: true,
                     pigeons: response.data
                 })
-
-
             },
             (error) => {
                 this.setState({
@@ -44,7 +43,11 @@ class Stork extends React.Component {
                     error: "catch"
                 })
             })
-
+        }
+        else
+        {
+            this.props.history.push("/login");
+        }
     }
 
     changeSelect = (event) => {
@@ -53,7 +56,6 @@ class Stork extends React.Component {
         this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
         else
         this.setState({currentPigeon: "Brak"});
-
     }
 
     render() {
@@ -71,11 +73,11 @@ class Stork extends React.Component {
                         <h3>Przydziel nowe paczki kurierowi</h3>
                         <hr></hr>
                         <div className="form-group">
-                            <label for="parcelSelect">Wybierz paczkę:</label>
+                            <label htmlFor="parcelSelect">Wybierz paczkę:</label>
                             <select className="form-control" id="parcelSelect">
                                 {freeParcels}
                             </select>
-                            <label for="pigeonSelect">Wybierz kuriera:</label>
+                            <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
                             <select className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
@@ -88,7 +90,7 @@ class Stork extends React.Component {
                         <h3>Zmień przypisane paczki</h3>
                         <hr></hr>
                         <div className="form-group">
-                            <label for="parcelSelect">Wybierz paczkę:</label>
+                            <label htmlFor="parcelSelect">Wybierz paczkę:</label>
                             <select className="form-control" id="parcelSelect" onChange={this.changeSelect}>
                                 {parcels}
                             </select>
@@ -96,7 +98,7 @@ class Stork extends React.Component {
                             Aktualnie wybrany kurier: <strong>{this.state.currentPigeon}</strong>
                             <br></br>
                             <br></br>
-                            <label for="pigeonSelect">Wybierz nowego kuriera:</label>
+                            <label htmlFor="pigeonSelect">Wybierz nowego kuriera:</label>
                             <select className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
@@ -108,5 +110,4 @@ class Stork extends React.Component {
         </div>
     )}
 }
-
-export default Stork
+export default withRouter(Stork);

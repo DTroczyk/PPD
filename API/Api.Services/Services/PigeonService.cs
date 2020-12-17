@@ -16,11 +16,17 @@ namespace Api.Services.Services
         {
         }
 
-        public async Task<Parcel> SetStatus(uint parcelId, ParcelStatus parcelStatus)
+        public async Task<Parcel> SetStatus(string login, long parcelId, ParcelStatus parcelStatus)
         {
             var parcelEntity = await _dbContext.Parcels
                 .Where(p => p.Id == parcelId)
+                .Where(p => p.PigeonId == login)
                 .FirstOrDefaultAsync();
+
+            if (parcelEntity == null)
+            {
+                throw new Exception("Parcel not exists.");
+            }
 
             parcelEntity.ParcelStatus = parcelStatus;
 
@@ -32,10 +38,18 @@ namespace Api.Services.Services
 
         public async Task<IEnumerable<Pigeon>> GetPigeons()
         {
-            var pigeonsEntities = await _dbContext.Pigeons
+            var pigeonEntities = await _dbContext.Pigeons
                 .ToListAsync();
 
-            return pigeonsEntities;
+            return pigeonEntities;
+        }
+
+        public async Task<IEnumerable<Parcel>> GetParcels(string login)
+        {
+            var parcelEntities = await _dbContext.Parcels
+                .Where(p => p.PigeonId == login).ToListAsync();
+
+            return parcelEntities;
         }
     }
 }

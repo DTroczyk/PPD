@@ -7,7 +7,9 @@ import services from '../../../services/httpClient'
 class Stork extends React.Component {
     state = {
         isLoaded: false,
-        items: []
+        parcels : [],
+        pigeons: [],
+        currentPigeon: ""
     }
 
     componentDidMount() {
@@ -15,8 +17,10 @@ class Stork extends React.Component {
             .then(response => {
                 this.setState({
                     isLoaded: true,
-                    items: response.data
+                    parcels: response.data,
+                    currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName
                 })
+                
             },
             (error) => {
                 this.setState({
@@ -24,11 +28,39 @@ class Stork extends React.Component {
                     error: "catch"
                 })
             })
+        
+        services.GetPigeons()
+            .then(response => {
+                this.setState({
+                    isLoaded: true,
+                    pigeons: response.data
+                })
+
+
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error: "catch"
+                })
+            })
+
+    }
+
+    changeSelect = (event) => {
+        let tmpPigeon = this.state.parcels.find((x) => x.id == parseInt(event.target.value)).pigeon
+        if(tmpPigeon)
+        this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
+        else
+        this.setState({currentPigeon: "Brak"});
+
     }
 
     render() {
-        console.log(this.state.items)
-        const options = this.state.items.map(o => <option>Paczka nr {o.id}</option>)
+
+        const parcels = this.state.parcels.map(o => <option>{o.id}</option>)
+        const freeParcels = this.state.parcels.filter(o => o.pigeonId == null).map(o => <option>{o.id}</option>)
+        const pigeons = this.state.pigeons.map(o => <option login={o.login}>{o.firstName} {o.lastName}</option>)
         return (
         <div id="stork-container" class="container">
             <h1>Opcje Managera</h1>
@@ -41,13 +73,11 @@ class Stork extends React.Component {
                         <div class="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
                             <select class="form-control" id="parcelSelect">
-                                {options}
+                                {freeParcels}
                             </select>
                             <label for="pigeonSelect">Wybierz kuriera:</label>
                             <select class="form-control" id="pigeonSelect">
-                                <option>Jan Kowalski</option>
-                                <option>Tomasz Nowak</option>
-                                <option>Tomasz Kucharski</option>
+                                {pigeons}
                             </select>
                             <button type="submit" class="btn btn-primary mb-2">Przydziel</button>
                         </div>
@@ -59,14 +89,16 @@ class Stork extends React.Component {
                         <hr></hr>
                         <div class="form-group">
                             <label for="parcelSelect">Wybierz paczkę:</label>
-                            <select class="form-control" id="parcelSelect">
-                                {options}
+                            <select class="form-control" id="parcelSelect" onChange={this.changeSelect}>
+                                {parcels}
                             </select>
+                            <br></br>
+                            Aktualnie wybrany kurier: <strong>{this.state.currentPigeon}</strong>
+                            <br></br>
+                            <br></br>
                             <label for="pigeonSelect">Wybierz nowego kuriera:</label>
                             <select class="form-control" id="pigeonSelect">
-                                <option>Jan Kowalski</option>
-                                <option>Tomasz Nowak</option>
-                                <option>Tomasz Kucharski</option>
+                                {pigeons}
                             </select>
                             <button type="submit" class="btn btn-primary mb-2">Zmień przydział</button>
                         </div>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const httpClient = axios.create({
-    baseURL: "https://localhost:44350/",
+    baseURL: "http://localhost:44350/",
     headers: {
         "Content-Type": "application/json",
     }
@@ -21,7 +21,8 @@ httpClient.interceptors.request.use(function (config) {
 
 const services = {
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
-    GetParcels: () => httpClient.get(`/stork`)
+    GetParcels: () => httpClient.get(`/stork`),
+    GetPigeons: () => httpClient.get(`/pigeon`)
 }
 
 export default services;

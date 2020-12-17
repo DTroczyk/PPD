@@ -27,8 +27,9 @@ class Login extends React.Component {
         services.CreateToken(login,password)
             .then((response) => {
                 if (response.data!=="") {
-                  localStorage.setItem('token', response.data)
-                  this.props.history.push("/");
+                    localStorage.setItem('token', response.data)
+                    this.props.checkLogin()
+                    this.props.history.push("/");
                 }
                 else{
                     this.setState({login: ""})

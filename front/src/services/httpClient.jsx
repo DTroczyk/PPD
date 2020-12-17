@@ -22,7 +22,7 @@ httpClient.interceptors.request.use(function (config) {
 const services = {
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
     GetParcels: () => httpClient.get(`/stork`),
-    GetPigeons: () => httpClient.get(`/pigeon`)
+    SendParcel: (parcel) => httpClient.post('/sparrow', parcel)
 }
 
 export default services;

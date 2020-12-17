@@ -1,7 +1,7 @@
 import React from "react"
 import "./Prices.css"
-import {Accordion, Card, CardGroup, Button, ListGroup, Table} from 'react-bootstrap'
-import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import {Accordion, Card, CardGroup, Button, Table} from 'react-bootstrap'
+
 
 
 
@@ -14,7 +14,7 @@ class Prices extends React.Component {
                     <div id="pricesTytul" className="col-md-12">
                         <h1>📦 Cennik</h1>
                     </div>
-                    <Accordion style={
+                    <Accordion defaultActiveKey="0" style={
                       {
                         "width":"100rem",
                         "text-align" : "center"

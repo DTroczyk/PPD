@@ -1,113 +1,189 @@
 import React from "react"
 import "./Send.css"
+import services from '../../../services/httpClient'
 
 class Send extends React.Component {
+    state = {
+        senderName: '',
+        senderCity: '',
+        senderStreet: '',
+        senderPostalCode: '',
+        senderHouseNumber: '',
+        senderEmail: '',
+        senderPhoneNumber: '',
+
+        receiverName: '',
+        receiverCity: '',
+        receiverStreet: '',
+        receiverPostalCode: '',
+        receiverHouseNumber: '',
+        receiverEmail: '',
+        receiverPhoneNumber: '',
+        submitted: false
+    }
+
+    handleChange = this.handleChange.bind(this);
+    handleClick = this.handleClick.bind(this);
+
+    handleChange(e){
+        const {name, value} = e.target;
+        this.setState({[name]: value})
+    }
+
+    handleClick(e) {
+        e.preventDefault()
+        this.setState({ submitted: true })
+        console.log("esa");
+        const{  senderName,
+            senderCity,
+            senderStreet,
+            senderPostalCode,
+            senderHouseNumber,
+            senderEmail,
+            senderPhoneNumber,
+            receiverName,
+            receiverCity,
+            receiverStreet,
+            receiverPostalCode,
+            receiverHouseNumber,
+            receiverEmail,
+            receiverPhoneNumber
+        } = this.state;
+
+        var parcel = {
+            senderName,
+            senderCity,
+            senderStreet,
+            senderPostalCode,
+            senderHouseNumber,
+            senderEmail,
+            senderPhoneNumber,
+            receiverName,
+            receiverCity,
+            receiverStreet,
+            receiverPostalCode,
+            receiverHouseNumber,
+            receiverEmail,
+            receiverPhoneNumber
+        }
+        services.SendParcel(parcel).then(
+            console.log("Wyslano paczke")
+        )
+    }
 
     render() { 
+        const{  senderName,
+                senderCity,
+                senderStreet,
+                senderPostalCode,
+                senderHouseNumber,
+                senderEmail,
+                senderPhoneNumber,
+                receiverName,
+                receiverCity,
+                receiverStreet,
+                receiverPostalCode,
+                receiverHouseNumber,
+                receiverEmail,
+                receiverPhoneNumber
+            } = this.state;
         return (
-            <div id="send" class="container">
-                <div class="row">
-                    <div id="nadawca" class="col-md-6 " >
+            
+            <div id="send" className="container">
+                <div className="row">
+                    <div id="nadawca" className="col-md-6 " >
                         <h2 id="tytul">Dane nadawcy: </h2>
                         <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="nameInputSen">Imie: </label>
-                                    <input type="text" class="form-control" id="nameInputSen" placeholder="Wpisz imię nadawcy"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="surnameInputSen">Nazwisko: </label>
-                                    <input type="text" class="form-control" id="surnameInputSen" placeholder="Wpisz nazwisko nadawcy"/>
+                            <div className="form-row">
+                                <div className="col-md-12">
+                                    <label htmlFor="nameInputSen">Imie i nazwisko: </label>
+                                    <input type="text" className="form-control" id="nameInputSen" placeholder="Wpisz imię nadawcy" name="senderName" value={senderName} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
-                        <div class="col-md-12">
+                        <div className="col-md-12">
                             <br></br>
-                            <label for="adresInput">Adres: </label>
-                            <input type="text" class="form-control" id="adresInputSen" placeholder="Podaj adres nadawcy"/>
-                            <input type="text" class="form-control" id="adresInputSen" placeholder="Mieszkanie, apartament, pomieszczenie, budynek, piętro itp."/>
+                            <label htmlFor="adresInput">Adres: </label>
+                            <input type="text" className="form-control" id="adresInputSen" placeholder="Podaj nazwe ulicy nadawcy" name="senderStreet" value={senderStreet} onChange={this.handleChange}/>
+                            <input type="text" className="form-control" id="adresInputSen" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="senderHouseNumber" value={senderHouseNumber} onChange={this.handleChange}/>
                         </div>
-                        <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-4">
+                        <form name="form" >
+                            <div className="form-row">
+                                <div className="col-md-4">
                                     <br></br>
-                                    <label for="zipInputSen">Kod pocztowy: </label>
-                                    <input type="text" class="form-control" id="zipInputSen" placeholder="00-000"/>
+                                    <label htmlFor="zipInputSen">Kod pocztowy: </label>
+                                    <input type="text" className="form-control" id="zipInputSen" placeholder="00-000" name="senderPostalCode" value={senderPostalCode} onChange={this.handleChange}/>
                                 </div>
-                                <div class="col-md-8">
+                                <div className="col-md-8">
                                     <br></br>
-                                    <label for="cityInputSen">Miasto: </label>
-                                    <input type="text" class="form-control" id="cityInputSen" placeholder="Wpisz miasto"/>
+                                    <label htmlFor="cityInputSen">Miasto: </label>
+                                    <input type="text" className="form-control" id="cityInputSen" placeholder="Wpisz miasto" name="senderCity" value={senderCity} onChange={this.handleChange} />
                                 </div>
                             </div>
                         </form>
-                        <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-6">
+                        <form name="form" >
+                            <div className="form-row">
+                                <div className="col-md-6">
                                     <br></br>
-                                    <label for="emailInputSen">Adres e-mail: </label>
-                                    <input type="text" class="form-control" id="emailInputSen" placeholder="mail@siec.pl"/>
+                                    <label htmlFor="emailInputSen">Adres e-mail: </label>
+                                    <input type="text" className="form-control" id="emailInputSen" placeholder="mail@siec.pl" name="senderEmail" value={senderEmail} onChange={this.handleChange}/>
                                 </div>
-                                <div class="col-md-6">
+                                <div className="col-md-6">
                                     <br></br>
-                                    <label for="phoneInputSen">Telefon: </label>
-                                    <input id="phoneInputSen" type="text" class="form-control" placeholder="123456789"/>
+                                    <label htmlFor="phoneInputSen">Telefon: </label>
+                                    <input id="phoneInputSen" type="text" className="form-control" placeholder="123456789" name="senderPhoneNumber" value={senderPhoneNumber} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
                     </div>
 
-                    <div id="odbiorca" class="col-md-6 ">
+                    <div id="odbiorca" className="col-md-6 ">
                     <h2 id="tytul">Dane odbiorcy: </h2>
-                        <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <label for="nameInputRec">Imie: </label>
-                                    <input type="text" class="form-control" id="nameInputRec" placeholder="Wpisz imię nadawcy"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="surnameInputRec">Nazwisko: </label>
-                                    <input type="text" class="form-control" id="surnameInputRec" placeholder="Wpisz nazwisko nadawcy"/>
+                        <form name="form" >
+                            <div className="form-row">
+                                <div className="col-md-12">
+                                    <label htmlFor="nameInputRec">Imie: </label>
+                                    <input type="text" className="form-control" id="nameInputRec" placeholder="Wpisz imię i nazwisko odbiorcy" name="receiverName" value={receiverName} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
-                        <div class="col-md-12">
+                        <div className="col-md-12">
                             <br></br>
-                            <label for="adresInput">Adres: </label>
-                            <input type="text" class="form-control" id="adresInputRec" placeholder="Podaj adres nadawcy"/>
-                            <input type="text" class="form-control" id="adresInputRec" placeholder="Mieszkanie, apartament, pomieszczenie, budynek, piętro itp."/>
+                            <label htmlFor="adresInput">Adres: </label>
+                            <input type="text" className="form-control" id="adresInputRec" placeholder="Podaj nazwe ulicy odbiorcy" name="receiverStreet" value={receiverStreet} onChange={this.handleChange}/>
+                            <input type="text" className="form-control" id="adresInputRec" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="receiverHouseNumber" value={receiverHouseNumber} onChange={this.handleChange}/>
                         </div>
-                        <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-4">
+                        <form name="form" >
+                            <div className="form-row">
+                                <div className="col-md-4">
                                     <br></br>
-                                    <label for="zipInputRec">Kod pocztowy: </label>
-                                    <input type="text" class="form-control" id="zipInputRec" placeholder="00-000"/>
+                                    <label htmlFor="zipInputRec">Kod pocztowy: </label>
+                                    <input type="text" className="form-control" id="zipInputRec" placeholder="00-000" name="receiverPostalCode" value={receiverPostalCode} onChange={this.handleChange}/>
                                 </div>
-                                <div class="col-md-8">
+                                <div className="col-md-8">
                                     <br></br>
-                                    <label for="cityInputRec">Miasto: </label>
-                                    <input type="text" class="form-control" id="cityInputRec" placeholder="Wpisz miasto"/>
+                                    <label htmlFor="cityInputRec">Miasto: </label>
+                                    <input type="text" className="form-control" id="cityInputRec" placeholder="Wpisz miasto" name="receiverCity" value={receiverCity} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
-                        <form name="form">
-                            <div class="form-row">
-                                <div class="col-md-6">
+                        <form name="form" >
+                            <div className="form-row">
+                                <div className="col-md-6">
                                     <br></br>
-                                    <label for="emailInputRec">Adres e-mail: </label>
-                                    <input type="text" class="form-control" id="emailInputRec" placeholder="mail@siec.pl"/>
+                                    <label htmlFor="emailInputRec">Adres e-mail: </label>
+                                    <input type="text" className="form-control" id="emailInputRec" placeholder="mail@siec.pl" name="receiverEmail" value={receiverEmail} onChange={this.handleChange}/>
                                 </div>
-                                <div class="col-md-6">
+                                <div className="col-md-6">
                                     <br></br>
-                                    <label for="phoneInputRec">Telefon: </label>
-                                    <input id="phoneInputRec" type="text" class="form-control" placeholder="123456789"/>
+                                    <label htmlFor="phoneInputRec">Telefon: </label>
+                                    <input id="phoneInputRec" type="text" className="form-control" placeholder="123456789" name="receiverPhoneNumber" value={receiverPhoneNumber} onChange={this.handleChange}/>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-                <button id="sendButton" type="button" class="btn btn-primary btn-lg btn-block">Nadaj paczkę</button>
+                <button onClick={this.handleClick} id="sendButton" type="button" className="btn btn-primary btn-lg btn-block">Nadaj paczkę</button>
             </div>
         );
     }

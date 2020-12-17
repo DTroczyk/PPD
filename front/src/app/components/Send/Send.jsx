@@ -11,7 +11,6 @@ class Send extends React.Component {
         senderHouseNumber: '',
         senderEmail: '',
         senderPhoneNumber: '',
-
         receiverName: '',
         receiverCity: '',
         receiverStreet: '',
@@ -19,7 +18,8 @@ class Send extends React.Component {
         receiverHouseNumber: '',
         receiverEmail: '',
         receiverPhoneNumber: '',
-        submitted: false
+        submitted: false,
+        typeParcels : []
     }
 
     handleChange = this.handleChange.bind(this);
@@ -72,6 +72,8 @@ class Send extends React.Component {
     }
 
     render() { 
+
+        const typeParcels = this.state.typeParcels.map(o => <option>{o.id}</option>)
         const{  senderName,
                 senderCity,
                 senderStreet,
@@ -127,6 +129,11 @@ class Send extends React.Component {
                                     <br></br>
                                     <label htmlFor="emailInputSen">Adres e-mail: </label>
                                     <input type="text" className="form-control" id="emailInputSen" placeholder="mail@siec.pl" name="senderEmail" value={senderEmail} onChange={this.handleChange}/>
+                                    <br></br>
+                                    <label for="parcelSelect">Wybierz rodzaj paczki:</label>
+                                    <select class="form-control" id="parcelSelect" onChange={this.changeSelect}>
+                                        
+                                    </select>
                                 </div>
                                 <div className="col-md-6">
                                     <br></br>
@@ -142,7 +149,7 @@ class Send extends React.Component {
                         <form name="form" >
                             <div className="form-row">
                                 <div className="col-md-12">
-                                    <label htmlFor="nameInputRec">Imie: </label>
+                                    <label htmlFor="nameInputRec">Imie i nazwisko: </label>
                                     <input type="text" className="form-control" id="nameInputRec" placeholder="Wpisz imię i nazwisko odbiorcy" name="receiverName" value={receiverName} onChange={this.handleChange}/>
                                 </div>
                             </div>

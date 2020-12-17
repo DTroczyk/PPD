@@ -11,24 +11,24 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class SparrowController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly ISparrowService _clientService;
+        private readonly ISparrowService _sparrowService;
 
-        public SparrowController(IMapper mapper,ISparrowService clientService)
+        public SparrowController(IMapper mapper,ISparrowService sparrowService)
         {
             _mapper = mapper;
-            _clientService = clientService;
+            _sparrowService = sparrowService;
         }
 
         // GET: Client/1 
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(long id)
         {
-            var history = await _clientService.FollowParcel(id);
+            var history = await _sparrowService.FollowParcel(id);
 
             if (history.Count() == 0)
             {
@@ -44,10 +44,24 @@ namespace Api.Controllers
             try
             {
                 var parcel = _mapper.Map<Parcel>(parcelDto);
-                _clientService.SendParcel(parcel);
+                _sparrowService.SendParcel(parcel);
                 return Ok();
             }
             catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetParcelTypes()
+        {
+            try
+            {
+                var parcelTypes = _sparrowService.GetParcelTypes();
+                return Ok(parcelTypes);
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex);
             }

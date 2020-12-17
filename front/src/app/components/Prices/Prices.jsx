@@ -75,7 +75,7 @@ class Prices extends React.Component {
                                 </Card.Body>
                                 <Card.Footer>
                                   {/* <small className="text-muted">Last updated 3 mins ago</small> */}
-                                  Cena od: 12,99zł brutto
+                                  Cena od: 14,99zł brutto
                                 </Card.Footer>
                               </Card>
                               <Card>

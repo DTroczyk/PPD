@@ -33,6 +33,12 @@ namespace Api.Services.Services
             return warehouses;
         }
 
+        public IList<ParcelType> GetParcelTypes()
+        {
+            var parcelTypes = _dbContext.ParcelTypes.ToList();
+            return parcelTypes;
+        }
+
         public void SendParcel(Parcel parcel)
         {
             // Można przypisać paczkę do odpowiedniego Clienta

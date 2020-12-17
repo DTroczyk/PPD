@@ -1,5 +1,6 @@
 import React from "react"
 import "./ForBusiness.css"
+import { Link } from "react-router-dom"
 
 function ForBusiness() {
     return (  
@@ -41,7 +42,7 @@ function ForBusiness() {
             <div className="row">
                 <div id="element" class="col-md-12">
                     <h3>Potrzebujesz indywidualną ofertę abonamentu?</h3>
-                    <button id="offerEndButton" type="button" className="btn btn-primary btn-lg btn-block">Skontaktuj się z nami</button>
+                    <Link to="/contact"><button id="offerEndButton" type="button" className="btn btn-primary btn-lg btn-block">Skontaktuj się z nami</button></Link>
                     <h3>Zachęcamy do współpracy.</h3>
                 </div>
             </div>

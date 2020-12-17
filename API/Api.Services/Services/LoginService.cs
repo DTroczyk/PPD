@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using Api.BLL.Entities;
 using Api.DAL.EF;
 using Api.Services.Interfaces;
 using Api.Services.Models;
@@ -29,9 +30,12 @@ namespace Api.Services.Services
             {
                 if (IsValidUser(login, password))
                 {
+                    var userEntity = _dbContext.Users
+                        .FirstOrDefault(u => u.Login == login);
                     var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier, login),
+                        new Claim(ClaimTypes.Role, userEntity.Role.ToString())
                     };
 
                     ClaimsIdentity identity = new ClaimsIdentity(claims, "jwt");

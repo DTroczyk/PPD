@@ -13,13 +13,14 @@ import Pigeon from './app/components/Pigeon/Pigeon'
 import Stork from './app/components/Stork/Stork'
 import Prices from './app/components/Prices/Prices'
 import Register from './app/components/Register/Register'
-import { useHistory } from "react-router-dom";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from "react-router-dom";
+import jwt_decode from "jwt-decode"
+
 
 class App extends React.Component {
   state = {
@@ -34,11 +35,19 @@ class App extends React.Component {
     })
   }
 
+  getRole = () => {
+    const token = localStorage.getItem("token");
+    if (token == null){
+      return "Guest"
+    }
+    return jwt_decode(token).role;
+  }
+
   render(){
     // const history = useHistory();
     return (
       <Router>
-        <Header checkLogin={this.loginHandler} isLoggedIn={this.state.isLoggedIn}/>
+        <Header checkLogin={this.loginHandler} isLoggedIn={this.state.isLoggedIn} role={this.getRole}/>
         <div className="wrapper">
           <Switch>
             <Route exact path="/">

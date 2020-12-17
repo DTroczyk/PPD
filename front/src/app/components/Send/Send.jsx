@@ -19,8 +19,18 @@ class Send extends React.Component {
         receiverEmail: '',
         receiverPhoneNumber: '',
         submitted: false,
+        typeParcel: '',
         typeParcels : []
     }
+
+    componentDidMount() {
+        services.GetParcelsTypes()
+            .then(response => {
+                this.setState({
+                    typeParcels: response.data
+                })
+            })
+    };
 
     handleChange = this.handleChange.bind(this);
     handleClick = this.handleClick.bind(this);
@@ -47,10 +57,12 @@ class Send extends React.Component {
             receiverPostalCode,
             receiverHouseNumber,
             receiverEmail,
-            receiverPhoneNumber
+            receiverPhoneNumber,
+            typeParcel
         } = this.state;
 
         var parcel = {
+            parcelTypeId: typeParcel,
             senderName,
             senderCity,
             senderStreet,
@@ -71,9 +83,13 @@ class Send extends React.Component {
         )
     }
 
+    // changeSelect = (event) => {
+    //     this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
+    // }
+
     render() { 
 
-        const typeParcels = this.state.typeParcels.map(o => <option>{o.id}</option>)
+        const typeParcels = this.state.typeParcels.map(o => <option>{o.name}</option>)
         const{  senderName,
                 senderCity,
                 senderStreet,
@@ -87,7 +103,8 @@ class Send extends React.Component {
                 receiverPostalCode,
                 receiverHouseNumber,
                 receiverEmail,
-                receiverPhoneNumber
+                receiverPhoneNumber,
+                typeParcel
             } = this.state;
         return (
             
@@ -131,8 +148,8 @@ class Send extends React.Component {
                                     <input type="text" className="form-control" id="emailInputSen" placeholder="mail@siec.pl" name="senderEmail" value={senderEmail} onChange={this.handleChange}/>
                                     <br></br>
                                     <label for="parcelSelect">Wybierz rodzaj paczki:</label>
-                                    <select class="form-control" id="parcelSelect" onChange={this.changeSelect}>
-                                        
+                                    <select class="form-control" name="typeParcel" value={typeParcel} onChange={this.handleChange}>
+                                        {typeParcels}
                                     </select>
                                 </div>
                                 <div className="col-md-6">

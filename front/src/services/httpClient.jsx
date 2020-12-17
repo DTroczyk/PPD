@@ -22,7 +22,8 @@ httpClient.interceptors.request.use(function (config) {
 const services = {
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
     GetParcels: () => httpClient.get(`/stork`),
-    SendParcel: (parcel) => httpClient.post('/sparrow', parcel)
+    SendParcel: (parcel) => httpClient.post('/sparrow/SendParcel', parcel),
+    GetParcelsTypes: ()=> httpClient.get('/sparrow/GetParcelTypes')
 }
 
 export default services;

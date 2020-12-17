@@ -23,7 +23,8 @@ const services = {
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
     GetParcels: () => httpClient.get(`/stork`),
     SendParcel: (parcel) => httpClient.post('/sparrow/SendParcel', parcel),
-    GetParcelsTypes: ()=> httpClient.get('/sparrow/GetParcelTypes')
+    GetParcelsTypes: ()=> httpClient.get('/sparrow/GetParcelTypes'),
+    GetPigeons: () => httpClient.get(`/pigeon`)
 }
 
 export default services;

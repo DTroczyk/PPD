@@ -6,6 +6,9 @@ namespace Api.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<User> GetUser(ClaimsIdentity identity);
+        public Task<User> GetUser();
+        public Task<Sparrow> GetSparrow();
+        public Task<Pigeon> GetPigeon();
+        public Task<Stork> GetStork();
     }
 }

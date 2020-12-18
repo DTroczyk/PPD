@@ -24,7 +24,7 @@ const services = {
     GetParcels: () => httpClient.get(`/stork`),
     SendParcel: (parcel) => httpClient.post('/sparrow/SendParcel', parcel),
     GetParcelsTypes: ()=> httpClient.get('/sparrow/GetParcelTypes'),
-    GetPigeons: () => httpClient.get(`/pigeon`),
+    GetPigeons: () => httpClient.get(`/stork/GetPigeons`),
     SetPigeon: (pigeon) => httpClient.put('/stork/setpigeon', pigeon)
 }
 

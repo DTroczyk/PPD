@@ -12,15 +12,19 @@ namespace Api.Services.Services
 {
     public class PigeonService : BaseService, IPigeonService
     {
-        public PigeonService(ApplicationDbContext dbContext) : base(dbContext)
+        private readonly IUserService _userService;
+
+        public PigeonService(ApplicationDbContext dbContext, IUserService userService) : base(dbContext)
         {
+            _userService = userService;
         }
 
-        public async Task<Parcel> SetStatus(string login, long parcelId, ParcelStatus parcelStatus)
+        public async Task<Parcel> SetStatus(long parcelId, ParcelStatus parcelStatus)
         {
+            var user = await _userService.GetPigeon();
             var parcelEntity = await _dbContext.Parcels
                 .Where(p => p.Id == parcelId)
-                .Where(p => p.PigeonId == login)
+                .Where(p => p.PigeonId == user.Login)
                 .FirstOrDefaultAsync();
 
             if (parcelEntity == null)
@@ -36,18 +40,12 @@ namespace Api.Services.Services
             return parcelEntity;
         }
 
-        public async Task<IEnumerable<Pigeon>> GetPigeons()
+        public async Task<IEnumerable<Parcel>> GetParcels()
         {
-            var pigeonEntities = await _dbContext.Pigeons
-                .ToListAsync();
+            var user = await _userService.GetPigeon();
 
-            return pigeonEntities;
-        }
-
-        public async Task<IEnumerable<Parcel>> GetParcels(string login)
-        {
             var parcelEntities = await _dbContext.Parcels
-                .Where(p => p.PigeonId == login).ToListAsync();
+                .Where(p => p.PigeonId == user.Login).ToListAsync();
 
             return parcelEntities;
         }

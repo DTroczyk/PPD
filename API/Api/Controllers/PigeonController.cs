@@ -18,19 +18,10 @@ namespace Api.Controllers
     public class PigeonController : ControllerBase
     {
         private readonly IPigeonService _pigeonService;
-        private readonly IUserService _userService;
 
-        public PigeonController(IPigeonService pigeonService, IUserService userService)
+        public PigeonController(IPigeonService pigeonService)
         {
             _pigeonService = pigeonService;
-            _userService = userService;
-        }
-
-        // GET: Pigeon
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pigeon>>> GetPigeons()
-        {
-            return Ok(await _pigeonService.GetPigeons());
         }
 
         // GET: Pigeon/parcels
@@ -39,9 +30,7 @@ namespace Api.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels()
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var user = await _userService.GetUser(identity);
-            return Ok(await _pigeonService.GetParcels(user.Login));
+            return Ok(await _pigeonService.GetParcels());
         }
 
         // PUT: Pigeon/setStatus
@@ -49,12 +38,9 @@ namespace Api.Controllers
         [HttpPut]
         public async Task<IActionResult> SetStatus(long parcelId, ParcelStatus status)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var user = await _userService.GetUser(identity);
-
             try
             {
-                var parcel = await _pigeonService.SetStatus(user.Login, parcelId, status);
+                var parcel = await _pigeonService.SetStatus(parcelId, status);
                 return Ok(parcel);
             }
             catch (Exception e)

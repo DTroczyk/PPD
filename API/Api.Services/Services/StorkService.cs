@@ -12,15 +12,22 @@ namespace Api.Services.Services
 {
     public class StorkService : BaseService, IStorkService
     {
-        public StorkService(ApplicationDbContext dbContext) : base(dbContext)
+        private readonly IUserService _userService;
+
+        public StorkService(ApplicationDbContext dbContext, IUserService userService) : base(dbContext)
         {
+            _userService = userService;
         }
 
         public async Task<IEnumerable<Parcel>> GetParcels()
         {
+            Stork stork = await _userService.GetStork();
+
             var entities = await _dbContext.Parcels
                 .Include(p => p.Warehouses)
                 .Include(p => p.Pigeon)
+                .Where(p => p.DestinationId == stork.WarehouseId && 
+                    (p.ParcelStatus == ParcelStatus.WaitingToBePosted || p.ParcelStatus == ParcelStatus.InWarehouse))
                 .ToListAsync();
 
             var parcels = entities.Where(p => p.ParcelStatus != ParcelStatus.Delivered);
@@ -59,6 +66,16 @@ namespace Api.Services.Services
             await _dbContext.SaveChangesAsync();
 
             return parcelEntity;
+        }
+
+        public async Task<IEnumerable<Pigeon>> GetPigeons()
+        {
+            var user = await _userService.GetStork();
+            var pigeonEntities = await _dbContext.Pigeons
+                .Where(p => p.WarehouseId == user.WarehouseId)
+                .ToListAsync();
+
+            return pigeonEntities;
         }
     }
 }

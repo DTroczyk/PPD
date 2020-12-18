@@ -8,8 +8,7 @@ namespace Api.Services.Interfaces
 {
     public interface IPigeonService
     {
-        public Task<Parcel> SetStatus(string login, long parcelId, ParcelStatus parcelStatus);
-        public Task<IEnumerable<Pigeon>> GetPigeons();
-        public Task<IEnumerable<Parcel>> GetParcels(string login);
+        public Task<Parcel> SetStatus(long parcelId, ParcelStatus parcelStatus);
+        public Task<IEnumerable<Parcel>> GetParcels();
     }
 }

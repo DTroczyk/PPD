@@ -106,6 +106,8 @@ namespace Api
             services.AddScoped<IRegisterService, RegisterService>();
             services.AddScoped<IParcelService, ParcelService>();
             services.AddScoped<IUserService, UserService>();
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

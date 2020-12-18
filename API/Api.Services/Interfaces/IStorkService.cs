@@ -10,5 +10,6 @@ namespace Api.Services.Interfaces
     {
         public Task<IEnumerable<Parcel>> GetParcels();
         public Task<Parcel> SetPigeon(long parcelId, string pigeonLogin);
+        public Task<IEnumerable<Pigeon>> GetPigeons();
     }
 }

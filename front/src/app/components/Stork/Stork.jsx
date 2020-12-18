@@ -15,7 +15,7 @@ class Stork extends React.Component {
         secondParcelSelected : "",
         secondPigeonSelected : "",
         changeCurrentPigeon: true,
-        currentBarcode: ""
+        currentBarcode: "1"
     }
 
     componentDidMount() {
@@ -87,7 +87,7 @@ class Stork extends React.Component {
         let pigeonLogin = this.state.secondPigeonSelected;
         let parcelId = this.state.secondParcelSelected;
         if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
-        if(parcelId === "") parcelId = this.state.parcels[0].id;
+        if(parcelId === "") parcelId = this.state.parcels.filter(o => o.pigeonId !== null)[0].id;
         let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId}
         services.SetPigeon(pigeon).then(() =>{
             this.componentDidMount()
@@ -114,7 +114,7 @@ class Stork extends React.Component {
     }
     render() {
 
-        const parcels = this.state.parcels.map(o => <option key={o.id}>{o.id}</option>)
+        const selectedParcels = this.state.parcels.filter(o => o.pigeonId !== null).map(o => <option key={o.id}>{o.id}</option>)
         const freeParcels = this.state.parcels.filter(o => o.pigeonId === null).map(o => <option key={o.id}>{o.id}</option>)
         const pigeons = this.state.pigeons.map(o => <option key={o.login} value={o.login}>{o.firstName} {o.lastName}</option>)
         return (
@@ -146,10 +146,10 @@ class Stork extends React.Component {
                         <div className="form-group">
                             <label htmlFor="parcelSelect">Wybierz paczkę:</label>
                             <select className="form-control" id="parcelSelect" onChange={this.changeSelect}>
-                                {parcels}
+                                {selectedParcels}
                             </select>
                             <br></br>
-                            <Barcode value={this.state.currentBarcode} /><br></br>
+                            <Barcode value={this.state.currentBarcode.toString()} /><br></br>
                             Aktualnie wybrany kurier: <strong>{this.state.currentPigeon}</strong>
                             <br></br>
                             <br></br>

@@ -9,11 +9,13 @@ class Stork extends React.Component {
         isLoaded: false,
         parcels : [],
         pigeons: [],
+        warehouses: [],
         currentPigeon: "",
         firstParcelSelected : "",
         firstPigeonSelected : "",
         secondParcelSelected : "",
         secondPigeonSelected : "",
+        currentWarehouseId: "",
         changeCurrentPigeon: true,
         currentBarcode: "1"
     }
@@ -27,12 +29,15 @@ class Stork extends React.Component {
                     isLoaded: true,
                     parcels: response.data
                 })
-                if(this.state.changeCurrentPigeon){
+                if(this.state.changeCurrentPigeon && response.data[0].pigeon !== null){
                     this.setState({
                         currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName,
                         currentBarcode: response.data[0].id,
                         changeCurrentPigeon: false
                     });
+                }
+                else if(this.state.changeCurrentPigeon){
+                    this.setState({changeCurrentPigeon: false});
                 }
                 
             },
@@ -56,6 +61,21 @@ class Stork extends React.Component {
                     error: "catch"
                 })
             })
+
+
+        services.GetWarehouses()
+            .then(response => {
+                this.setState({
+                    warehouses: response.data
+                })
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error: "catch"
+                })
+            })
+
         }
         else
         {
@@ -76,9 +96,14 @@ class Stork extends React.Component {
     setPigeonFirst = () => {
         let pigeonLogin = this.state.firstPigeonSelected;
         let parcelId = this.state.firstParcelSelected;
+        let warehouseId = this.state.currentWarehouseId;
         if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
-        if(parcelId === "") parcelId = this.state.parcels.filter(o => o.pigeonId === null)[0].id;
-        let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId};
+        if(parcelId === "") {
+            if(this.state.parcels.filter(o => o.pigeonId === null).length < 1) return;
+            parcelId = this.state.parcels.filter(o => o.pigeonId === null)[0].id;
+        }
+        if(warehouseId === "") warehouseId = this.state.warehouses[0].id;
+        let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId, WarehouseId: warehouseId};
         services.SetPigeon(pigeon).then(() =>{
             this.componentDidMount();
         });
@@ -112,11 +137,15 @@ class Stork extends React.Component {
     changeSecondPigeon = (v) => {
         this.setState({secondPigeonSelected: v.target.value})
     }
+    changeWarehouse = (v) => {
+        this.setState({currentWarehouseId: v.target.value})
+    }
     render() {
 
         const selectedParcels = this.state.parcels.filter(o => o.pigeonId !== null).map(o => <option key={o.id}>{o.id}</option>)
         const freeParcels = this.state.parcels.filter(o => o.pigeonId === null).map(o => <option key={o.id}>{o.id}</option>)
         const pigeons = this.state.pigeons.map(o => <option key={o.login} value={o.login}>{o.firstName} {o.lastName}</option>)
+        const warehouses = this.state.warehouses.map(o => <option key={o.id} value={o.id}>{o.city} {o.postalCode} {o.street}</option>);
         return (
         <div id="stork-container" className="container">
             <h1>Opcje Managera</h1>
@@ -134,6 +163,10 @@ class Stork extends React.Component {
                             <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
                             <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
                                 {pigeons}
+                            </select>
+                            <label htmlFor="warehouseSelect">Wybierz magazyn:</label>
+                            <select onChange={this.changeWarehouse} className="form-control" id="warehouseSelect">
+                                {warehouses}
                             </select>
                             <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
                         </div>

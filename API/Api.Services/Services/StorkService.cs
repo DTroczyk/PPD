@@ -1,6 +1,7 @@
 ﻿using Api.BLL.Entities;
 using Api.DAL.EF;
 using Api.Services.Interfaces;
+using Api.ViewModels.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -35,18 +36,19 @@ namespace Api.Services.Services
             return parcels;
         }
 
-        public async Task<Parcel> SetPigeon(long parcelId, string pigeonLogin)
+        public async Task<Parcel> SetPigeon(SetPigeonDto setPigeon)
         {
             var parcelEntity = await _dbContext.Parcels
                 .Include(p => p.Pigeon)
-                .FirstOrDefaultAsync(p => p.Id == parcelId);
+                .FirstOrDefaultAsync(p => p.Id == setPigeon.ParcelId);
 
             var parcelPigeon = await _dbContext.PigeonParcels
-                .Where(pp => pp.PigeonLogin == pigeonLogin)
-                .Where(pp => pp.ParcelId == parcelId)
+                .Where(pp => pp.PigeonLogin == setPigeon.PigeonLogin)
+                .Where(pp => pp.ParcelId == setPigeon.ParcelId)
                 .FirstOrDefaultAsync();
 
-            parcelEntity.PigeonId = pigeonLogin;
+            parcelEntity.PigeonId = setPigeon.PigeonLogin;
+            parcelEntity.DestinationId = setPigeon.WarehouseId;
 
             if (parcelPigeon != null)
             {
@@ -58,7 +60,7 @@ namespace Api.Services.Services
             var pigeonParcel = new PigeonParcel()
             {
                 ParcelId = parcelEntity.Id,
-                PigeonLogin = pigeonLogin
+                PigeonLogin = setPigeon.PigeonLogin
             };
 
             _dbContext.Add(pigeonParcel);
@@ -76,6 +78,16 @@ namespace Api.Services.Services
                 .ToListAsync();
 
             return pigeonEntities;
+        }
+
+        public async Task<IEnumerable<Warehouse>> GetWarehouses()
+        {
+            var user = await _userService.GetStork();
+            var warehouses = await _dbContext.Warehouses
+                .Where(w => w.Id != user.WarehouseId)
+                .ToListAsync();
+
+            return warehouses;
         }
     }
 }

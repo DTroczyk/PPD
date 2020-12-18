@@ -1,7 +1,6 @@
 ﻿using Api.BLL.Entities;
-using System;
+using Api.ViewModels.DTOs;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Api.Services.Interfaces
@@ -9,7 +8,8 @@ namespace Api.Services.Interfaces
     public interface IStorkService
     {
         public Task<IEnumerable<Parcel>> GetParcels();
-        public Task<Parcel> SetPigeon(long parcelId, string pigeonLogin);
+        public Task<Parcel> SetPigeon(SetPigeonDto setPigeon);
         public Task<IEnumerable<Pigeon>> GetPigeons();
+        public Task<IEnumerable<Warehouse>> GetWarehouses();
     }
 }

@@ -48,13 +48,22 @@ namespace Api.Controllers
             return Ok(await _storkService.GetPigeons());
         }
 
+        // GET: Stork/GetWarehouses
+        [HttpGet]
+        [Route("GetWarehouses")]
+        [Authorize]
+        public async Task<ActionResult<IEnumerable<Warehouse>>> GetWarehouses()
+        {
+            return Ok(await _storkService.GetWarehouses());
+        }
+
         // PUT: Stork/SetPigeon
         [HttpPut]
         [Route("SetPigeon")]
         [Authorize]
         public async Task<ActionResult<Parcel>> SetPigeon(SetPigeonDto setPigeon)
         {
-            var parcel = await _storkService.SetPigeon(setPigeon.ParcelId, setPigeon.PigeonLogin);
+            var parcel = await _storkService.SetPigeon(setPigeon);
 
             if (parcel == null)
             {

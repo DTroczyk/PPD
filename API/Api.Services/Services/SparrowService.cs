@@ -1,6 +1,7 @@
 ﻿using Api.BLL.Entities;
 using Api.DAL.EF;
 using Api.Services.Interfaces;
+using Api.ViewModels.VMs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,24 +14,40 @@ namespace Api.Services.Services
 {
     public class SparrowService : BaseService, ISparrowService
     {
+
         public SparrowService(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
 
-        public async Task<IEnumerable<Warehouse>> FollowParcel(long parcelId)
+        public async Task<FollowParcelVm> FollowParcel(long parcelId)
         {
-            var warehousesEntity = await _dbContext.WarehouseParcels
-                .Where(p => p.ParcelId == parcelId)
-                .Include(a => a.Warehouse)
-                .ToListAsync();
+            var parcel = await _dbContext.Parcels
+                .Include(p => p.Warehouses)
+                    .ThenInclude(wp => wp.Warehouse)
+                    .ThenInclude(w => w.Address)
+                .FirstOrDefaultAsync(p => p.Id == parcelId);
 
-            var warehouses = new List<Warehouse>();
-
-            foreach(var item in warehousesEntity)
+            if (parcel == null)
             {
-                warehouses.Add(item.Warehouse);
+                throw new Exception("Parcel not found");
             }
-            return warehouses;
+
+            FollowParcelVm followParcel = new FollowParcelVm()
+            {
+                Id = parcel.Id,
+                ParcelStatus = parcel.ParcelStatus.ToString(),
+                SendDate = parcel.SendDate,
+                ReceivedDate = parcel.ReceivedDate,
+                Warehouses = new List<Warehouse>()
+            };
+
+            foreach (var item in parcel.Warehouses)
+            {
+                item.Warehouse.Histories = null;
+                followParcel.Warehouses.Add(item.Warehouse);
+            }
+
+            return followParcel;
         }
 
         public IList<ParcelType> GetParcelTypes()

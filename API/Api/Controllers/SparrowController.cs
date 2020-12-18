@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Api.BLL.Entities;
 using Api.Services.Interfaces;
 using Api.ViewModels.DTOs;
+using Api.ViewModels.VMs;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,16 +27,17 @@ namespace Api.Controllers
 
         // GET: Client/1 
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Warehouse>>> FollowParcel(long id)
+        public async Task<ActionResult<FollowParcelVm>> FollowParcel(long id)
         {
-            var history = await _sparrowService.FollowParcel(id);
-
-            if (history.Count() == 0)
-            {
-                return NotFound();
+            try 
+            { 
+                var history = await _sparrowService.FollowParcel(id);
+                return Ok(history);
             }
-
-            return Ok(history);
+            catch (Exception e)
+            {
+                return StatusCode(406, new { error = e.Message });
+            }
         }
 
         [HttpPost]

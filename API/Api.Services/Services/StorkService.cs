@@ -48,7 +48,10 @@ namespace Api.Services.Services
                 .FirstOrDefaultAsync();
 
             parcelEntity.PigeonId = setPigeon.PigeonLogin;
-            parcelEntity.DestinationId = setPigeon.WarehouseId;
+            if (setPigeon.WarehouseId != null)
+            {
+                parcelEntity.DestinationId = (int)setPigeon.WarehouseId;
+            }
 
             if (parcelPigeon != null)
             {

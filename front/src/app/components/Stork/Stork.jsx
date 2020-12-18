@@ -8,7 +8,12 @@ class Stork extends React.Component {
         isLoaded: false,
         parcels : [],
         pigeons: [],
-        currentPigeon: ""
+        currentPigeon: "",
+        firstParcelSelected : "",
+        firstPigeonSelected : "",
+        secondParcelSelected : "",
+        secondPigeonSelected : "",
+        changeCurrentPigeon: true
     }
 
     componentDidMount() {
@@ -18,9 +23,14 @@ class Stork extends React.Component {
             .then(response => {
                 this.setState({
                     isLoaded: true,
-                    parcels: response.data,
-                    currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName
+                    parcels: response.data
                 })
+                if(this.state.changeCurrentPigeon){
+                    this.setState({
+                        currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName,
+                        changeCurrentPigeon: false
+                    });
+                }
                 
             },
             (error) => {
@@ -51,18 +61,58 @@ class Stork extends React.Component {
     }
 
     changeSelect = (event) => {
-        let tmpPigeon = this.state.parcels.find((x) => x.id == parseInt(event.target.value)).pigeon
+        let tmpPigeon = this.state.parcels.find((x) => x.id === parseInt(event.target.value)).pigeon;
         if(tmpPigeon)
         this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
         else
         this.setState({currentPigeon: "Brak"});
+        this.changeSecondParcel(event)
     }
 
+    setPigeonFirst = () => {
+        let pigeonLogin = this.state.firstPigeonSelected;
+        let parcelId = this.state.firstParcelSelected;
+        if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
+        if(parcelId === "") parcelId = this.state.parcels.filter(o => o.pigeonId === null)[0].id;
+        let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId};
+        services.SetPigeon(pigeon).then(() =>{
+            this.componentDidMount();
+        });
+    }
+    setPigeonSecond = () => {
+        let pigeonLogin = this.state.secondPigeonSelected;
+        let parcelId = this.state.secondParcelSelected;
+        if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
+        if(parcelId === "") parcelId = this.state.parcels[0].id;
+        let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId}
+        services.SetPigeon(pigeon).then(() =>{
+            this.componentDidMount()
+
+            let tmpPigeon = this.state.pigeons.find((x) => x.login === pigeonLogin)
+            if(tmpPigeon)
+            this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
+            else
+            this.setState({currentPigeon: "Brak"});
+
+        });
+    }
+    changeFirstParcel = (v) => {
+        this.setState({firstParcelSelected: v.target.value})
+    }
+    changeFirstPigeon = (v) => {
+        this.setState({firstPigeonSelected: v.target.value})
+    }
+    changeSecondParcel = (v) => {
+        this.setState({secondParcelSelected: v.target.value})
+    }
+    changeSecondPigeon = (v) => {
+        this.setState({secondPigeonSelected: v.target.value})
+    }
     render() {
 
-        const parcels = this.state.parcels.map(o => <option>{o.id}</option>)
-        const freeParcels = this.state.parcels.filter(o => o.pigeonId == null).map(o => <option>{o.id}</option>)
-        const pigeons = this.state.pigeons.map(o => <option login={o.login}>{o.firstName} {o.lastName}</option>)
+        const parcels = this.state.parcels.map(o => <option key={o.id}>{o.id}</option>)
+        const freeParcels = this.state.parcels.filter(o => o.pigeonId === null).map(o => <option key={o.id}>{o.id}</option>)
+        const pigeons = this.state.pigeons.map(o => <option key={o.login} value={o.login}>{o.firstName} {o.lastName}</option>)
         return (
         <div id="stork-container" className="container">
             <h1>Opcje Managera</h1>
@@ -74,14 +124,14 @@ class Stork extends React.Component {
                         <hr></hr>
                         <div className="form-group">
                             <label htmlFor="parcelSelect">Wybierz paczkę:</label>
-                            <select className="form-control" id="parcelSelect">
+                            <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect">
                                 {freeParcels}
                             </select>
                             <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
-                            <select className="form-control" id="pigeonSelect">
+                            <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
-                            <button type="submit" className="btn btn-primary mb-2">Przydziel</button>
+                            <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
                         </div>
                     </div>
                 </div>
@@ -99,10 +149,10 @@ class Stork extends React.Component {
                             <br></br>
                             <br></br>
                             <label htmlFor="pigeonSelect">Wybierz nowego kuriera:</label>
-                            <select className="form-control" id="pigeonSelect">
+                            <select onChange={this.changeSecondPigeon} className="form-control" id="pigeonSelect">
                                 {pigeons}
                             </select>
-                            <button type="submit" className="btn btn-primary mb-2">Zmień przydział</button>
+                            <button type="submit" onClick={this.setPigeonSecond} className="btn btn-primary mb-2">Zmień przydział</button>
                         </div>
                     </div>
                 </div>

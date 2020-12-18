@@ -34,7 +34,19 @@ namespace Api.Services.Services
                 .Include(p => p.Pigeon)
                 .FirstOrDefaultAsync(p => p.Id == parcelId);
 
+            var parcelPigeon = await _dbContext.PigeonParcels
+                .Where(pp => pp.PigeonLogin == pigeonLogin)
+                .Where(pp => pp.ParcelId == parcelId)
+                .FirstOrDefaultAsync();
+
             parcelEntity.PigeonId = pigeonLogin;
+
+            if (parcelPigeon != null)
+            {
+                _dbContext.Update(parcelEntity);
+                await _dbContext.SaveChangesAsync();
+                return parcelEntity;
+            }
 
             var pigeonParcel = new PigeonParcel()
             {

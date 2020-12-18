@@ -13,7 +13,6 @@ namespace Api.DAL.EF
         public virtual DbSet<Stork> Storks { get; set; }
         public virtual DbSet<Sparrow> Sparrows { get; set; }
         public virtual DbSet<Pigeon> Pigeons { get; set; }
-        public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Parcel> Parcels { get; set; }
         public virtual DbSet<ParcelType> ParcelTypes { get; set; }
         public virtual DbSet<PigeonParcel> PigeonParcels { get; set; }

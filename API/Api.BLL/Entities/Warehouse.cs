@@ -10,7 +10,12 @@ namespace Api.BLL.Entities
         public int Id { get; set; }
         public IList<WarehouseParcel> Histories { get; set; }
         [ForeignKey("Address")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string PostalCode { get; set; }
+        public string Number { get; set; }
+        public float Latidute { get; set; }
+        public float Longitude { get; set; }
     }
 }

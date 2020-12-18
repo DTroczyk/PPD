@@ -11,6 +11,9 @@ namespace Api.BLL.Entities
         public long Id { get; set; } // Barcode
         public ParcelStatus ParcelStatus { get; set; }
         public IList<WarehouseParcel> Warehouses { get; set; }
+        [ForeignKey("Destination")]
+        public int DestinationId { get; set; }
+        public Warehouse Destination { get; set; }
 
         [ForeignKey("Pigeon")]
         public string PigeonId { get; set; }

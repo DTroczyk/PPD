@@ -24,7 +24,6 @@ namespace Api.Services.Services
             var parcel = await _dbContext.Parcels
                 .Include(p => p.Warehouses)
                     .ThenInclude(wp => wp.Warehouse)
-                    .ThenInclude(w => w.Address)
                 .FirstOrDefaultAsync(p => p.Id == parcelId);
 
             if (parcel == null)

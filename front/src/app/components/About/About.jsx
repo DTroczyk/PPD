@@ -9,9 +9,7 @@ function About() {
                 <strong>Pigeon Parcel Delivery</strong> to prężnie rozwijająca się firma kurierska, działająca na terenie województwa śląskiego. Dostarczamy paczki
                 do dwóch dni roboczych od czasu nadania. Pracujemy niestrudzenie niczym gołębie pocztowe, by dostarczyć Twoją paczkę najszybciej jak to możliwe. 
             </p>
-            <p className="about-paragraph">
-
-            </p>
+            <div className="about-img-container"><img src="logo_500.gif" alt="PPD"></img></div>
         </div>
     )
 }

@@ -34,8 +34,7 @@ class Header extends React.Component {
     render() { 
         return(
             <header id="header">
-                {/* <image alt="not found"/> */}
-                <Link to="/"><div className="img-container"><img src="logo_500.png" alt="PPD"></img></div></Link>
+                <Link to="/"><div className="img-container"><img src="logo_500.gif" alt="PPD"></img></div></Link>
                 <ul className="header-list">
                     {this.navigation()}
                     {this.props.isLoggedIn

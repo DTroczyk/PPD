@@ -118,6 +118,30 @@ namespace Api.Services.Services
             if (!match6.Success)
                 throw new Exception("ReceiverPhoneNumber is incorrect");
 
+            var warehouse = _dbContext.Warehouses
+                .FirstOrDefault(w => w.PostalCode.Substring(0, 2) == parcel.SenderPostalCode.Substring(0, 2));
+            if (warehouse != null)
+            {
+                parcel.DestinationId = warehouse.Id;
+            }
+            else
+            {
+                var warehouses = _dbContext.Warehouses.ToList();
+                int min = 100;
+                int minId = 0;
+                int parcelPostalNumber = int.Parse(parcel.SenderPostalCode.Substring(0, 2));
+                foreach (var item in warehouses)
+                {
+                    int warehousePostalNumber = int.Parse(item.PostalCode.Substring(0, 2));
+                    if (Math.Abs(parcelPostalNumber - warehousePostalNumber) < min)
+                    {
+                        min = Math.Abs(parcelPostalNumber - warehousePostalNumber);
+                        minId = item.Id;
+                    }
+                }
+                parcel.DestinationId = minId;
+            }
+
             _dbContext.Parcels.Add(parcel);
             _dbContext.SaveChanges();
         }

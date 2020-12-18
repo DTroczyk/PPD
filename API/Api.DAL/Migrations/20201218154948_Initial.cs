@@ -8,24 +8,6 @@ namespace Api.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    City = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<string>(nullable: true),
-                    Number = table.Column<string>(nullable: true),
-                    Latidute = table.Column<float>(nullable: false),
-                    Longitude = table.Column<float>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Addresses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ParcelTypes",
                 columns: table => new
                 {
@@ -44,17 +26,16 @@ namespace Api.DAL.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AddressId = table.Column<int>(nullable: false)
+                    City = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    PostalCode = table.Column<string>(nullable: true),
+                    Number = table.Column<string>(nullable: true),
+                    Latidute = table.Column<float>(nullable: false),
+                    Longitude = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Warehouses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Warehouses_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -86,12 +67,15 @@ namespace Api.DAL.Migrations
                 name: "Parcels",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "15000000, 1"),
                     ParcelStatus = table.Column<int>(nullable: false),
+                    DestinationId = table.Column<int>(nullable: false),
                     PigeonId = table.Column<string>(nullable: true),
                     ParcelTypeId = table.Column<string>(nullable: false),
                     SendDate = table.Column<DateTime>(nullable: false),
                     ReceivedDate = table.Column<DateTime>(nullable: true),
+                    SenderLogin = table.Column<string>(nullable: true),
                     SenderName = table.Column<string>(nullable: false),
                     SenderCity = table.Column<string>(nullable: false),
                     SenderStreet = table.Column<string>(nullable: false),
@@ -111,6 +95,12 @@ namespace Api.DAL.Migrations
                 {
                     table.PrimaryKey("PK_Parcels", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Parcels_Warehouses_DestinationId",
+                        column: x => x.DestinationId,
+                        principalTable: "Warehouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Parcels_ParcelTypes_ParcelTypeId",
                         column: x => x.ParcelTypeId,
                         principalTable: "ParcelTypes",
@@ -119,6 +109,12 @@ namespace Api.DAL.Migrations
                     table.ForeignKey(
                         name: "FK_Parcels_Users_PigeonId",
                         column: x => x.PigeonId,
+                        principalTable: "Users",
+                        principalColumn: "Login",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Parcels_Users_SenderLogin",
+                        column: x => x.SenderLogin,
                         principalTable: "Users",
                         principalColumn: "Login",
                         onDelete: ReferentialAction.Restrict);
@@ -170,6 +166,11 @@ namespace Api.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Parcels_DestinationId",
+                table: "Parcels",
+                column: "DestinationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Parcels_ParcelTypeId",
                 table: "Parcels",
                 column: "ParcelTypeId");
@@ -178,6 +179,11 @@ namespace Api.DAL.Migrations
                 name: "IX_Parcels_PigeonId",
                 table: "Parcels",
                 column: "PigeonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Parcels_SenderLogin",
+                table: "Parcels",
+                column: "SenderLogin");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PigeonParcels_ParcelId",
@@ -193,11 +199,6 @@ namespace Api.DAL.Migrations
                 name: "IX_WarehouseParcels_WarehouseId",
                 table: "WarehouseParcels",
                 column: "WarehouseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Warehouses_AddressId",
-                table: "Warehouses",
-                column: "AddressId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -219,9 +220,6 @@ namespace Api.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Warehouses");
-
-            migrationBuilder.DropTable(
-                name: "Addresses");
         }
     }
 }

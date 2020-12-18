@@ -7,7 +7,6 @@ INSERT INTO ParcelTypes VALUES ('S','Maksymalny rozmiar paczki:',899);
 INSERT INTO ParcelTypes VALUES ('M','Maksymalny rozmiar paczki:',1199);
 INSERT INTO ParcelTypes VALUES ('L','Maksymalny rozmiar paczki:',1499);
 INSERT INTO ParcelTypes VALUES ('XL','Maksymalny rozmiar paczki:',1999);
-INSERT INTO ParcelTypes VALUES ('XXL','Maksymalny rozmiar paczki:',2999);
 
 SELECT * FROM ParcelTypes;
 
@@ -39,10 +38,10 @@ SELECT * FROM Users;
 
 -- Parcel
 
-INSERT INTO [dbo].[Parcels] ([Id],[ParcelStatus],[PigeonId],[ParcelTypeId],[SendDate],[ReceivedDate],[SenderName],[SenderCity],[SenderStreet],[SenderPostalCode],[SenderHouseNumber],[SenderEmail],[SenderPhoneNumber],[ReceiverName],[ReceiverCity],[ReceiverStreet],[ReceiverPostalCode],[ReceiverHouseNumber],[ReceiverEmail],[ReceiverPhoneNumber],[SenderLogin],[DestinationId])
-	VALUES (15000000,0,'golab02','S',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Joe Doe','Przemyœl','Polna','37-700','22','joedoe@gmial.com','745164258', null, 1);
-INSERT INTO [dbo].[Parcels] ([Id],[ParcelStatus],[PigeonId],[ParcelTypeId],[SendDate],[ReceivedDate],[SenderName],[SenderCity],[SenderStreet],[SenderPostalCode],[SenderHouseNumber],[SenderEmail],[SenderPhoneNumber],[ReceiverName],[ReceiverCity],[ReceiverStreet],[ReceiverPostalCode],[ReceiverHouseNumber],[ReceiverEmail],[ReceiverPhoneNumber],[SenderLogin],[DestinationId])
-	VALUES (15000001,0,null,'M',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Jane Doe','Przemyœl','Polna','37-700','22','janedoe@gmial.com','745164255', null, 1);
+INSERT INTO [dbo].[Parcels] ([ParcelStatus],[PigeonId],[ParcelTypeId],[SendDate],[ReceivedDate],[SenderName],[SenderCity],[SenderStreet],[SenderPostalCode],[SenderHouseNumber],[SenderEmail],[SenderPhoneNumber],[ReceiverName],[ReceiverCity],[ReceiverStreet],[ReceiverPostalCode],[ReceiverHouseNumber],[ReceiverEmail],[ReceiverPhoneNumber],[SenderLogin],[DestinationId])
+	VALUES (0,'golab02','S',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Joe Doe','Przemyœl','Polna','37-700','22','joedoe@gmial.com','745164258', null, 1);
+INSERT INTO [dbo].[Parcels] ([ParcelStatus],[PigeonId],[ParcelTypeId],[SendDate],[ReceivedDate],[SenderName],[SenderCity],[SenderStreet],[SenderPostalCode],[SenderHouseNumber],[SenderEmail],[SenderPhoneNumber],[ReceiverName],[ReceiverCity],[ReceiverStreet],[ReceiverPostalCode],[ReceiverHouseNumber],[ReceiverEmail],[ReceiverPhoneNumber],[SenderLogin],[DestinationId])
+	VALUES (0,null,'M',SYSDATETIME(), null,'Tomasz Nowak','Czêstochowa','al. Wolnoœci','42-200','21b','jan.nowak@wp.pl','754562472','Jane Doe','Przemyœl','Polna','37-700','22','janedoe@gmial.com','745164255', null, 1);
 
 SELECT * FROM Parcels;
 

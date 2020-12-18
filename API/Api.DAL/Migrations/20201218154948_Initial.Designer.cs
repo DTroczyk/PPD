@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201201105832_Initial")]
+    [Migration("20201218154948_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,41 +21,15 @@ namespace Api.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Api.BLL.Entities.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Latidute")
-                        .HasColumnType("real");
-
-                    b.Property<float>("Longitude")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Number")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Addresses");
-                });
-
             modelBuilder.Entity("Api.BLL.Entities.Parcel", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DestinationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ParcelStatus")
                         .HasColumnType("int");
@@ -113,6 +87,9 @@ namespace Api.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SenderLogin")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SenderName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -131,9 +108,13 @@ namespace Api.DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DestinationId");
+
                     b.HasIndex("ParcelTypeId");
 
                     b.HasIndex("PigeonId");
+
+                    b.HasIndex("SenderLogin");
 
                     b.ToTable("Parcels");
                 });
@@ -210,12 +191,25 @@ namespace Api.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latidute")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
 
                     b.ToTable("Warehouses");
                 });
@@ -268,6 +262,12 @@ namespace Api.DAL.Migrations
 
             modelBuilder.Entity("Api.BLL.Entities.Parcel", b =>
                 {
+                    b.HasOne("Api.BLL.Entities.Warehouse", "Destination")
+                        .WithMany()
+                        .HasForeignKey("DestinationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Api.BLL.Entities.ParcelType", "ParcelType")
                         .WithMany()
                         .HasForeignKey("ParcelTypeId")
@@ -277,6 +277,10 @@ namespace Api.DAL.Migrations
                     b.HasOne("Api.BLL.Entities.Pigeon", "Pigeon")
                         .WithMany()
                         .HasForeignKey("PigeonId");
+
+                    b.HasOne("Api.BLL.Entities.Sparrow", "Sender")
+                        .WithMany("Parcels")
+                        .HasForeignKey("SenderLogin");
                 });
 
             modelBuilder.Entity("Api.BLL.Entities.PigeonParcel", b =>
@@ -291,15 +295,6 @@ namespace Api.DAL.Migrations
                         .WithMany("Parcels")
                         .HasForeignKey("PigeonLogin")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Api.BLL.Entities.Warehouse", b =>
-                {
-                    b.HasOne("Api.BLL.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

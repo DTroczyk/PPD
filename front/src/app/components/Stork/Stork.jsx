@@ -2,6 +2,7 @@ import React from "react"
 import "./Stork.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
+var Barcode = require('react-barcode');
 
 class Stork extends React.Component {
     state = {
@@ -13,7 +14,8 @@ class Stork extends React.Component {
         firstPigeonSelected : "",
         secondParcelSelected : "",
         secondPigeonSelected : "",
-        changeCurrentPigeon: true
+        changeCurrentPigeon: true,
+        currentBarcode: ""
     }
 
     componentDidMount() {
@@ -28,6 +30,7 @@ class Stork extends React.Component {
                 if(this.state.changeCurrentPigeon){
                     this.setState({
                         currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName,
+                        currentBarcode: response.data[0].id,
                         changeCurrentPigeon: false
                     });
                 }
@@ -62,6 +65,7 @@ class Stork extends React.Component {
 
     changeSelect = (event) => {
         let tmpPigeon = this.state.parcels.find((x) => x.id === parseInt(event.target.value)).pigeon;
+        this.setState({currentBarcode: event.target.value});
         if(tmpPigeon)
         this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
         else
@@ -145,6 +149,7 @@ class Stork extends React.Component {
                                 {parcels}
                             </select>
                             <br></br>
+                            <Barcode value={this.state.currentBarcode} /><br></br>
                             Aktualnie wybrany kurier: <strong>{this.state.currentPigeon}</strong>
                             <br></br>
                             <br></br>

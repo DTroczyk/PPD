@@ -32,6 +32,12 @@ namespace Api.Services.Services
                 throw new Exception("Parcel not exists.");
             }
 
+            if (parcelStatus == ParcelStatus.InWarehouse)
+            {
+                parcelEntity.DestinationId = null;
+                parcelEntity.PigeonId = null;
+            }
+
             parcelEntity.ParcelStatus = parcelStatus;
 
             _dbContext.Update(parcelEntity);

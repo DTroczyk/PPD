@@ -31,7 +31,7 @@ class Stork extends React.Component {
                     isLoaded: true,
                     parcels: response.data
                 })
-                if(this.state.changeCurrentPigeon && (response.data.length > 0)){
+                if(this.state.changeCurrentPigeon && (response.data.length > 0) && (response.data[0].pigeon !== null)){
                     this.setState({
                         currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName,
                         currentBarcode: response.data[0].id,

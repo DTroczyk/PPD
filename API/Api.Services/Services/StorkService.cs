@@ -53,6 +53,11 @@ namespace Api.Services.Services
                 parcelEntity.DestinationId = (int)setPigeon.WarehouseId;
             }
 
+            if (setPigeon.WarehouseId == -1 && parcelEntity.ParcelStatus == ParcelStatus.InWarehouse)
+            {
+                parcelEntity.DestinationId = null;
+            }
+
             if (parcelPigeon != null)
             {
                 _dbContext.Update(parcelEntity);

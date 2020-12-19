@@ -34,7 +34,11 @@ namespace Api.Services.Services
 
             if (parcelStatus == ParcelStatus.InWarehouse)
             {
-                parcelEntity.Warehouses.Add(new WarehouseParcel() { ParcelId = parcelId, WarehouseId = (int)parcelEntity.DestinationId });
+                _dbContext.Add(new WarehouseParcel() { ParcelId = parcelId, WarehouseId = (int)parcelEntity.DestinationId });
+                parcelEntity.PigeonId = null;
+            }
+            if (parcelStatus == ParcelStatus.Delivered)
+            {
                 parcelEntity.PigeonId = null;
             }
 

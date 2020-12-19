@@ -10,6 +10,8 @@ using Api.DAL.EF;
 using Api.Services.Interfaces;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Api.ViewModels.DTOs;
+using Api.ViewModels.VMs;
 
 namespace Api.Controllers
 {
@@ -36,11 +38,12 @@ namespace Api.Controllers
         // PUT: Pigeon/setStatus
         [Route("setstatus")]
         [HttpPut]
-        public async Task<IActionResult> SetStatus(long parcelId, ParcelStatus status)
+        [Authorize]
+        public async Task<IActionResult> SetStatus(SetStatusDto setStatusDto)
         {
             try
             {
-                var parcel = await _pigeonService.SetStatus(parcelId, status);
+                var parcel = await _pigeonService.SetStatus(setStatusDto.ParcelId, setStatusDto.ParcelStatus);
                 return Ok(parcel);
             }
             catch (Exception e)
@@ -49,6 +52,33 @@ namespace Api.Controllers
             }
 
         }
+
+        // GET: Pigeon/getStatus
+        [Route("getstatus")]
+        [HttpGet]
+        public ActionResult<IEnumerable<ParcelStatusVm>> GetStatus()
+        {
+            var statuses = new List<ParcelStatusVm>();
+            for (int i = 1; ; i++)
+            {
+                ParcelStatus status = (ParcelStatus)i;
+                if (status.ToString() != i.ToString())
+                {
+                    var statusVm = new ParcelStatusVm()
+                    {
+                        Id = i,
+                        StatusName = status.ToString()
+                    };
+                    statuses.Add(statusVm);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return Ok(statuses);
+        }
+
 
         //    // POST: Pigeon
         //    // To protect from overposting attacks, enable the specific properties you want to bind to, for

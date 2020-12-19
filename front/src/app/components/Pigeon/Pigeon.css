@@ -20,10 +20,16 @@
     box-shadow:         3px 3px 5px 6px #ccc;
 }
 
-#listOfParcel > li
+#list
 {
-    padding: 2px;
+    padding: 0px;
     list-style: none;
+    text-align: center;
+}
+
+#list-item
+{
+    margin-top: 5px;
 }
 
 #pigeon h2

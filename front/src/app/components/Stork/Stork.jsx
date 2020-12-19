@@ -17,7 +17,9 @@ class Stork extends React.Component {
         secondPigeonSelected : "",
         currentWarehouseId: "",
         changeCurrentPigeon: true,
-        currentBarcode: "1"
+        currentBarcode: "1",
+        currentMapLink: "",
+        currentLink: ""
     }
 
     componentDidMount() {
@@ -68,6 +70,7 @@ class Stork extends React.Component {
                 this.setState({
                     warehouses: response.data
                 })
+                this.refreshMap(null)
             },
             (error) => {
                 this.setState({
@@ -139,6 +142,20 @@ class Stork extends React.Component {
     }
     changeWarehouse = (v) => {
         this.setState({currentWarehouseId: v.target.value})
+        let warehouse = this.state.warehouses.find(x => x.id === parseInt(v.target.value))
+        this.refreshMap(warehouse)
+    }
+
+    refreshMap(warehouse){
+        if(warehouse === null){
+            if(this.state.warehouses.length < 1) return;
+            warehouse = this.state.warehouses[0];
+        }
+        let currentX = warehouse.longitude.toString();
+        let currentY = warehouse.latidute.toString();
+        let currentYOffset = (warehouse.latidute+0.002).toString();
+        this.setState({currentMapLink : `https://www.openstreetmap.org/export/embed.html?bbox=${currentX}%2C${currentY}%2C${currentX}%2C${currentYOffset}&amp;layer=mapnik&amp;marker=${currentY}%2C${currentX}`,
+        currentLink: `https://www.openstreetmap.org/?mlat=${currentY}&amp;mlon=${currentX}#map=16/${currentY}/${currentX}`});
     }
     render() {
 
@@ -168,6 +185,9 @@ class Stork extends React.Component {
                             <select onChange={this.changeWarehouse} className="form-control" id="warehouseSelect">
                                 {warehouses}
                             </select>
+                            <br></br>
+                            <iframe width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
+                            <br></br>
                             <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
                         </div>
                     </div>
@@ -182,7 +202,7 @@ class Stork extends React.Component {
                                 {selectedParcels}
                             </select>
                             <br></br>
-                            <Barcode value={this.state.currentBarcode.toString()} /><br></br>
+                            <div id="barcode-container"><Barcode value={this.state.currentBarcode.toString()} /></div>
                             Aktualnie wybrany kurier: <strong>{this.state.currentPigeon}</strong>
                             <br></br>
                             <br></br>

@@ -10,41 +10,60 @@ class Pigeon extends React.Component {
         parcels: [],
         statuses: [], 
         currentParcel: "",
-        //currentStatus: "",
+        currentStatus: "InWarehouse",
         parcelStatus: "",
         currentBarcode: "1"
+
     }
 
     setCurrentParcel = (parcel) => {
         let tmp = ""
         switch(parcel.parcelStatus){
-            case 0:   
-               tmp = "Waiting to be posted"; break
-            case 1:   
-               tmp = "In Warehouse"; break
-            case 2:   
-               tmp = "In the road"; break
-            case 3:   
-               tmp = "Delivered"; break
+            case 0: tmp = "Waiting to be posted"; break
+            case 1: tmp = "In Warehouse"; break
+            case 2: tmp = "In the road"; break
+            case 3: tmp = "Delivered"; break
         }
         this.setState({
             currentParcel: parcel,
             parcelStatus: tmp
-        }) 
-        console.log(parcel.parcelStatus+" "+tmp)
+        })
     }
 
-    // setStatus = (state) => {
-    //     this.state({
-    //         currentStatus: state.target.value
-    //     })
-    // }
+    setStatus = (state) => {
+        this.setState({
+            currentStatus: state.target.value
+        })
+        console.log(state.target.value)
+    }
 
     handleSetStatus = () => {
         const setStatus = {
             parcelId: this.state.currentParcel.id,
             parcelStatus: this.state.currentStatus
         }
+
+        services.SetStatus(setStatus)
+        .then(() => {
+            services.GetPigeonParcels()
+            .then(response => {
+                this.setState({
+                    isLoaded: true,
+                    parcels: response.data
+                })
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error: "catch"
+                })
+            })
+        })  
+        this.setState({
+            currentParcel: "",
+            currentStatus: ""
+        })
+        
     }
 
     componentDidMount() {
@@ -112,7 +131,7 @@ class Pigeon extends React.Component {
                             <h3>Aktualny status:</h3>
                             <h3>{this.state.parcelStatus}</h3>
                             <label htmlFor="stateSelect">Wybierz status:</label>
-                            <select onChange={()=>this.setStatus} className="form-control" id="stateSelect">
+                            <select value={this.state.currentStatus} onChange={this.setStatus} className="form-control" id="stateSelect">
                                 {statuses}
                             </select>
                             <button id="stateButton" type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleSetStatus}>Zmień status</button>

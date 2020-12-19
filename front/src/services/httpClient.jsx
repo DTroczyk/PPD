@@ -23,7 +23,7 @@ const services = {
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
     GetParcels: () => httpClient.get(`/stork`),
     GetPigeonParcels: () => httpClient.get(`/pigeon/parcels`),
-    SetStatus: () => httpClient.put(`/pigeon/setStatus`),
+    SetStatus: (status) => httpClient.put(`/pigeon/setStatus`, status),
     GetStatuses: () => httpClient.get(`/pigeon/getStatus`),
     SendParcel: (parcel) => httpClient.post('/sparrow/SendParcel', parcel),
     GetParcelsTypes: ()=> httpClient.get('/sparrow/GetParcelTypes'),

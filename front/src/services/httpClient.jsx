@@ -20,6 +20,7 @@ httpClient.interceptors.request.use(function (config) {
 })
 
 const services = {
+    RegisterUser: (user) => httpClient.post('/register', user),
     CreateToken: (login,password) => httpClient.get(`/login?login=${login}&password=${password}`),
     GetParcels: () => httpClient.get(`/stork`),
     GetPigeonParcels: () => httpClient.get(`/pigeon/parcels`),

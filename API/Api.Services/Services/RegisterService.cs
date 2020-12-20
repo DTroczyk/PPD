@@ -16,25 +16,25 @@ namespace Api.Services.Services
         public string Register(User user)
         {
             if (string.IsNullOrWhiteSpace(user.Login))
-                return "Login is required.";
+                return "Pole login jest wymagane.";
 
             if (string.IsNullOrWhiteSpace(user.PasswordHash))
-                return "Password is required.";
+                return "Wprowadź pole hasło.";
 
             Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             Match match = regex.Match(user.Email);
             if (!match.Success)
-                return user.Email + " is incorrect.";
+                return user.Email + " jest nieprawidłowy.";
 
             if (string.IsNullOrWhiteSpace(user.FirstName))
-                return "Name is required.";
+                return "Pole imię jest wymagane";
 
             if (string.IsNullOrWhiteSpace(user.LastName))
-                return "Last name is required.";
+                return "Pole nazwisko jest wymagane";
 
             if (_dbContext.Users.Any(x => x.Email == user.Email && x.Login == user.Login))
             {
-                return "Login or email is already taken.";
+                return "Istnieje już konto o takim loginie lub adresie email.";
             }
 
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);

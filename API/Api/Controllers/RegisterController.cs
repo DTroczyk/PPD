@@ -32,9 +32,6 @@ namespace Api.Controllers
             {
                 var user = _mapper.Map<Sparrow>(userModel);
                 var result = _registerService.Register(user);
-                //Location pobrac po emailu bo user.Id jest zawsze 0 (dopiero jak zostaje dodany do bazy to dostaje Id)
-                //var location = _linkGenerator.GetPathByAction("GetUserByEmail", "Users", new { email = user.Email });
-                //return Created(location, result);
                 return Ok(result);
             }
             catch (Exception ex)

@@ -147,8 +147,8 @@ class Send extends React.Component {
                                     <label htmlFor="emailInputSen">Adres e-mail: </label>
                                     <input type="text" className="form-control" id="emailInputSen" placeholder="mail@siec.pl" name="senderEmail" value={senderEmail} onChange={this.handleChange}/>
                                     <br></br>
-                                    <label for="parcelSelect">Wybierz rodzaj paczki:</label>
-                                    <select class="form-control" name="typeParcel" value={typeParcel} onChange={this.handleChange}>
+                                    <label htmlFor="parcelSelect">Wybierz rodzaj paczki:</label>
+                                    <select className="form-control" name="typeParcel" value={typeParcel} onChange={this.handleChange}>
                                         {typeParcels}
                                     </select>
                                 </div>

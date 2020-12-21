@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Api.ViewModels.VMs;
 
 namespace Api.Services.Services
 {
@@ -37,7 +38,7 @@ namespace Api.Services.Services
             }
         }
 
-        public async Task<Sparrow> GetSparrow()
+        public async Task<SparrowVm> GetSparrow()
         {
             var identity = _httpContext.HttpContext.User.Identity as ClaimsIdentity;
 
@@ -45,7 +46,10 @@ namespace Api.Services.Services
             {
                 IList<Claim> claims = identity.Claims.ToList();
                 string login = claims[0].Value;
-                Sparrow user = await _dbContext.Sparrows.FirstOrDefaultAsync(u => u.Login == login);
+                var user = await _dbContext.Sparrows
+                    .Where(u => u.Login == login)
+                    .Select(s=>new SparrowVm{ Email = s.Email, FirstName = s.FirstName, LastName = s.LastName })
+                    .SingleOrDefaultAsync();
                 return user;
             }
             else

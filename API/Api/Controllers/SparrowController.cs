@@ -18,11 +18,13 @@ namespace Api.Controllers
     {
         private readonly IMapper _mapper;
         private readonly ISparrowService _sparrowService;
+        private readonly IUserService _userService;
 
-        public SparrowController(IMapper mapper,ISparrowService sparrowService)
+        public SparrowController(IMapper mapper,ISparrowService sparrowService, IUserService userService)
         {
             _mapper = mapper;
             _sparrowService = sparrowService;
+            _userService = userService;
         }
 
         // GET: Client/1 
@@ -62,6 +64,20 @@ namespace Api.Controllers
             {
                 var parcelTypes = _sparrowService.GetParcelTypes();
                 return Ok(parcelTypes);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<SparrowVm>> GetSparrow()
+        {
+            try
+            {
+                var sparrow = await _userService.GetSparrow();
+                return Ok(sparrow);
             }
             catch (Exception ex)
             {

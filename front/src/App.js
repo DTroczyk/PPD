@@ -59,7 +59,7 @@ class App extends React.Component {
             </Route>
             <Route path="/send">
               <Baner text="Wyślij paczkę"/>  
-              <Send />
+              <Send isLoggedIn={this.state.isLoggedIn} />
             </Route>
             {<Route path="/forbusiness">
               <Baner text="Oferta dla firm"/>

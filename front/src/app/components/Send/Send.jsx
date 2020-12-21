@@ -30,6 +30,16 @@ class Send extends React.Component {
                     typeParcels: response.data
                 })
             })
+        if(this.props.isLoggedIn)
+        {
+            services.GetSparrow()
+                .then(response => {
+                    this.setState({
+                        senderEmail: response.data.email,
+                        senderName: response.data.firstName +" "+ response.data.lastName
+                    })
+                })
+        }
     };
 
     handleChange = this.handleChange.bind(this);

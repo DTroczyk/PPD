@@ -1,6 +1,6 @@
 #pigeon 
 {
-    padding: 40px;
+    padding: 20px;
     font-weight: bold;
 }
 
@@ -12,12 +12,39 @@
     min-height: 550px;
     background-color: #00BFFF;
 
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    -moz-box-shadow:    3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+#column p 
+{
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+#column-status
+{
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 20px;
+    min-height: 550px;
+    background-color: #FFF;
+
     display: flex;
     flex-direction: column;
 
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;
     -moz-box-shadow:    3px 3px 5px 6px #ccc;
     box-shadow:         3px 3px 5px 6px #ccc;
+}
+
+#column-status p 
+{
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
 }
 
 #list
@@ -35,13 +62,14 @@
 #pigeon h2
 {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 #pigeon h3
 {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 #pigeon-row > div
@@ -58,4 +86,14 @@
 .parcel-btn
 {
     border-radius: 10px;
+}
+
+#barcode{
+    height: 130px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: fit-content;
 }

@@ -19,7 +19,9 @@ class Stork extends React.Component {
         changeCurrentPigeon: true,
         currentBarcode: "1",
         currentMapLink: "",
-        currentLink: ""
+        currentLink: "",
+        currentAddress: "",
+        sendDate: ""
     }
 
     componentDidMount() {
@@ -31,15 +33,24 @@ class Stork extends React.Component {
                     isLoaded: true,
                     parcels: response.data
                 })
-                if(this.state.changeCurrentPigeon && (response.data.length > 0) && (response.data[0].pigeon !== null)){
+                let withPigeons = response.data.filter(x => x.pigeon !== null);
+                if(this.state.changeCurrentPigeon && (withPigeons.length > 0) && (withPigeons[0].pigeon !== null)){
                     this.setState({
-                        currentPigeon: response.data[0].pigeon.firstName+" "+response.data[0].pigeon.lastName,
-                        currentBarcode: response.data[0].id,
+                        currentPigeon: withPigeons[0].pigeon.firstName+" "+withPigeons[0].pigeon.lastName,
+                        currentBarcode: withPigeons[0].id,
                         changeCurrentPigeon: false
                     });
                 }
                 else if(this.state.changeCurrentPigeon){
                     this.setState({changeCurrentPigeon: false});
+                }
+
+                let withoutPigeons = response.data.filter(x => x.pigeon === null);
+                if(withoutPigeons.length > 0){
+                    this.setState({
+                        currentAddress: `${withoutPigeons[0].receiverCity} ${withoutPigeons[0].receiverPostalCode} ${withoutPigeons[0].receiverStreet}`,
+                        sendDate : withoutPigeons[0].sendDate
+                    })
                 }
                 
             },
@@ -107,16 +118,40 @@ class Stork extends React.Component {
         }
         if(warehouseId === "") warehouseId = this.state.warehouses[0].id;
         let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId, WarehouseId: warehouseId};
-        services.SetPigeon(pigeon).then(() =>{
+        if(pigeon.PigeonLogin === "" || pigeon.ParcelId === "" || pigeon.WarehouseId === "") return;
+        services.SetPigeon(pigeon).then(() => {
+            if(this.state.parcels.filter(x => x.pigeon !== null).length < 1)
+            this.setState({changeCurrentPigeon: true});
             this.componentDidMount();
         });
     }
+
+    sendToClient = () => {
+        let pigeonLogin = this.state.firstPigeonSelected;
+        let parcelId = this.state.firstParcelSelected;
+        let warehouseId = -1;
+        if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
+        if(parcelId === "") {
+            if(this.state.parcels.filter(o => o.pigeonId === null).length < 1) return;
+            parcelId = this.state.parcels.filter(o => o.pigeonId === null)[0].id;
+        }
+        let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId, WarehouseId: warehouseId};
+        if(pigeon.PigeonLogin === "" || pigeon.ParcelId === "") return;
+        services.SetPigeon(pigeon).then(() =>{
+
+            if(this.state.parcels.filter(x => x.pigeon !== null).length < 1)
+            this.setState({changeCurrentPigeon: true});
+            this.componentDidMount();
+        });
+    }
+
     setPigeonSecond = () => {
         let pigeonLogin = this.state.secondPigeonSelected;
         let parcelId = this.state.secondParcelSelected;
         if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
         if(parcelId === "") parcelId = this.state.parcels.filter(o => o.pigeonId !== null)[0].id;
         let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId}
+        if(pigeon.PigeonLogin === "" || pigeon.ParcelId === "") return;
         services.SetPigeon(pigeon).then(() =>{
             this.componentDidMount()
 
@@ -130,6 +165,14 @@ class Stork extends React.Component {
     }
     changeFirstParcel = (v) => {
         this.setState({firstParcelSelected: v.target.value})
+
+        let tmp = this.state.parcels.filter( x => x.id.toString() === v.target.value);
+        if(tmp.length > 0){
+            this.setState({
+                currentAddress: `${tmp[0].receiverCity} ${tmp[0].receiverPostalCode} ${tmp[0].receiverStreet}`,
+                sendDate : tmp[0].sendDate
+            })
+        }
     }
     changeFirstPigeon = (v) => {
         this.setState({firstPigeonSelected: v.target.value})
@@ -177,6 +220,10 @@ class Stork extends React.Component {
                             <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect">
                                 {freeParcels}
                             </select>
+                            <br></br>
+                            <strong>Adres: </strong>{this.state.currentAddress}<br></br>
+                            <strong>Data nadania: </strong>{this.state.sendDate}<br></br>
+                            <br></br>
                             <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
                             <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
                                 {pigeons}
@@ -189,6 +236,11 @@ class Stork extends React.Component {
                             <iframe width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
                             <br></br>
                             <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
+
+                            <br></br>
+                            Wyślij paczkę bezpośrednio do klienta:<br></br>
+                            <button type="submit" onClick={this.sendToClient} className="btn btn-primary mb-2">Wyślij do klienta</button>
+
                         </div>
                     </div>
                 </div>

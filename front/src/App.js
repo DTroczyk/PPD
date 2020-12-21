@@ -13,6 +13,8 @@ import Pigeon from './app/components/Pigeon/Pigeon'
 import Stork from './app/components/Stork/Stork'
 import Prices from './app/components/Prices/Prices'
 import Register from './app/components/Register/Register'
+import History from './app/components/History/History'
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -89,6 +91,10 @@ class App extends React.Component {
             <Route path="/register">
               <Baner text="Zarejestruj się"/>
               <Register isLoggedIn={this.state.isLoggedIn}/>
+            </Route>
+            <Route path="/history">
+              <Baner text="Twoje paczki"/>
+              <History role={this.getRole}/>
             </Route>
             <Route render={() => <Redirect to={"/"} />} />
           </Switch>

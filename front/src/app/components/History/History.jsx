@@ -10,13 +10,13 @@ class History extends React.Component {
     }
 
     componentDidMount() {
-        //if(this.props.role() === "Stork")
-        //{
-        services.GetParcels()
+        if(this.props.role() === "Sparrow")
+        {
+        services.GetSparrowParcels()
             .then(response => {
                 this.setState({
-                    otherParcels: response.data.filter(x => x.ParcelStatus !== 3),
-                    deliveredParcels: response.data.filter(x => x.ParcelStatus === 3)
+                    otherParcels: response.data.filter(x => x.parcelStatus !== 3),
+                    deliveredParcels: response.data.filter(x => x.parcelStatus === 3)
                 })
             },
                 (error) => {
@@ -25,12 +25,11 @@ class History extends React.Component {
                         error: "catch"
                     })
                 })
-
-
-        //else
-        //{
-        //    this.props.history.push("/login");
-        //}
+        }
+        else
+        {
+           this.props.history.push("/login");
+        }
     }
 
     getStatus(status) {

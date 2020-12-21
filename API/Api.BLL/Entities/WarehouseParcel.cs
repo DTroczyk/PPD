@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 
 namespace Api.BLL.Entities
 {
@@ -6,6 +6,7 @@ namespace Api.BLL.Entities
     {
         public int WarehouseId { get; set; }
         public long ParcelId { get; set; }
+        public DateTime DateOfArrival { get; set; }
 
         public Warehouse Warehouse { get; set; }
         public Parcel Parcel { get; set; }

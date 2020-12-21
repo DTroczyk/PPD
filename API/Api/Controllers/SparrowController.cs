@@ -27,7 +27,7 @@ namespace Api.Controllers
             _userService = userService;
         }
 
-        // GET: Client/1 
+        // GET: Sparrow/FollowParcel/1 
         [HttpGet("{id}")]
         public async Task<ActionResult<FollowParcelVm>> FollowParcel(long id)
         {
@@ -42,6 +42,7 @@ namespace Api.Controllers
             }
         }
 
+        // POST: /Sparrow/SendParcel
         [HttpPost]
         public IActionResult SendParcel([FromBody]ParcelDto parcelDto)
         {
@@ -57,6 +58,7 @@ namespace Api.Controllers
             }
         }
 
+        // GET: /Sparrow/GetParcelTypes
         [HttpGet]
         public IActionResult GetParcelTypes()
         {
@@ -70,7 +72,7 @@ namespace Api.Controllers
                 return BadRequest(ex);
             }
         }
-
+        // GET: /Sparrow/GetSparrow
         [HttpGet]
         public async Task<ActionResult<SparrowVm>> GetSparrow()
         {
@@ -78,6 +80,21 @@ namespace Api.Controllers
             {
                 var sparrow = await _userService.GetSparrow();
                 return Ok(sparrow);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        // GET: /Sparrow/GetParcels
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Parcel>>> GetParcels()
+        {
+            try
+            {
+                var parcels = await _sparrowService.GetParcels();
+                return Ok(parcels);
             }
             catch (Exception ex)
             {

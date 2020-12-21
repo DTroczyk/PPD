@@ -9,7 +9,7 @@ namespace Api.ViewModels.VMs
     {
         public long Id { get; set; }
         public string ParcelStatus { get; set; }
-        public IList<Warehouse> Warehouses { get; set; }
+        public IList<WarehouseVm> Warehouses { get; set; }
         public DateTime SendDate { get; set; }
         public DateTime? ReceivedDate { get; set; }
     }

@@ -14,9 +14,11 @@ namespace Api.Services.Services
 {
     public class SparrowService : BaseService, ISparrowService
     {
+        private readonly IUserService _userService;
 
-        public SparrowService(ApplicationDbContext dbContext) : base(dbContext)
+        public SparrowService(ApplicationDbContext dbContext, IUserService userService) : base(dbContext)
         {
+            _userService = userService;
         }
 
         public async Task<FollowParcelVm> FollowParcel(long parcelId)
@@ -37,16 +39,26 @@ namespace Api.Services.Services
                 ParcelStatus = parcel.ParcelStatus.ToString(),
                 SendDate = parcel.SendDate,
                 ReceivedDate = parcel.ReceivedDate,
-                Warehouses = new List<Warehouse>()
+                Warehouses = new List<WarehouseVm>()
             };
 
             foreach (var item in parcel.Warehouses)
             {
                 item.Warehouse.Histories = null;
-                followParcel.Warehouses.Add(item.Warehouse);
+                followParcel.Warehouses.Add(new WarehouseVm { Warehouse = item.Warehouse, DateOfArrival = item.DateOfArrival });
             }
 
             return followParcel;
+        }
+
+        public async Task<IEnumerable<Parcel>> GetParcels()
+        {
+            var sparrow = await _userService.GetUser();
+            var parcels = await _dbContext.Parcels
+                .Where(p => p.SenderLogin == sparrow.Login)
+                .ToListAsync();
+
+            return parcels;
         }
 
         public IList<ParcelType> GetParcelTypes()

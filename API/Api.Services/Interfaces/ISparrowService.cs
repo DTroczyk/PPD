@@ -12,5 +12,6 @@ namespace Api.Services.Interfaces
         public Task<FollowParcelVm> FollowParcel(long parcelId); //sledzenie paczki
         public void SendParcel(Parcel parcel); //nadanie paczki
         public IList<ParcelType> GetParcelTypes();
+        public Task<IEnumerable<Parcel>> GetParcels();
     }
 }

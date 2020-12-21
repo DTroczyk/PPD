@@ -31,7 +31,9 @@ const services = {
     GetPigeons: () => httpClient.get(`/stork/GetPigeons`),
     SetPigeon: (pigeon) => httpClient.put('/stork/setpigeon', pigeon),
     GetWarehouses: () => httpClient.get(`/stork/GetWarehouses`),
-    GetSparrow: () =>httpClient.get('/sparrow/GetSparrow')
+    GetSparrow: () =>httpClient.get('/sparrow/GetSparrow'),
+    FollowParcel: (id) => httpClient.get(`/sparrow/FollowParcel/${id}`),
+    GetSparrowParcels: () => httpClient.get('/sparrow/GetParcels')
 }
 
 export default services;

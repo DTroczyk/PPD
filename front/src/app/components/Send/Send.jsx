@@ -27,7 +27,7 @@ class Send extends React.Component {
         services.GetParcelsTypes()
             .then(response => {
                 this.setState({
-                    typeParcels: response.data
+                    typeParcels: response.data.sort((a,b)=>(a.price > b.price) ? 1:-1)
                 })
             })
         if(this.props.isLoggedIn)
@@ -41,6 +41,7 @@ class Send extends React.Component {
                 })
         }
     };
+
 
     handleChange = this.handleChange.bind(this);
     handleClick = this.handleClick.bind(this);
@@ -98,8 +99,8 @@ class Send extends React.Component {
     // }
 
     render() { 
-
-        const typeParcels = this.state.typeParcels.map(o => <option>{o.name}</option>)
+        
+        const typeParcels = this.state.typeParcels.sort().map(o => <option>{o.name}</option>)
         const{  senderName,
                 senderCity,
                 senderStreet,

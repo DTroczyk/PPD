@@ -18,7 +18,6 @@ class History extends React.Component {
                     otherParcels: response.data.filter(x => x.ParcelStatus !== 3),
                     deliveredParcels: response.data.filter(x => x.ParcelStatus === 3)
                 })
-                console.log(this.state.otherParcels)
             },
                 (error) => {
                     this.setState({
@@ -75,7 +74,7 @@ class History extends React.Component {
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
                                             <td>{p.sendDate}</td>
                                             <td>{this.getStatus(p.parcelStatus)}</td>
-                                            <td><a href={"/follow/"+p.id} target="_blank" rel="noreferrer" className="link">Link</a></td>
+                                            <td><a href={"/tracking/"+p.id} target="_blank" rel="noreferrer" className="link">Link</a></td>
                                         </tr>
                                     )}
 

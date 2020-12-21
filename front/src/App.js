@@ -14,6 +14,7 @@ import Stork from './app/components/Stork/Stork'
 import Prices from './app/components/Prices/Prices'
 import Register from './app/components/Register/Register'
 import History from './app/components/History/History'
+import Tracking from './app/components/Tracking/Tracking'
 
 import {
   BrowserRouter as Router,
@@ -95,6 +96,10 @@ class App extends React.Component {
             <Route path="/history">
               <Baner text="Twoje paczki"/>
               <History role={this.getRole}/>
+            </Route>
+            <Route path="/tracking/:id"> 
+            <Baner text="Śledzenie paczki"/>
+              <Tracking role={this.getRole}/>
             </Route>
             <Route render={() => <Redirect to={"/"} />} />
           </Switch>

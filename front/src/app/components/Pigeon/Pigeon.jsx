@@ -12,9 +12,7 @@ class Pigeon extends React.Component {
         currentParcel: "",
         currentStatus: "InWarehouse",
         parcelStatus: "",
-        currentBarcode: "0",
-        warehouses: [],
-        currentWarehouse: ""
+        currentBarcode: "0"
     }
 
     setCurrentParcel = (parcel) => {
@@ -25,15 +23,10 @@ class Pigeon extends React.Component {
             case 2: tmp = "In the road"; break
             case 3: tmp = "Delivered"; break
         }
-        let warehouse = this.state.warehouses.map(w=>w.id == this.state.currentParcel.destinationId ? w : "")//
-        console.log("warehouses")//
-        console.log(this.state.warehouses)//
-        console.log("warehouses")//
         this.setState({
             currentParcel: parcel,
             parcelStatus: tmp,
-            currentBarcode: parcel.id,
-            currentWarehouse: warehouse//
+            currentBarcode: parcel.id
         })
     }
 
@@ -66,11 +59,12 @@ class Pigeon extends React.Component {
                 })
             })
         })  
-        this.setState({
-            currentParcel: "",
-            currentStatus: ""
-        })
-        
+        // this.setState({
+        //     currentParcel: "",
+        //     currentStatus: ""
+        // })
+        if(this.state.parcels[0] != null)
+                    this.setCurrentParcel(this.state.parcels[0])
     }
 
     componentDidMount() {
@@ -81,11 +75,10 @@ class Pigeon extends React.Component {
                 this.setState({
                     isLoaded: true,
                     parcels: response.data,
-                    
                 })
                 //ustawianie: currentParcel, parcelStatus, currentBarcode
-                if(this.state.parcels[0] != null){}
-                this.setCurrentParcel(this.state.parcels[0])
+                if(this.state.parcels[0] != null)
+                    this.setCurrentParcel(this.state.parcels[0])
             },
             (error) => {
                 this.setState({
@@ -107,20 +100,6 @@ class Pigeon extends React.Component {
                     error: "catch"
                 })
             })
-
-            services.GetWarehouses()
-            .then(response => {
-                this.setState({
-                    warehouses: response.data
-                })
-                this.refreshMap(null)
-            },
-            (error) => {
-                this.setState({
-                    isLoaded: true,
-                    error: "catch"
-                })
-            })
         }
         else
         {
@@ -133,7 +112,6 @@ class Pigeon extends React.Component {
         const parcels = this.state.parcels.map(o => <li key={o.id} onClick={()=>this.setCurrentParcel(o)}><button id="list-item" className="btn btn-primary">{o.id}</button></li>)
         const statuses = this.state.statuses.map(o => <option key={o.id}>{o.statusName}</option>)
         if(this.state.currentParcel == "") {var show = false} else {var show = true}
-        //if(this.state.currentParcel == "") {var show = true} else {var show = false}
         if(this.state.currentParcel.destinationId == null) {var showReceiver = true} else {var showReceiver = false}
 
         return (  
@@ -149,7 +127,7 @@ class Pigeon extends React.Component {
                         <div id="column">
                             <h2>Lista Paczek</h2>
                             <ul id="list">
-                                { show ? <div>{parcels}</div> : <p>Lista paczek jest pusta. Dostarczono wszystkie paczki.</p> }
+                                { parcels.length > 0 ? <div>{parcels}</div> : <p>Lista paczek jest pusta. Dostarczono wszystkie paczki.</p> }
                             </ul>
                         </div>
                     </div>
@@ -185,16 +163,14 @@ class Pigeon extends React.Component {
                             : 
                                 <div>
                                     <h2>Dane magazynu</h2>
-                                    <p>informacje o magazynie</p>
-                                    <p>{this.state.currentWarehouse.Street} {this.state.currentWarehouse.Number}</p>
-                                    <p>{this.state.currentWarehouse.PostalCode} {this.state.currentWarehouse.City}</p>
-                                    <p>{this.state.currentWarehouse.Longitude} {this.state.currentWarehouse.Latidute}</p>
+                                    <p>{this.state.currentParcel.destination.street} {this.state.currentParcel.destination.number}</p>
+                                    <p>{this.state.currentParcel.destination.postalCode} {this.state.currentParcel.destination.city}</p>
+                                    <p>E {this.state.currentParcel.destination.longitude}&deg;</p>
+                                    <p>N {this.state.currentParcel.destination.latidute}&deg;</p>
                                 </div>
                             }
                             { show ? 
                                 <div>
-                                    
-
                                     <h2>Dane nadawcy</h2>
                                     <p>{this.state.currentParcel.senderName}</p>
                                     <p>{this.state.currentParcel.senderStreet} {this.state.currentParcel.senderHouseNumber}</p>

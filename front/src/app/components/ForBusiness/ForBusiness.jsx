@@ -40,7 +40,7 @@ function ForBusiness() {
             </div>
 
             <div className="row">
-                <div id="element" class="col-md-12">
+                <div id="element" className="col-md-12">
                     <h3>Potrzebujesz indywidualną ofertę abonamentu?</h3>
                     <Link to="/contact"><button id="offerEndButton" type="button" className="btn btn-primary btn-lg btn-block">Skontaktuj się z nami</button></Link>
                     <h3>Zachęcamy do współpracy.</h3>

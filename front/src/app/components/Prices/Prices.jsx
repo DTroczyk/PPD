@@ -17,15 +17,15 @@ class Prices extends React.Component {
                     <Accordion defaultActiveKey="0" style={
                       {
                         "width":"100rem",
-                        "text-align" : "center"
+                        "textAlign" : "center"
                       }} >
                       <Card>
                         <Card.Header style={{}}>
                           <Accordion.Toggle as={Button} variant="link" eventKey="0" 
                           style={
                           {
-                            "font-size": "20px",
-                            "text-decoration": "none",
+                            "fontSize": "20px",
+                            "textDecoration": "none",
 
                           }} >
                             Rozmiar paczki
@@ -100,8 +100,8 @@ class Prices extends React.Component {
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="1" style={
                           {
-                            "font-size": "20px",
-                            "text-decoration": "none",
+                            "fontSize": "20px",
+                            "textDecoration": "none",
 
                           }} >
                           Ubezpieczenie
@@ -153,8 +153,8 @@ class Prices extends React.Component {
                       <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="2" style={
                           {
-                            "font-size": "20px",
-                            "text-decoration": "none",
+                            "fontSize": "20px",
+                            "textDecoration": "none",
 
                           }}>
                           Dopłaty

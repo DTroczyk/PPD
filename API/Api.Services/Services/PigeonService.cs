@@ -40,6 +40,7 @@ namespace Api.Services.Services
             if (parcelStatus == ParcelStatus.Delivered)
             {
                 parcelEntity.PigeonId = null;
+                parcelEntity.ReceivedDate = DateTime.Now;
             }
 
             parcelEntity.ParcelStatus = parcelStatus;

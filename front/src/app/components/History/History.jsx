@@ -2,6 +2,7 @@ import React from "react"
 import "./History.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom"
 
 class History extends React.Component {
     state = {
@@ -73,7 +74,7 @@ class History extends React.Component {
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
                                             <td>{p.sendDate}</td>
                                             <td>{this.getStatus(p.parcelStatus)}</td>
-                                            <td><a href={"/tracking/"+p.id} target="_blank" rel="noreferrer" className="link">Link</a></td>
+                                            <td><Link to={"/tracking/"+p.id} rel="noreferrer" className="link">Link</Link></td>
                                         </tr>
                                     )}
 
@@ -95,7 +96,7 @@ class History extends React.Component {
                                 </thead>
                                 <tbody>
                                     {this.state.deliveredParcels.map(p =>
-                                        <tr>
+                                        <tr key={p.id}>
                                             <th scope="row">{p.receiverName}</th>
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
                                             <td>{p.sendDate}</td>

@@ -1,5 +1,7 @@
 import React from "react"
 import "./Home.css"
+import { Link } from "react-router-dom"
+
 
 class Home extends React.Component {
 
@@ -14,10 +16,10 @@ class Home extends React.Component {
         return (
             <div id="home" className="container">
                 <div className="tracking">
-                    <div class="form-group">
-                        <label for="track">Śledź przesyłkę:</label><br></br>
-                        <input type="text" class="form-control" id="track" onChange={this.changeValue} placeholder="Wpisz id paczki"/>
-                        <a href={"/tracking/"+this.state.link} class="btn btn-primary mb-2">Śledź</a>
+                    <div className="form-group">
+                        <label htmlFor="track">Śledź przesyłkę:</label><br></br>
+                        <input type="text" className="form-control" id="track" onChange={this.changeValue} placeholder="Wpisz id paczki"/>
+                        <Link to={"/tracking/"+this.state.link} className="btn btn-primary mb-2">Śledź</Link>
                     </div>
                 </div>
             </div>

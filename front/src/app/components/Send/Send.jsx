@@ -11,6 +11,7 @@ class Send extends React.Component {
         senderHouseNumber: '',
         senderEmail: '',
         senderPhoneNumber: '',
+        senderLogin: null,
         receiverName: '',
         receiverCity: '',
         receiverStreet: '',
@@ -19,7 +20,7 @@ class Send extends React.Component {
         receiverEmail: '',
         receiverPhoneNumber: '',
         submitted: false,
-        typeParcel: '',
+        typeParcel: 'S',
         typeParcels : []
     }
 
@@ -36,7 +37,8 @@ class Send extends React.Component {
                 .then(response => {
                     this.setState({
                         senderEmail: response.data.email,
-                        senderName: response.data.firstName +" "+ response.data.lastName
+                        senderName: response.data.firstName +" "+ response.data.lastName,
+                        senderLogin: response.data.login
                     })
                 })
         }
@@ -54,7 +56,6 @@ class Send extends React.Component {
     handleClick(e) {
         e.preventDefault()
         this.setState({ submitted: true })
-        console.log("esa");
         const{  senderName,
             senderCity,
             senderStreet,
@@ -62,6 +63,7 @@ class Send extends React.Component {
             senderHouseNumber,
             senderEmail,
             senderPhoneNumber,
+            senderLogin,
             receiverName,
             receiverCity,
             receiverStreet,
@@ -81,6 +83,7 @@ class Send extends React.Component {
             senderHouseNumber,
             senderEmail,
             senderPhoneNumber,
+            senderLogin,
             receiverName,
             receiverCity,
             receiverStreet,
@@ -89,9 +92,10 @@ class Send extends React.Component {
             receiverEmail,
             receiverPhoneNumber
         }
-        services.SendParcel(parcel).then(
-            console.log("Wyslano paczke")
-        )
+        services.SendParcel(parcel); 
+
+        //Dodać komunikat, że paczka została wysłana pomyślnie. I żeby był przycisk który
+        //umożliwi pobranie etykiety.
     }
 
     // changeSelect = (event) => {
@@ -100,7 +104,7 @@ class Send extends React.Component {
 
     render() { 
         
-        const typeParcels = this.state.typeParcels.sort().map(o => <option>{o.name}</option>)
+        const typeParcels = this.state.typeParcels.sort().map(o => <option key={o.name}>{o.name}</option>)
         const{  senderName,
                 senderCity,
                 senderStreet,
@@ -135,7 +139,7 @@ class Send extends React.Component {
                             <br></br>
                             <label htmlFor="adresInput">Adres: </label>
                             <input type="text" className="form-control" id="adresInputSen" placeholder="Podaj nazwe ulicy nadawcy" name="senderStreet" value={senderStreet} onChange={this.handleChange}/>
-                            <input type="text" className="form-control" id="adresInputSen" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="senderHouseNumber" value={senderHouseNumber} onChange={this.handleChange}/>
+                            <input type="text" className="form-control" id="numerDomuInputSen" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="senderHouseNumber" value={senderHouseNumber} onChange={this.handleChange}/>
                         </div>
                         <form name="form" >
                             <div className="form-row">
@@ -186,7 +190,7 @@ class Send extends React.Component {
                             <br></br>
                             <label htmlFor="adresInput">Adres: </label>
                             <input type="text" className="form-control" id="adresInputRec" placeholder="Podaj nazwe ulicy odbiorcy" name="receiverStreet" value={receiverStreet} onChange={this.handleChange}/>
-                            <input type="text" className="form-control" id="adresInputRec" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="receiverHouseNumber" value={receiverHouseNumber} onChange={this.handleChange}/>
+                            <input type="text" className="form-control" id="numerDomuInputRec" placeholder="Numer mieszkania, apartamentu, pomieszczenia, budynkui itp." name="receiverHouseNumber" value={receiverHouseNumber} onChange={this.handleChange}/>
                         </div>
                         <form name="form" >
                             <div className="form-row">

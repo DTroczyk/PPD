@@ -18,10 +18,11 @@ class Pigeon extends React.Component {
     setCurrentParcel = (parcel) => {
         let tmp = ""
         switch(parcel.parcelStatus){
-            case 0: tmp = "Waiting to be posted"; break
-            case 1: tmp = "In Warehouse"; break
-            case 2: tmp = "In the road"; break
-            case 3: tmp = "Delivered"; break
+            case 0: tmp = "Oczekuje na wysyłkę"; break
+            case 1: tmp = "W magazynie"; break
+            case 2: tmp = "W drodze"; break
+            case 3: tmp = "Dostarczono"; break
+            default: tmp = "Błąd"; break
         }
         this.setState({
             currentParcel: parcel,
@@ -34,7 +35,6 @@ class Pigeon extends React.Component {
         this.setState({
             currentStatus: state.target.value
         })
-        console.log(state.target.value)
     }
 
     handleSetStatus = () => {
@@ -111,8 +111,8 @@ class Pigeon extends React.Component {
 
         const parcels = this.state.parcels.map(o => <li key={o.id} onClick={()=>this.setCurrentParcel(o)}><button id="list-item" className="btn btn-primary">{o.id}</button></li>)
         const statuses = this.state.statuses.map(o => <option key={o.id}>{o.statusName}</option>)
-        if(this.state.currentParcel == "") {var show = false} else {var show = true}
-        if(this.state.currentParcel.destinationId == null) {var showReceiver = true} else {var showReceiver = false}
+        if(this.state.currentParcel === "") {var show = false} else {show = true}
+        if(this.state.currentParcel.destinationId == null) {var showReceiver = true} else {showReceiver = false}
 
         return (  
             <div id="pigeon" className="container">

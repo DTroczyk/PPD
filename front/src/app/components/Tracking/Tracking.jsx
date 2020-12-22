@@ -43,7 +43,7 @@ class Tracking extends React.Component {
 
     render() {
         const warehouses = this.state.parcelHistory.map(w => (
-            <tr key="1">
+            <tr key={w.warehouse.id}>
                 <th>{w.dateOfArrival}</th>
                 <th>{w.warehouse.city}</th>
                 <td>{w.warehouse.street}</td>

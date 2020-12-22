@@ -233,7 +233,7 @@ class Stork extends React.Component {
                                 {warehouses}
                             </select>
                             <br></br>
-                            <iframe width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
+                            <iframe title="map" width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" rel="noreferrer" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
                             <br></br>
                             <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
 

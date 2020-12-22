@@ -23,6 +23,8 @@ namespace Api.ViewModels.DTOs
         public string SenderEmail { get; set; }
         [Required]
         public string SenderPhoneNumber { get; set; }
+        public string SenderLogin { get; set; }
+
 
         [Required]
         public string ReceiverName { get; set; }

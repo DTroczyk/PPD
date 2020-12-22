@@ -48,7 +48,7 @@ namespace Api.Services.Services
                 string login = claims[0].Value;
                 var user = await _dbContext.Sparrows
                     .Where(u => u.Login == login)
-                    .Select(s=>new SparrowVm{ Email = s.Email, FirstName = s.FirstName, LastName = s.LastName })
+                    .Select(s=>new SparrowVm{ Email = s.Email, FirstName = s.FirstName, LastName = s.LastName, Login = s.Login })
                     .SingleOrDefaultAsync();
                 return user;
             }

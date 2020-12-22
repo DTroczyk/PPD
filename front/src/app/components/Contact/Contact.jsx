@@ -10,18 +10,20 @@ function Contact() {
                 </div>
                 <ul className="contact-list">
                     <table>
-                        <tr>
-                            <td>💼 Biuro obsługi klienta</td><td><strong>biuro@ppd.com</strong></td>
-                        </tr>
-                        <tr>
-                            <td>✍🏻 Skargi i pochwały</td><td><strong>skargi@ppd.com</strong></td>
-                        </tr>
-                        <tr>
-                            <td>🤝🏻 Współpraca</td><td><strong>wspolpraca@ppd.com</strong></td>
-                        </tr>
-                        <tr>
-                            <td>🤵 Kontakt do zarządu</td><td><strong>zarzad@ppd.com</strong></td>
-                        </tr>
+                        <tbody>
+                            <tr>
+                                <td>💼 Biuro obsługi klienta</td><td><strong>biuro@ppd.com</strong></td>
+                            </tr>
+                            <tr>
+                                <td>✍🏻 Skargi i pochwały</td><td><strong>skargi@ppd.com</strong></td>
+                            </tr>
+                            <tr>
+                                <td>🤝🏻 Współpraca</td><td><strong>wspolpraca@ppd.com</strong></td>
+                            </tr>
+                            <tr>
+                                <td>🤵 Kontakt do zarządu</td><td><strong>zarzad@ppd.com</strong></td>
+                            </tr>
+                        </tbody>
                     </table>
                 </ul>
                 <br></br>

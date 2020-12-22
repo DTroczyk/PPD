@@ -44,7 +44,7 @@ class Register extends React.Component {
             }
             services.RegisterUser(user)
                 .then((response) => {
-                    if(response.data==""){
+                    if(response.data===""){
                         this.setState({ success: true })
                     }
                     else{
@@ -61,7 +61,7 @@ class Register extends React.Component {
     
     render() {
         const { login,firstName,lastName,email,password,confirmedPassword,submitted,success,message} = this.state;
-        let re = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+        let re = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
         return (
             <div id="register" className="container">
                 <div className="register-wrapper col-md-4">

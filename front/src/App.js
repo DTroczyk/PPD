@@ -99,7 +99,7 @@ class App extends React.Component {
             </Route>
             <Route path="/tracking/:id"> 
             <Baner text="Śledzenie paczki"/>
-              <Tracking role={this.getRole}/>
+              <Tracking/>
             </Route>
             <Route render={() => <Redirect to={"/"} />} />
           </Switch>

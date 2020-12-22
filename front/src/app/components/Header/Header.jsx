@@ -10,7 +10,6 @@ class Header extends React.Component {
 
     navigation = () => {
         const role = this.props.role();
-        console.log(role);
         if (role === "Guest" || role === "Sparrow")
             return (
                 <>

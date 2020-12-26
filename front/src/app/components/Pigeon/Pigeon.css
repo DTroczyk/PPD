@@ -9,7 +9,7 @@
     border: 1px solid black;
     border-radius: 25px;
     padding: 20px;
-    min-height: 550px;
+    height: 550px;
     background-color: #00BFFF;
 
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;
@@ -52,6 +52,7 @@
     padding: 0px;
     list-style: none;
     text-align: center;
+    height: 390px;
 }
 
 #list-item

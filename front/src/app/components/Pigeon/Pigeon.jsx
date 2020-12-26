@@ -59,10 +59,7 @@ class Pigeon extends React.Component {
                 })
             })
         })  
-        // this.setState({
-        //     currentParcel: "",
-        //     currentStatus: ""
-        // })
+
         if(this.state.parcels[0] != null)
                     this.setCurrentParcel(this.state.parcels[0])
     }
@@ -76,7 +73,7 @@ class Pigeon extends React.Component {
                     isLoaded: true,
                     parcels: response.data,
                 })
-                //ustawianie: currentParcel, parcelStatus, currentBarcode
+
                 if(this.state.parcels[0] != null)
                     this.setCurrentParcel(this.state.parcels[0])
             },
@@ -103,7 +100,7 @@ class Pigeon extends React.Component {
         }
         else
         {
-            this.props.history.push("/login")
+            //this.props.history.push("/login")
         }
     }
 
@@ -126,7 +123,7 @@ class Pigeon extends React.Component {
                     <div className="col-md-3">
                         <div id="column">
                             <h2>Lista Paczek</h2>
-                            <ul id="list">
+                            <ul id="list" className="overflow-auto">
                                 { parcels.length > 0 ? <div>{parcels}</div> : <p>Lista paczek jest pusta. Dostarczono wszystkie paczki.</p> }
                             </ul>
                         </div>
@@ -185,7 +182,7 @@ class Pigeon extends React.Component {
 
                 <div className="row">
                     <div id="element" className="col-md-12">
-                        {/* <h1>Koniec</h1> */}
+                        {/* <h1>Footer</h1> */}
                     </div>
                 </div>
             </div>

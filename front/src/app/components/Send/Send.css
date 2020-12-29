@@ -34,6 +34,11 @@
     padding-right: 0px;
 }
 
+#downloadButton a{
+    text-decoration: none;
+    color: white;
+    display: block;
+}
 /* #phoneInput{
     margin: 30px;
 } */

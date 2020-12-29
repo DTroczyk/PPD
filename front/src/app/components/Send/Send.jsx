@@ -4,7 +4,9 @@ import services from '../../../services/httpClient'
 import Alert from 'react-bootstrap/Alert'
 import Button from 'react-bootstrap/Button'
 import { withRouter } from "react-router-dom";
-
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import Label from '../Label/Label'
+import moment from 'moment'
 
 class Send extends React.Component {
     state = {
@@ -62,7 +64,8 @@ class Send extends React.Component {
     handleClick(e) {
         e.preventDefault()
         this.setState({ submitted: true })
-        const{  senderName,
+        const{  
+            senderName,
             senderCity,
             senderStreet,
             senderPostalCode,
@@ -100,15 +103,34 @@ class Send extends React.Component {
         }
         services.SendParcel(parcel)
             .then(response =>{
-                this.setState({success: true, parcelId: response.data})     
+                this.setState({parcelId: response.data})
+                services.GetParcel(response.data)
+                .then(response=>{
+                    this.setState({
+                        typeParcel:response.data.parcelType,
+                        sendDate: moment(response.data.sendDate).format('DD/MM/YYYY').toString(),
+                        senderName: response.data.senderName,
+                        senderCity: response.data.senderCity,
+                        senderStreet: response.data.senderStreet,
+                        senderPostalCode: response.data.senderPostalCode,
+                        senderHouseNumber: response.data.senderHouseNumber,
+                        senderEmail: response.data.senderEmail,
+                        senderPhoneNumber: response.data.senderPhoneNumber,
+                        receiverName: response.data.receiverName,
+                        receiverCity: response.data.receiverCity,
+                        receiverStreet: response.data.receiverStreet,
+                        receiverPostalCode: response.data.receiverPostalCode,
+                        receiverHouseNumber: response.data.receiverHouseNumber,
+                        receiverEmail: response.data.receiverEmail,
+                        receiverPhoneNumber: response.data.receiverPhoneNumber,
+                        success: true 
+                    })
+                })
             })
             .catch(error => {
                 this.setState({success: false})
                 this.setState({message: error})
             })
-
-        //Dodać komunikat, że paczka została wysłana pomyślnie. I żeby był przycisk który
-        //umożliwi pobranie etykiety.
     }
 
     handleClickTracking = (e) => {
@@ -121,8 +143,7 @@ class Send extends React.Component {
     //     this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
     // }
 
-    render() { 
-        
+    render() {
         const typeParcels = this.state.typeParcels.sort().map(o => <option key={o.name}>{o.name}</option>)
         const{  senderName,
                 senderCity,
@@ -142,7 +163,8 @@ class Send extends React.Component {
                 success,
                 message, 
                 submitted,
-                parcelId
+                parcelId,
+                sendDate
             } = this.state;
 
         let reMail = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
@@ -150,9 +172,8 @@ class Send extends React.Component {
         let reCode = new RegExp(/^[0-9]{2}\\-[0-9]{3}/);
 
         return (
-            
                 <div id="send" className="container">
-                {!success &&
+                {success &&
                     <>
                     <Alert variant="success">
                         <Alert.Heading>Twoja paczka została nadana</Alert.Heading>
@@ -163,14 +184,59 @@ class Send extends React.Component {
                             to za Ciebie. Dziękujemy za skorzystanie z usług naszej firmy.
                         </p>
                         <hr />
+                        <div>
+                            {/* <PDFDownloadLink document={<Label   
+                                                                id={parcelId}
+                                                                parcelType={typeParcel}
+                                                                sendDate={sendDate}
+                                                                senderName={senderName}
+                                                                senderCity={senderCity}
+                                                                senderStreet={senderStreet}
+                                                                senderPostalCode={senderPostalCode}
+                                                                senderHouseNumber={senderHouseNumber}
+                                                                senderEmail={senderEmail}
+                                                                senderPhoneNumber={senderPhoneNumber}
+                                                                receiverName={receiverName}
+                                                                receiverCity={receiverCity}
+                                                                receiverStreet={receiverStreet}
+                                                                receiverPostalCode={receiverPostalCode}
+                                                                receiverHouseNumber={receiverHouseNumber}
+                                                                receiverEmail={receiverEmail}
+                                                                receiverPhoneNumber={receiverPhoneNumber}
+                                                        />} fileName="label.pdf">
+                                {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+                            </PDFDownloadLink> */}
+                        </div>
                         <p className="mb-0">
-                            <Button variant="danger" size="lg" block>Pobierz etykiete</Button>
+                            <Button id="downloadButton" variant="danger" size="lg" block>
+                                <PDFDownloadLink document={<Label   
+                                                                id={parcelId}
+                                                                parcelType={typeParcel}
+                                                                sendDate={sendDate}
+                                                                senderName={senderName}
+                                                                senderCity={senderCity}
+                                                                senderStreet={senderStreet}
+                                                                senderPostalCode={senderPostalCode}
+                                                                senderHouseNumber={senderHouseNumber}
+                                                                senderEmail={senderEmail}
+                                                                senderPhoneNumber={senderPhoneNumber}
+                                                                receiverName={receiverName}
+                                                                receiverCity={receiverCity}
+                                                                receiverStreet={receiverStreet}
+                                                                receiverPostalCode={receiverPostalCode}
+                                                                receiverHouseNumber={receiverHouseNumber}
+                                                                receiverEmail={receiverEmail}
+                                                                receiverPhoneNumber={receiverPhoneNumber}
+                                                            />} fileName="label.pdf">
+                                    {({ blob, url, loading, error }) => (loading ? 'Trwa generowanie etykiety...' : 'Pobierz etykietę')}
+                                </PDFDownloadLink>
+                            </Button>
                             <Button onClick={this.handleClickTracking} variant="warning" size="lg" block>Śledź przesyłkę</Button>
                         </p>
                     </Alert>
                     </>
                 }
-                {success &&
+                {!success &&
                     <>
                         <div className="row">
                             <div id="nadawca" className="col-md-6 " >

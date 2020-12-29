@@ -49,8 +49,8 @@ namespace Api.Controllers
             try
             {
                 var parcel = _mapper.Map<Parcel>(parcelDto);
-                _sparrowService.SendParcel(parcel);
-                return Ok();
+                var parcelId = _sparrowService.SendParcel(parcel);
+                return Ok(parcelId);
             }
             catch(Exception ex)
             {

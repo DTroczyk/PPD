@@ -67,7 +67,7 @@ namespace Api.Services.Services
             return parcelTypes;
         }
 
-        public void SendParcel(Parcel parcel)
+        public long SendParcel(Parcel parcel)
         {
             // Można przypisać paczkę do odpowiedniego Clienta
 
@@ -156,6 +156,7 @@ namespace Api.Services.Services
 
             _dbContext.Parcels.Add(parcel);
             _dbContext.SaveChanges();
+            return parcel.Id;
         }
     }
 }

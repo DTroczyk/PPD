@@ -10,7 +10,7 @@ namespace Api.Services.Interfaces
     public interface ISparrowService
     {
         public Task<FollowParcelVm> FollowParcel(long parcelId); //sledzenie paczki
-        public void SendParcel(Parcel parcel); //nadanie paczki
+        public long SendParcel(Parcel parcel); //nadanie paczki
         public IList<ParcelType> GetParcelTypes();
         public Task<IEnumerable<Parcel>> GetParcels();
     }

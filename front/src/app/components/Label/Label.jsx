@@ -1,8 +1,7 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
 Font.register({ family: 'Roboto', src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf" });
-
-
+var JsBarcode = require('jsbarcode');
 // Create styles
 const styles = StyleSheet.create({
   page: {
@@ -19,27 +18,33 @@ const styles = StyleSheet.create({
     border: '1pt solid black',
   },
   section: {
-    margin: 10,
+    margin: 6,
     padding: 10,
     flexGrow: 1,
     textAlign: 'center',
     border: '1pt solid black',
   },
   section1: {
-    margin: 10,
+    margin: 6,
     padding: 10,
     flexGrow: 1,
     textAlign: 'left',
     border: '1pt solid black',
-    fontSize:'14pt'
+    fontSize:'11pt'
   },
   section2: {
-    margin: 10,
+    margin: 6,
     padding: 10,
     flexGrow: 1,
     textAlign: 'right',
     border: '1pt solid black',
-    fontSize:'14pt'
+    fontSize:'11pt'
+  },
+  image: {
+    width: 100,
+    alignContent: 'center',
+    alignSelf: 'center',
+    margin: 1
   }
 });
 
@@ -63,11 +68,18 @@ function Label({
     receiverEmail,
     receiverPhoneNumber}){
 
+      let canvas;
+      canvas = document.createElement('canvas');
+      JsBarcode(canvas, id);
+      const barcode = canvas.toDataURL();
+
+
     return(
         <Document>
             <Page size="A6" style={styles.page}>
                 <View style={styles.section0}>
                   <View style={styles.section}>
+                      <Image style={styles.image} src={barcode} />
                       <Text>PPD</Text>
                       <Text>{sendDate}</Text>
                       <Text>Cena: {parcelType.price/100+"PLN"} Rodzaj: {parcelType.name} Tracking: {id}</Text>

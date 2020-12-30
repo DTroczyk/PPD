@@ -14,6 +14,9 @@ class Header extends React.Component {
             return (
                 <>
                     <li><Link to="/send">Wysyłam</Link></li>
+                    {this.props.isLoggedIn &&
+                        <li><Link to="/history">Twoja historia</Link></li>
+                    }
                     <li><Link to="/forbusiness">Oferta dla firm</Link></li>
                     <li><Link to="/about">O PPD</Link></li>
                     <li><Link to="/prices">Cennik</Link></li>

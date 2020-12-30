@@ -55,6 +55,7 @@ namespace Api.Services.Services
         {
             var sparrow = await _userService.GetUser();
             var parcels = await _dbContext.Parcels
+                .Include(a => a.ParcelType)
                 .Where(p => p.SenderLogin == sparrow.Login)
                 .ToListAsync();
 

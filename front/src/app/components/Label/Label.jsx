@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
-Font.register({ family: 'Roboto', src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf" });
+//Font.register({ family: 'Roboto', src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf" });
 var JsBarcode = require('jsbarcode');
 // Create styles
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-    fontFamily:"Roboto",
+    //fontFamily:"Roboto",
     fontSize:'10pt'
   },
   section0: {
@@ -68,10 +68,14 @@ function Label({
     receiverEmail,
     receiverPhoneNumber}){
 
-      let canvas;
-      canvas = document.createElement('canvas');
-      JsBarcode(canvas, id);
-      const barcode = canvas.toDataURL();
+      // useEffect(()=>{
+      //   Font.register({ family: 'Roboto', src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf" })
+      // })
+
+    let canvas;
+    canvas = document.createElement('canvas');
+    JsBarcode(canvas, id);
+    const barcode = canvas.toDataURL();
 
 
     return(
@@ -82,7 +86,9 @@ function Label({
                       <Image style={styles.image} src={barcode} />
                       <Text>PPD</Text>
                       <Text>{sendDate}</Text>
-                      <Text>Cena: {parcelType.price/100+"PLN"} Rodzaj: {parcelType.name} Tracking: {id}</Text>
+                      <Text>Cena: {parcelType.price/100+" PLN"}</Text>
+                      <Text>Rodzaj: {parcelType.name}</Text>
+                      <Text>Tracking: {id}</Text> 
                   </View>
                   <View style={styles.section1}>
                       <Text>Nadawca:</Text>

@@ -139,10 +139,6 @@ class Send extends React.Component {
         this.props.history.push("/tracking/" + parcelId)
     }
 
-    // changeSelect = (event) => {
-    //     this.setState({currentPigeon: tmpPigeon.firstName+" "+tmpPigeon.lastName});
-    // }
-
     render() {
         const typeParcels = this.state.typeParcels.sort().map(o => <option key={o.name}>{o.name}</option>)
         const{  senderName,
@@ -161,7 +157,6 @@ class Send extends React.Component {
                 receiverPhoneNumber,
                 typeParcel,
                 success,
-                message, 
                 submitted,
                 parcelId,
                 sendDate
@@ -184,29 +179,6 @@ class Send extends React.Component {
                             to za Ciebie. Dziękujemy za skorzystanie z usług naszej firmy.
                         </p>
                         <hr />
-                        <div>
-                            {/* <PDFDownloadLink document={<Label   
-                                                                id={parcelId}
-                                                                parcelType={typeParcel}
-                                                                sendDate={sendDate}
-                                                                senderName={senderName}
-                                                                senderCity={senderCity}
-                                                                senderStreet={senderStreet}
-                                                                senderPostalCode={senderPostalCode}
-                                                                senderHouseNumber={senderHouseNumber}
-                                                                senderEmail={senderEmail}
-                                                                senderPhoneNumber={senderPhoneNumber}
-                                                                receiverName={receiverName}
-                                                                receiverCity={receiverCity}
-                                                                receiverStreet={receiverStreet}
-                                                                receiverPostalCode={receiverPostalCode}
-                                                                receiverHouseNumber={receiverHouseNumber}
-                                                                receiverEmail={receiverEmail}
-                                                                receiverPhoneNumber={receiverPhoneNumber}
-                                                        />} fileName="label.pdf">
-                                {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-                            </PDFDownloadLink> */}
-                        </div>
                         <p className="mb-0">
                             <Button id="downloadButton" variant="danger" size="lg" block>
                                 <PDFDownloadLink document={<Label   

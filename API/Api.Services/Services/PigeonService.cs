@@ -56,6 +56,7 @@ namespace Api.Services.Services
             var user = await _userService.GetPigeon();
 
             var parcelEntities = await _dbContext.Parcels
+                .Include(p => p.ParcelType)
                 .Include(p => p.Destination)
                 .Where(p => p.PigeonId == user.Login).ToListAsync();
 

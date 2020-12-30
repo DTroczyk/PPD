@@ -82,7 +82,7 @@ class App extends React.Component {
               <Login checkLogin={this.loginHandler} isLoggedIn={this.state.isLoggedIn}/>
             </Route>
             <Route path="/pigeon">
-              <Baner text="Akcje kuriera"/>
+              <Baner text="Panel kuriera"/>
               <Pigeon role={this.getRole}/>
             </Route>
             <Route path="/stork">

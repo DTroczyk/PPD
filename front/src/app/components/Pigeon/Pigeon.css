@@ -80,8 +80,8 @@
 
 #stateButton
 {
-    margin-top: auto;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .parcel-btn
@@ -97,4 +97,10 @@
     margin-right: auto;
     display: block;
     width: fit-content;
+}
+
+#downloadButton a{
+    text-decoration: none;
+    color: white;
+    display: block;
 }

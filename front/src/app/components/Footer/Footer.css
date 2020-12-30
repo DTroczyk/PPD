@@ -3,9 +3,10 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    padding-right: 20px;
     background-color: #333;
     color: white;
-    text-align: center;
+    text-align: right;
     align-items: center;
     height: 60px;
     line-height: 60px;

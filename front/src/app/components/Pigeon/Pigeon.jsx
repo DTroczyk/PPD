@@ -2,6 +2,9 @@ import React from "react"
 import "./Pigeon.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import Label from '../Label/Label'
+import Button from 'react-bootstrap/Button'
 var Barcode = require('react-barcode');
 
 class Pigeon extends React.Component {
@@ -115,7 +118,6 @@ class Pigeon extends React.Component {
             <div id="pigeon" className="container">
                 <div className="row">
                     <div id="element" className="col-md-12">
-                        <h1>Panel kuriera</h1>
                     </div>
                 </div>
 
@@ -142,7 +144,29 @@ class Pigeon extends React.Component {
                             <select value={this.state.currentStatus} onChange={this.setStatus} className="form-control" id="stateSelect">
                                 {statuses}
                             </select>
-                            { show ? <button id="stateButton" type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handleSetStatus}>Zmień status</button> : null }
+                            { show ? <button id="stateButton" type="button" className="btn btn-success btn-lg btn-block" onClick={this.handleSetStatus}>Zmień status</button> : null }
+                            { show ? <Button id="downloadButton" variant="danger" size="lg" block>
+                                <PDFDownloadLink document={<Label   
+                                                                id={this.state.currentParcel.id}
+                                                                parcelType={this.state.currentParcel.parcelType}
+                                                                sendDate={this.state.currentParcel.sendDate}
+                                                                senderName={this.state.currentParcel.senderName}
+                                                                senderCity={this.state.currentParcel.senderCity}
+                                                                senderStreet={this.state.currentParcel.senderStreet}
+                                                                senderPostalCode={this.state.currentParcel.senderPostalCode}
+                                                                senderHouseNumber={this.state.currentParcel.senderHouseNumber}
+                                                                senderEmail={this.state.currentParcel.senderEmail}
+                                                                senderPhoneNumber={this.state.currentParcel.senderPhoneNumber}
+                                                                receiverName={this.state.currentParcel.receiverName}
+                                                                receiverCity={this.state.currentParcel.receiverCity}
+                                                                receiverStreet={this.state.currentParcel.receiverStreet}
+                                                                receiverPostalCode={this.state.currentParcel.receiverPostalCode}
+                                                                receiverHouseNumber={this.state.currentParcel.receiverHouseNumber}
+                                                                receiverEmail={this.state.currentParcel.receiverEmail}
+                                                                receiverPhoneNumber={this.state.currentParcel.receiverPhoneNumber}
+                                                            />} fileName="label.pdf">
+                                    {({ blob, url, loading, error }) => (loading ? 'Trwa generowanie etykiety...' : 'Pobierz etykietę')}
+                                </PDFDownloadLink></Button> : null }
                         </div>
                     </div>
 

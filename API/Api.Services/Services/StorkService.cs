@@ -47,6 +47,9 @@ namespace Api.Services.Services
                 .Where(pp => pp.ParcelId == setPigeon.ParcelId)
                 .FirstOrDefaultAsync();
 
+            if (parcelEntity == null)
+                return null;
+
             parcelEntity.PigeonId = setPigeon.PigeonLogin;
             if (setPigeon.WarehouseId != null && parcelEntity.ParcelStatus == ParcelStatus.InWarehouse)
             {

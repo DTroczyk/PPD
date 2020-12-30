@@ -31,15 +31,23 @@ class Stork extends React.Component {
         {
             services.GetParcels()
             .then(response => {
+                let parcels = response.data;
+                let freeParcel = parcels.find(p => p.pigeonId == null)
                 this.setState({
                     isLoaded: true,
-                    parcels: response.data
+                    parcels: response.data,
+                })
+
+                if (freeParcel !== undefined)
+                this.setState({
+                    firstParcelSelected: freeParcel.id
                 })
                 let withPigeons = response.data.filter(x => x.pigeon !== null);
                 if(this.state.changeCurrentPigeon && (withPigeons.length > 0) && (withPigeons[0].pigeon !== null)){
                     this.setState({
                         currentPigeon: withPigeons[0].pigeon.firstName+" "+withPigeons[0].pigeon.lastName,
                         currentBarcode: withPigeons[0].id,
+                        secondParcelSelected: withPigeons[0].id,
                         changeCurrentPigeon: false
                     });
                 }
@@ -140,9 +148,14 @@ class Stork extends React.Component {
         let pigeon = {PigeonLogin: pigeonLogin, ParcelId: parcelId, WarehouseId: warehouseId};
         if(pigeon.PigeonLogin === "" || pigeon.ParcelId === "") return;
         services.SetPigeon(pigeon).then(() =>{
+            let freeParcel = this.state.parcels.find(p => p.pigeonId == null)
+            if (freeParcel !== undefined)
+                this.setState({firstParcelSelected: freeParcel.id})
 
             if(this.state.parcels.filter(x => x.pigeon !== null).length < 1)
-            this.setState({changeCurrentPigeon: true});
+            this.setState({
+                changeCurrentPigeon: true,
+            });
             this.componentDidMount();
         });
     }
@@ -219,7 +232,7 @@ class Stork extends React.Component {
                         <hr></hr>
                         <div className="form-group">
                             <label htmlFor="parcelSelect">Wybierz paczkę:</label>
-                            <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect">
+                            <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect" value={this.state.firstParcelSelected}>
                                 {freeParcels}
                             </select>
                             <br></br>
@@ -252,7 +265,7 @@ class Stork extends React.Component {
                         <hr></hr>
                         <div className="form-group">
                             <label htmlFor="parcelSelect">Wybierz paczkę:</label>
-                            <select className="form-control" id="parcelSelect" onChange={this.changeSelect}>
+                            <select className="form-control" id="parcelSelect" onChange={this.changeSelect} value={this.secondParcelSelected}>
                                 {selectedParcels}
                             </select>
                             <br></br>

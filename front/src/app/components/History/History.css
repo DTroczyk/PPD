@@ -2,3 +2,21 @@
     text-align: center;
     padding: 30px;
 }
+
+.table td{
+    border-top: none;
+}
+
+#trackingButton a{
+    color:black;
+    text-decoration: none;
+    display:block;
+}
+
+#tracking, #label{
+    text-align: center;
+}
+
+#boldName{
+    font-weight:bold;
+}

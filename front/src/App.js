@@ -94,7 +94,7 @@ class App extends React.Component {
               <Register isLoggedIn={this.state.isLoggedIn}/>
             </Route>
             <Route path="/history">
-              <Baner text="Twoje paczki"/>
+              <Baner text="Twoja historia"/>
               <History role={this.getRole}/>
             </Route>
             <Route path="/tracking/:id"> 

@@ -70,41 +70,46 @@ class History extends React.Component {
                                         <th scope="col">Adres</th>
                                         <th scope="col">Wysłano</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Śledź przesyłkę</th>
-                                        <th scope="col">Etykieta</th>
+                                        <th id="tracking" scope="col">Tracking</th>
+                                        <th id="label" scope="col">Etykieta</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {this.state.otherParcels.map(p =>
                                         <tr key={p.id}>
-                                            <th scope="row">{p.receiverName}</th>
+                                            <td id="boldName">{p.receiverName}</td>
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
                                             <td>{moment(p.sendDate).format('DD-MM-YYYY HH:mm').toString()}</td>
                                             <td>{this.getStatus(p.parcelStatus)}</td>
-                                            <td><Link to={"/tracking/"+p.id} rel="noreferrer" className="link">Link</Link></td>
-                                            <td><Button id="downloadButton" variant="info" size="sm" block>
-                                                <PDFDownloadLink document={<Label   
-                                                                                id={p.id}
-                                                                                parcelType={p.parcelType}
-                                                                                sendDate={moment(p.sendDate).format('DD-MM-YYYY HH:mm').toString()}
-                                                                                senderName={p.senderName}
-                                                                                senderCity={p.senderCity}
-                                                                                senderStreet={p.senderStreet}
-                                                                                senderPostalCode={p.senderPostalCode}
-                                                                                senderHouseNumber={p.senderHouseNumber}
-                                                                                senderEmail={p.senderEmail}
-                                                                                senderPhoneNumber={p.senderPhoneNumber}
-                                                                                receiverName={p.receiverName}
-                                                                                receiverCity={p.receiverCity}
-                                                                                receiverStreet={p.receiverStreet}
-                                                                                receiverPostalCode={p.receiverPostalCode}
-                                                                                receiverHouseNumber={p.receiverHouseNumber}
-                                                                                receiverEmail={p.receiverEmail}
-                                                                                receiverPhoneNumber={p.receiverPhoneNumber}
-                                                                            />} fileName="label.pdf">
-                                                    {({ blob, url, loading, error }) => (loading ? 'Trwa generowanie etykiety...' : 'Pobierz etykietę')}
-                                                </PDFDownloadLink>
-                                            </Button></td>
+                                            <td><Button id="trackingButton" variant="warning" size="sm" block><Link to={"/tracking/"+p.id} rel="noreferrer" className="link">Śledź przesyłkę</Link></Button></td>
+                                            {p.parcelStatus===0 &&
+                                               <td>
+                                                    <Button id="downloadButton" variant="danger" size="sm" block>
+                                                        <PDFDownloadLink document={<Label   
+                                                                                        id={p.id}
+                                                                                        parcelType={p.parcelType}
+                                                                                        sendDate={moment(p.sendDate).format('DD-MM-YYYY HH:mm').toString()}
+                                                                                        senderName={p.senderName}
+                                                                                        senderCity={p.senderCity}
+                                                                                        senderStreet={p.senderStreet}
+                                                                                        senderPostalCode={p.senderPostalCode}
+                                                                                        senderHouseNumber={p.senderHouseNumber}
+                                                                                        senderEmail={p.senderEmail}
+                                                                                        senderPhoneNumber={p.senderPhoneNumber}
+                                                                                        receiverName={p.receiverName}
+                                                                                        receiverCity={p.receiverCity}
+                                                                                        receiverStreet={p.receiverStreet}
+                                                                                        receiverPostalCode={p.receiverPostalCode}
+                                                                                        receiverHouseNumber={p.receiverHouseNumber}
+                                                                                        receiverEmail={p.receiverEmail}
+                                                                                        receiverPhoneNumber={p.receiverPhoneNumber}
+                                                                                    />} fileName="label.pdf">
+                                                            {({ blob, url, loading, error }) => (loading ? 'Trwa generowanie etykiety...' : 'Pobierz')}
+                                                        </PDFDownloadLink>
+                                                    </Button>
+                                                </td> 
+                                            }
+                                            
                                         </tr>
                                     )}
                                 </tbody>

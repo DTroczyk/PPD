@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
-import { Page, Text, View, Document, StyleSheet, Font, Image } from '@react-pdf/renderer';
-//Font.register({ family: 'Roboto', src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-medium-webfont.ttf" });
+import React from 'react';
+import { Page, Text, View, Document, StyleSheet, Image } from '@react-pdf/renderer';
+
 var JsBarcode = require('jsbarcode');
 // Create styles
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
     backgroundColor: '#FFFFFF',
-    //fontFamily:"Roboto",
     fontSize:'10pt'
   },
   section0: {

@@ -3,6 +3,10 @@ import "./History.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom"
+import Button from 'react-bootstrap/Button'
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import moment from 'moment'
+import Label from '../Label/Label'
 
 class History extends React.Component {
     state = {
@@ -65,6 +69,7 @@ class History extends React.Component {
                                         <th scope="col">Wysłano</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Śledź przesyłkę</th>
+                                        {/* <th scope="col">Etykieta</th> */}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,9 +77,32 @@ class History extends React.Component {
                                         <tr key={p.id}>
                                             <th scope="row">{p.receiverName}</th>
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
-                                            <td>{p.sendDate}</td>
+                                            <td>{moment(p.sendDate).format('DD-MM-YYYY HH:mm').toString()}</td>
                                             <td>{this.getStatus(p.parcelStatus)}</td>
                                             <td><Link to={"/tracking/"+p.id} rel="noreferrer" className="link">Link</Link></td>
+                                            {/* <td><Button id="downloadButton" variant="danger" size="lg" block>
+                                                <PDFDownloadLink document={<Label   
+                                                                                id={parcelId}
+                                                                                parcelType={typeParcel}
+                                                                                sendDate={sendDate}
+                                                                                senderName={senderName}
+                                                                                senderCity={senderCity}
+                                                                                senderStreet={senderStreet}
+                                                                                senderPostalCode={senderPostalCode}
+                                                                                senderHouseNumber={senderHouseNumber}
+                                                                                senderEmail={senderEmail}
+                                                                                senderPhoneNumber={senderPhoneNumber}
+                                                                                receiverName={receiverName}
+                                                                                receiverCity={receiverCity}
+                                                                                receiverStreet={receiverStreet}
+                                                                                receiverPostalCode={receiverPostalCode}
+                                                                                receiverHouseNumber={receiverHouseNumber}
+                                                                                receiverEmail={receiverEmail}
+                                                                                receiverPhoneNumber={receiverPhoneNumber}
+                                                                            />} fileName="label.pdf">
+                                                    {({ blob, url, loading, error }) => (loading ? 'Trwa generowanie etykiety...' : 'Pobierz etykietę')}
+                                                </PDFDownloadLink>
+                                            </Button></td> */}
                                         </tr>
                                     )}
 
@@ -99,11 +127,10 @@ class History extends React.Component {
                                         <tr key={p.id}>
                                             <th scope="row">{p.receiverName}</th>
                                             <td>{p.receiverCity} {p.receiverPostalCode} {p.receiverHouseNumber}</td>
-                                            <td>{p.sendDate}</td>
-                                            <td>{p.receivedDate}</td>
+                                            <td>{moment(p.sendDate).format('DD-MM-YYYY HH:mm').toString()}</td>
+                                            <td>{moment(p.receivedDate).format('DD-MM-YYYY HH:mm').toString()}</td>
                                         </tr>
                                     )}
-
                                 </tbody>
                             </table>
                         </div>

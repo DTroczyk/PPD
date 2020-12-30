@@ -2,6 +2,7 @@ import React from "react"
 import "./Tracking.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
+import moment from 'moment'
 
 class Tracking extends React.Component {
     state = {
@@ -44,7 +45,7 @@ class Tracking extends React.Component {
     render() {
         const warehouses = this.state.parcelHistory.map(w => (
             <tr key={w.warehouse.id}>
-                <th>{w.dateOfArrival}</th>
+                <th>{moment(w.dateOfArrival).format('DD-MM-YYYY HH:mm').toString()}</th>
                 <th>{w.warehouse.city}</th>
                 <td>{w.warehouse.street}</td>
                 <td>{w.warehouse.postalCode}</td>

@@ -41,6 +41,7 @@ namespace Api.Services.Services
             {
                 parcelEntity.PigeonId = null;
                 parcelEntity.ReceivedDate = DateTime.Now;
+                parcelEntity.DestinationId = null;
             }
 
             parcelEntity.ParcelStatus = parcelStatus;

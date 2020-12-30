@@ -2,3 +2,11 @@
     text-align: center;
     padding: 30px;
 }
+
+@media only screen and (max-width: 650px) {
+    #tracking-container table{
+        overflow-x: scroll;
+        display: block;
+        overflow-y: hidden;
+    }
+  }

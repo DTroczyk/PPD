@@ -55,6 +55,20 @@
     height: 390px;
 }
 
+#list::-webkit-scrollbar {
+    width: 1em;
+  }
+   
+  #list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  }
+   
+  #list::-webkit-scrollbar-thumb {
+    background-color: #0099cc;
+    outline: 1px solid #016080;
+  }
+
+
 #list-item
 {
     margin-top: 5px;
@@ -104,3 +118,10 @@
     color: white;
     display: block;
 }
+@media only screen and (max-width: 1000px) {
+    #pigeon-row .col-md-3, #pigeon-row .col-md-4, #pigeon-row .col-md-5
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+  }

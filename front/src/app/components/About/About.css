@@ -26,3 +26,12 @@
 .about-img-container > img {
   width: 400px;
 }
+
+
+@media only screen and (max-width: 600px) {
+
+  .about-img-container > img {
+    width: 270px;
+  }
+  
+}

@@ -20,3 +20,12 @@
 #boldName{
     font-weight:bold;
 }
+
+
+@media only screen and (max-width: 650px) {
+    #history-container .box table{
+        overflow-x: scroll;
+        display: block;
+        overflow-y: hidden;
+    }
+  }

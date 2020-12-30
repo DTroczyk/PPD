@@ -40,7 +40,7 @@
     flex-direction: column;
     padding: 25px;
     border-radius: 30px;
-    height: 500px;
+    height: 520px;
     max-width: 400px; 
 
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;
@@ -82,3 +82,40 @@
 {
     padding-bottom: 20px;
 }
+
+@media only screen and (max-width: 650px) {
+
+    #offerEndButton
+    {
+        width: 200px;
+        margin: auto;
+    }
+    
+  }
+
+@media only screen and (max-width: 1000px) {
+
+    #business-row .col-md-4
+    {
+        flex: 0 0 100%;
+        max-width: 50%;
+    }
+    #business-row .col-md-4:last-of-type
+    {
+        max-width: 100%;
+    }
+    
+  }
+
+
+  
+@media only screen and (max-width: 800px) {
+
+    #business-row .col-md-4
+    {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    
+  }

@@ -21,3 +21,16 @@
     margin-right: 5px;
     min-width: 200px;
 }
+
+
+@media only screen and (max-width: 650px) {
+    #baner{
+        padding: 50px;
+    }
+  }
+
+@media only screen and (max-width: 450px) {
+    #baner{
+        padding: 15px;
+    }
+  }

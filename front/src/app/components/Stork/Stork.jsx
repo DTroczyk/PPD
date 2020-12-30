@@ -2,7 +2,9 @@ import React from "react"
 import "./Stork.css"
 import services from '../../../services/httpClient'
 import { withRouter } from "react-router-dom";
+import moment from 'moment'
 var Barcode = require('react-barcode');
+
 
 class Stork extends React.Component {
     state = {
@@ -49,7 +51,7 @@ class Stork extends React.Component {
                 if(withoutPigeons.length > 0){
                     this.setState({
                         currentAddress: `${withoutPigeons[0].receiverCity} ${withoutPigeons[0].receiverPostalCode} ${withoutPigeons[0].receiverStreet}`,
-                        sendDate : withoutPigeons[0].sendDate
+                        sendDate : moment(withoutPigeons[0].sendDate).format('DD-MM-YYYY HH:mm').toString()
                     })
                 }
                 
@@ -170,7 +172,7 @@ class Stork extends React.Component {
         if(tmp.length > 0){
             this.setState({
                 currentAddress: `${tmp[0].receiverCity} ${tmp[0].receiverPostalCode} ${tmp[0].receiverStreet}`,
-                sendDate : tmp[0].sendDate
+                sendDate : moment(tmp[0].sendDate).format('DD-MM-YYYY HH:mm').toString()
             })
         }
     }

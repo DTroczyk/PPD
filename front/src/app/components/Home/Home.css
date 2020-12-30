@@ -1,0 +1,100 @@
+#home{
+    display:flex;
+    flex-flow:column nowrap;
+    font-family: Inconsolata, sans-serif;
+    font-size: 18px;
+}
+
+#home>.header {
+    margin: 30px;
+    display:flex;
+    flex-flow:column nowrap;
+    justify-content: center;
+}
+  
+#home>.header .header__title {
+    font-weight: bold;
+    margin-right: 20px;
+    display:flex;
+    justify-content: center;
+}
+  
+#home>.header .header__tagline {
+    /* display: inline-block; */
+    display:flex;
+    justify-content: center;
+}
+  
+  /* .keys {
+    bottom: 20px;
+    position: absolute;
+    right: 20px;
+  }
+  
+  @media all and (max-width: 768px) {
+    .keys {
+      display: none;
+    }
+  } */
+  
+#home>.container {
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    max-width: 960px;
+    width: 100%;
+    padding-left:100px;
+}
+  
+@media all and (max-width: 768px) {
+    #home>.container {
+      flex-direction: column;
+    }
+}
+.birds {
+    flex-shrink: 1;
+    height: auto;
+    max-width: 600px;
+    width: 100%;
+}
+  
+.birds circle {
+    fill: #e0e0e0;
+    pointer-events: none;
+}
+  
+.birds path {
+    pointer-events: none;
+}
+  
+.bird-text {
+    box-sizing: border-box;
+    flex-shrink: 0;
+    line-height: 1.44;
+    padding: 0 20px;
+    width: 320px;
+}
+  
+@media all and (max-width: 768px) {
+    .bird-text {
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+    }
+}
+  
+.bird-text__title {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+  
+@media all and (max-width: 768px) {
+    .bird-text__title {
+      font-size: 32px;
+    }
+}
+  
+.box {
+    fill: #fff;
+}

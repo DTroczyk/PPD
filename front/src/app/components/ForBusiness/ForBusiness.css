@@ -23,7 +23,7 @@
 /* pierwsza karta */
 #business-row > div:first-child > div
 {
-    background-color: #FF69B4;
+    background-color: #e9ecef;
 }
 
 /* odstęp między kartami w xs */
@@ -35,7 +35,7 @@
 #offer
 {
     border: 1px solid black;
-    background-color: #00BFFF;
+    background-color: #e9ecef;
     display: flex;
     flex-direction: column;
     padding: 25px;
@@ -68,7 +68,9 @@
 
 #element > h3
 {
+    
     padding-bottom: 20px;
+    padding-top: 20px;
 }
 
 #element > h2

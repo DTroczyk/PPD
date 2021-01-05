@@ -646,7 +646,7 @@ class Home extends React.Component {
         return (
             <div id="home" className="container">
                 <div className="header">
-                  <div className="header__title"><h1>Witaj w PPD</h1></div>
+                  <div className="header__title"><h1>Witaj w Pigeon Parcel Delivery</h1></div>
                   <div className="header__tagline">Zapraszamy do skorzystania z naszych usług</div>
                 </div>
 

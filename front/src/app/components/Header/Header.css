@@ -1,5 +1,5 @@
-.navbar{
-  padding:0px 10px;
+.navbar {
+  padding: 0px 10px;
 }
 
 .navbar .navbar-nav {
@@ -15,17 +15,17 @@
   justify-content: center;
 }
 
-.navbar .navbar-nav .nav-item{
+.navbar .navbar-nav .nav-item {
   line-height: 60px;
 }
 
-#header img{
+#header img {
   height: 50px;
   margin-top: 5px;
   float: left;
   margin-left: 10%;
 }
 
-#header img:hover{
+#header img:hover {
   opacity: 0.7;
 }

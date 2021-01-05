@@ -28,8 +28,7 @@ class Send extends React.Component {
         submitted: false,
         typeParcel: 'S',
         typeParcels : [],
-        success: '',
-        message: ''
+        success: ''
     }
 
     componentDidMount() {

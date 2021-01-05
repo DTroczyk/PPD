@@ -48,6 +48,8 @@ namespace Api.Services.Services
                 followParcel.Warehouses.Add(new WarehouseVm { Warehouse = item.Warehouse, DateOfArrival = item.DateOfArrival });
             }
 
+            followParcel.Warehouses = followParcel.Warehouses.OrderBy(w => w.DateOfArrival).ToList();
+
             return followParcel;
         }
 

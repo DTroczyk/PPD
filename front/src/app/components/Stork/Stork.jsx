@@ -39,9 +39,12 @@ class Stork extends React.Component {
                 })
 
                 if (freeParcel !== undefined)
-                this.setState({
-                    firstParcelSelected: freeParcel.id
-                })
+                {
+                    let parcel = this.state.parcels.find(p => p.id === freeParcel.id)
+                    this.setState({
+                        firstParcelSelected: parcel
+                    })
+                }
                 let withPigeons = response.data.filter(x => x.pigeon !== null);
                 if(this.state.changeCurrentPigeon && (withPigeons.length > 0) && (withPigeons[0].pigeon !== null)){
                     this.setState({
@@ -119,7 +122,7 @@ class Stork extends React.Component {
 
     setPigeonFirst = () => {
         let pigeonLogin = this.state.firstPigeonSelected;
-        let parcelId = this.state.firstParcelSelected;
+        let parcelId = this.state.firstParcelSelected.id;
         let warehouseId = this.state.currentWarehouseId;
         if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
         if(parcelId === "") {
@@ -138,7 +141,7 @@ class Stork extends React.Component {
 
     sendToClient = () => {
         let pigeonLogin = this.state.firstPigeonSelected;
-        let parcelId = this.state.firstParcelSelected;
+        let parcelId = this.state.firstParcelSelected.id;
         let warehouseId = -1;
         if(pigeonLogin === "") pigeonLogin = this.state.pigeons[0].login;
         if(parcelId === "") {
@@ -150,7 +153,7 @@ class Stork extends React.Component {
         services.SetPigeon(pigeon).then(() =>{
             let freeParcel = this.state.parcels.find(p => p.pigeonId == null)
             if (freeParcel !== undefined)
-                this.setState({firstParcelSelected: freeParcel.id})
+                this.setState({firstParcelSelected: freeParcel})
 
             if(this.state.parcels.filter(x => x.pigeon !== null).length < 1)
             this.setState({
@@ -179,13 +182,13 @@ class Stork extends React.Component {
         });
     }
     changeFirstParcel = (v) => {
-        this.setState({firstParcelSelected: v.target.value})
+        let parcel = this.state.parcels.find(p => p.id.toString() === v.target.value)
+        this.setState({firstParcelSelected: parcel})
 
-        let tmp = this.state.parcels.filter( x => x.id.toString() === v.target.value);
-        if(tmp.length > 0){
+        if(parcel !== undefined){
             this.setState({
-                currentAddress: `${tmp[0].receiverCity} ${tmp[0].receiverPostalCode} ${tmp[0].receiverStreet}`,
-                sendDate : moment(tmp[0].sendDate).format('DD-MM-YYYY HH:mm').toString()
+                currentAddress: `${parcel.receiverCity} ${parcel.receiverPostalCode} ${parcel.receiverStreet}`,
+                sendDate : moment(parcel.sendDate).format('DD-MM-YYYY HH:mm').toString()
             })
         }
     }
@@ -217,7 +220,7 @@ class Stork extends React.Component {
     }
     render() {
 
-        const selectedParcels = this.state.parcels.filter(o => o.pigeonId !== null).map(o => <option key={o.id}>{o.id}</option>)
+        const selectedParcels = this.state.parcels.filter(o => o.pigeonId !== null).map(o => <option key={o.id} >{o.id}</option>)
         const freeParcels = this.state.parcels.filter(o => o.pigeonId === null).map(o => <option key={o.id}>{o.id}</option>)
         const pigeons = this.state.pigeons.map(o => <option key={o.login} value={o.login}>{o.firstName} {o.lastName}</option>)
         const warehouses = this.state.warehouses.map(o => <option key={o.id} value={o.id}>{o.city} {o.postalCode} {o.street}</option>);
@@ -232,30 +235,42 @@ class Stork extends React.Component {
                         <hr></hr>
                         <div className="form-group">
                             <label htmlFor="parcelSelect">Wybierz paczkę:</label>
-                            <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect" value={this.state.firstParcelSelected}>
+                            <select onChange={this.changeFirstParcel} className="form-control" id="parcelSelect" value={this.state.firstParcelSelected !== undefined ? this.state.firstParcelSelected.id : ""}>
                                 {freeParcels}
                             </select>
                             <br></br>
                             <strong>Adres: </strong>{this.state.currentAddress}<br></br>
                             <strong>Data nadania: </strong>{this.state.sendDate}<br></br>
                             <br></br>
-                            <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
-                            <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
-                                {pigeons}
-                            </select>
-                            <label htmlFor="warehouseSelect">Wybierz magazyn:</label>
-                            <select onChange={this.changeWarehouse} className="form-control" id="warehouseSelect">
-                                {warehouses}
-                            </select>
-                            <br></br>
-                            <iframe title="map" width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" rel="noreferrer" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
-                            <br></br>
-                            <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
+                            
+                            {this.state.firstParcelSelected.parcelStatus === 0 ? 
+                                <>
+                                    <label htmlFor="pigeonSelect">Przydziel kuriera do odebrania paczki od nadawcy:</label>
+                                    <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
+                                        {pigeons}
+                                    </select>
+                                    <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
+                                </>
+                                :
+                                <>
+                                    <label htmlFor="pigeonSelect">Wybierz kuriera:</label>
+                                    <select onChange={this.changeFirstPigeon} className="form-control" id="pigeonSelect">
+                                        {pigeons}
+                                    </select>
+                                    <label htmlFor="warehouseSelect">Wybierz magazyn:</label>
+                                    <select onChange={this.changeWarehouse} className="form-control" id="warehouseSelect">
+                                        {warehouses}
+                                    </select>
+                                    <br></br>
+                                    <iframe title="map" width="100%" height="250px" frameBorder="0" scrolling="no" src={this.state.currentMapLink}></iframe><br/><small><a target="_blank" rel="noreferrer" href={this.state.currentLink}>Wyświetl większą mapę</a></small>
+                                    <br></br>
+                                    <button type="submit" onClick={this.setPigeonFirst} className="btn btn-primary mb-2">Przydziel</button>
 
-                            <br></br>
-                            Wyślij paczkę bezpośrednio do klienta:<br></br>
-                            <button type="submit" onClick={this.sendToClient} className="btn btn-primary mb-2">Wyślij do klienta</button>
-
+                                    <br></br>
+                                    Wyślij paczkę bezpośrednio do klienta:<br></br>
+                                    <button type="submit" onClick={this.sendToClient} className="btn btn-primary mb-2">Wyślij do klienta</button>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>

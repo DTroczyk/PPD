@@ -115,7 +115,13 @@ class Pigeon extends React.Component {
     render(){
 
         const parcels = this.state.parcels.map(o => <li key={o.id} onClick={()=>this.setCurrentParcel(o)}><button id="list-item" className="btn btn-primary">{o.id}</button></li>)
-        const statuses = this.state.statuses.map(o => <option key={o.id} value={o.statusName}>{this.translateStatus(o.id)}</option>)
+        const statuses = this.state.statuses.map(o => {
+            if (this.state.currentParcel !== undefined && this.state.currentParcel.destinationId === null && o.id === 3)
+                return <option key={o.id} value={o.statusName}>{this.translateStatus(o.id)}</option>
+            if (this.state.currentParcel !== undefined && this.state.currentParcel.parcelStatus !== o.id && o.id !== 3) 
+                return <option key={o.id} value={o.statusName}>{this.translateStatus(o.id)}</option>
+            return ""
+        })
         if(this.state.currentParcel === "") {var show = false} else {show = true}
         if(this.state.currentParcel.destinationId == null) {var showReceiver = true} else {showReceiver = false}
 

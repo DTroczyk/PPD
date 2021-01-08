@@ -3,10 +3,10 @@ GO
 
 -- Parcel Types
 
-INSERT INTO ParcelTypes VALUES ('S','Maksymalny rozmiar paczki:',899);
-INSERT INTO ParcelTypes VALUES ('M','Maksymalny rozmiar paczki:',1199);
-INSERT INTO ParcelTypes VALUES ('L','Maksymalny rozmiar paczki:',1499);
-INSERT INTO ParcelTypes VALUES ('XL','Maksymalny rozmiar paczki:',1999);
+INSERT INTO ParcelTypes VALUES ('S','Maksymalne wymiary:   290 x 380 x 640 mm   Minimalna wysokoœæ:   131 mm   Maksymalna waga:   25 kg',899);
+INSERT INTO ParcelTypes VALUES ('M','Maksymalne wymiary:   190 x 380 x 640 mm   Minimalna wysokoœæ:   81 mm   Maksymalna waga:   25 kg',1199);
+INSERT INTO ParcelTypes VALUES ('L','Maksymalne wymiary:   80 x 380 x 640 mm   Minimalna wysokoœæ:   1 mm   Maksymalna waga:   25 kg',1499);
+INSERT INTO ParcelTypes VALUES ('XL','Maksymalne wymiary:   500 x 500 x 640 mm   Minimalna wysokoœæ:  191 mm   Maksymalna waga:   25 kg',1999);
 
 SELECT * FROM ParcelTypes;
 

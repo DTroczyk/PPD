@@ -7,6 +7,7 @@ namespace Api.BLL.Entities
 {
     public class Parcel
     {
+        //eheheh
         [Key]
         public long Id { get; set; } // Barcode
         public ParcelStatus ParcelStatus { get; set; }
